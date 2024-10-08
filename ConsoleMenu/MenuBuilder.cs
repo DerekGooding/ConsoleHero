@@ -22,8 +22,16 @@ public static class MenuBuilder
     {
         public IAddOptions ClearWhenAsk();
         public IAddOptions CustomSeperator(string seperator);
-        public Menu Options(params MenuOption[] options);
+        public IAddOptions Options(params MenuOption[] options);
         public IAddOptions OptionsAnd(params MenuOption[] options);
+
+        public Menu Cancel();
+        public Menu Cancel(string key);
+        public Menu Cancel(char key);
+        public Menu Exit();
+        public Menu Exit(string key);
+        public Menu Exit(char key);
+        public Menu NoRefuse();
     }
 
     private class Builder() : ISetTitle, IAddOptions
@@ -56,13 +64,21 @@ public static class MenuBuilder
             }
             return _item;
         }
-        public IAddOptions OptionsAnd(params MenuOption[] options)
+
+        public Menu Cancel() => Cancel("C");
+        public Menu Cancel(char key) => Cancel(key.ToString());
+        public Menu Cancel(string key)
         {
-            foreach (MenuOption option in options)
-            {
-                Add(option);
-            }
-            return this;
+            _item.Add(new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { }));
+            return _item;
+        }
+
+        public Menu Exit() => Exit("X");
+        public Menu Exit(char key) => Exit(key.ToString());
+        public Menu Exit(string key)
+        {
+            _item.Add(new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0)));
+            return _item;
         }
 
         private void Add(MenuOption option)
@@ -84,14 +100,6 @@ public static class MenuBuilder
     public static ISetDescription Key(char key) => new OptionBuilder().Key(key);
 
     public static ISetEffect Description(string description) => new OptionBuilder().Key("1").Description(description);
-
-    public static MenuOption Cancel() => new OptionBuilder().Key('C').Description("Cancel").GoTo(() => { });
-    public static MenuOption Cancel(char key) => new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { });
-    public static MenuOption Cancel(string key) => new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { });
-
-    public static MenuOption Exit() => new OptionBuilder().Key('X').Description("Exit").GoTo(() => Environment.Exit(0));
-    public static MenuOption Exit(char key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0));
-    public static MenuOption Exit(string key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0));
 
     public interface ISetKey
     {
