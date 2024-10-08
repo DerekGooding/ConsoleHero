@@ -2,6 +2,17 @@
 
 public static class MenuBuilder
 {
+    public static MenuOption[] ToOptions<T>(this List<T> list, Action<T> effect, Func<bool, T>? condition = null)
+    {
+        MenuOption[] menuOptions = new MenuOption[list.Count];
+        for (int i = 0; i < menuOptions.Length; i++)
+        {
+            int index = i;
+            menuOptions[index] = Description(list[index]?.ToString() ?? string.Empty).GoTo(() => effect(list[index]));
+        }
+        return menuOptions;
+    }
+
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     public static IAddOptions Title(string title, ConsoleColor color = ConsoleColor.White) => new Builder().Title(title, color);
 
@@ -14,12 +25,13 @@ public static class MenuBuilder
     public interface IAddOptions
     {
         public IAddOptions CustomSeperator(string seperator);
-        public Menu Options(MenuOption[] options);
+        public Menu Options(params MenuOption[] options);
     }
 
     private class Builder() : ISetTitle, IAddOptions
     {
         readonly Menu _item = new();
+        private int _x = 1;
 
         public IAddOptions NoTitle() => this;
         public IAddOptions Title(string title, ConsoleColor color)
@@ -33,17 +45,23 @@ public static class MenuBuilder
             _item.Seperator = seperator;
             return this;
         }
-
-        public Menu Options(MenuOption[] options)
+        public Menu Options(params MenuOption[] options)
         {
-            int x = 1;
             foreach (MenuOption option in options)
             {
-                if (option.Key.Length == 0)
-                    option.Key = $"{x++}";
-                _item.Add(option);
+                Add(option);
             }
             return _item;
+        }
+
+        private void Add(MenuOption option)
+        {
+            if (option.Key.Length == 0)
+            {
+                option.Key = $"{_x}";
+                _x++;
+            }
+            _item.Add(option);
         }
     }
 
@@ -55,10 +73,12 @@ public static class MenuBuilder
 
     public static ISetEffect Description(string description) => new OptionBuilder().Key("1").Description(description);
 
-    public static MenuOption Back() => new OptionBuilder().Key('B').Description("Back").GoTo(() => { });
-    public static MenuOption Back(string key) => new OptionBuilder().Key(key).Description("Back").GoTo(() => { });
+    public static MenuOption Cancel() => new OptionBuilder().Key('C').Description("Cancel").GoTo(() => { });
+    public static MenuOption Cancel(char key) => new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { });
+    public static MenuOption Cancel(string key) => new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { });
 
     public static MenuOption Exit() => new OptionBuilder().Key('X').Description("Exit").GoTo(() => Environment.Exit(0));
+    public static MenuOption Exit(char key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0));
     public static MenuOption Exit(string key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0));
 
     public interface ISetKey

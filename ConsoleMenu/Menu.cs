@@ -18,7 +18,6 @@ public class Menu(List<MenuOption>? options = null)
         if (Title.Text != string.Empty)
         {
             Title.Print();
-            WriteLine();
         }
 
         WriteLine(Print());
@@ -36,6 +35,7 @@ public class Menu(List<MenuOption>? options = null)
             }
             else
             {
+                WriteLine();
                 choice.Invoke();
             }
         }
