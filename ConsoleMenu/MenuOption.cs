@@ -24,7 +24,7 @@ public sealed class MenuOption
     internal Func<bool> Check { get; set; }
     internal bool IsCaseSensitive { get; set; }
 
-    public void Invoke() => Effect.Invoke();
+    internal void Invoke() => Effect.Invoke();
 
-    public string Print() => $"{Key} => {Description}";
+    internal string Print() => $"{Key} => {Description}";
 }

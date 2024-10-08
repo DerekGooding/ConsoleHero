@@ -32,7 +32,6 @@ public static class MenuOptionBuilder
         public MenuOption Always();
     }
 
-
     private class Builder() : ISetKey, ISetDescription, ISetEffect, ISetCondition
     {
         readonly MenuOption _item = new();
