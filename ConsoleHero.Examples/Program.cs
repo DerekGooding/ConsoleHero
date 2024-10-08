@@ -17,8 +17,8 @@ public static class Program
     (
         Description("Open Door").If(() => !_isOpen).GoTo(() => _isOpen = true),
         Description("Close Door").If(() => _isOpen).GoTo(() => _isOpen = false),
-        Key('2').Description("Try to Eat").GoTo(FruitMenu.Ask),
-        Key('3').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask)
+        Description("Try to Eat").GoTo(FruitMenu.Ask),
+        Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask)
     ).Cancel();
 
     public static Menu FruitMenu =>

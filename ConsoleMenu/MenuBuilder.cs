@@ -100,7 +100,7 @@ public static class MenuBuilder
     public static ISetDescription Key(string key) => new OptionBuilder().Key(key);
     public static ISetDescription Key(char key) => new OptionBuilder().Key(key);
 
-    public static ISetEffect Description(string description) => new OptionBuilder().Key("1").Description(description);
+    public static ISetEffect Description(string description) => new OptionBuilder().Description(description);
 
     public interface ISetKey
     {
