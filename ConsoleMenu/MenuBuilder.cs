@@ -23,7 +23,6 @@ public static class MenuBuilder
         public IAddOptions ClearWhenAsk();
         public IAddOptions CustomSeperator(string seperator);
         public IAddOptions Options(params MenuOption[] options);
-        public IAddOptions OptionsAnd(params MenuOption[] options);
 
         public Menu Cancel();
         public Menu Cancel(string key);
@@ -56,13 +55,13 @@ public static class MenuBuilder
             _item.Seperator = seperator;
             return this;
         }
-        public Menu Options(params MenuOption[] options)
+        public IAddOptions Options(params MenuOption[] options)
         {
             foreach (MenuOption option in options)
             {
                 Add(option);
             }
-            return _item;
+            return this;
         }
 
         public Menu Cancel() => Cancel("C");
@@ -80,6 +79,8 @@ public static class MenuBuilder
             _item.Add(new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0)));
             return _item;
         }
+
+        public Menu NoRefuse() => _item;
 
         private void Add(MenuOption option)
         {
@@ -149,7 +150,4 @@ public static class MenuBuilder
         }
     }
     #endregion
-
-
-
 }
