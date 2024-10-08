@@ -5,6 +5,7 @@ public static class Program
 {
     public static Menu MainMenu =>
     Title("|---- Main Menu ----|", ConsoleColor.Red)
+    .ClearWhenAsk()
     .Options
     (
         Description("Approach Door").GoTo(OtherMenu.Ask),
@@ -17,31 +18,35 @@ public static class Program
     (
         Description("Open Door").If(() => !_isOpen).GoTo(()=> _isOpen = true),
         Description("Close Door").If(() => _isOpen).GoTo(()=> _isOpen = false),
-        Description("Try to Eat").GoTo(FruitMenu.Ask),
+        Key('2').Description("Try to Eat").GoTo(FruitMenu.Ask),
+        Key('3').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask),
         Cancel()
     );
 
     public static Menu FruitMenu =>
     Title("|---- Fruit ----|", ConsoleColor.Green)
-    .Options
-    (
-        Items.ToOptions(Eat)
-    );
+    .OptionsAnd(Items.ToOptions(Eat))
+    .Options(Cancel());
+
+    public static Menu FruitMenuWithA =>
+    Title("|---- Fruit ----|", ConsoleColor.Green)
+    .OptionsAnd(Items.ToOptions(Eat, x => x.StartsWith('A')))
+    .Options(Cancel());
 
     private static bool _isOpen = false;
 
-    public static List<string> Items =
+    public readonly static List<string> Items =
     [
     "Apple",
     "Banana",
-    "Cantilope",
+    "Cantaloupe",
+    "Artichoke"
     ];
 
     private static void Main()
     {
         while (true)
         {
-            Console.Clear();
             MainMenu.Ask();
         }
     }

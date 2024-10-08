@@ -7,6 +7,7 @@ public class Menu(List<MenuOption>? options = null)
     private MenuOption? Find(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     internal int Count => Options.Count;
     internal ColorLine Title { get; set; } = new(string.Empty, ConsoleColor.White);
+    internal bool ClearWhenAsk { get; set; }
 
     public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
@@ -14,10 +15,13 @@ public class Menu(List<MenuOption>? options = null)
     public void Ask()
     {
         if (Count == 0) return;
+        if (ClearWhenAsk)
+            Clear();
 
         if (Title.Text != string.Empty)
         {
             Title.Print();
+            WriteLine();
         }
 
         WriteLine(Print());

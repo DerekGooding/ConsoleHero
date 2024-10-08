@@ -1,17 +1,13 @@
-﻿namespace ConsoleHero;
+﻿using System;
+
+namespace ConsoleHero;
 
 public static class MenuBuilder
 {
-    public static MenuOption[] ToOptions<T>(this List<T> list, Action<T> effect, Func<bool, T>? condition = null)
-    {
-        MenuOption[] menuOptions = new MenuOption[list.Count];
-        for (int i = 0; i < menuOptions.Length; i++)
-        {
-            int index = i;
-            menuOptions[index] = Description(list[index]?.ToString() ?? string.Empty).GoTo(() => effect(list[index]));
-        }
-        return menuOptions;
-    }
+    public static MenuOption[] ToOptions<T>(this List<T> list, Action<T> effect, Func<T, bool>? condition = null)
+        => condition == null
+        ? [.. list.Select(x => Description(x?.ToString() ?? string.Empty).GoTo(() => effect(x)))]
+        : [.. list.Select(x => Description(x?.ToString() ?? string.Empty).If(() => condition(x)).GoTo(() => effect(x)))];
 
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     public static IAddOptions Title(string title, ConsoleColor color = ConsoleColor.White) => new Builder().Title(title, color);
@@ -24,8 +20,10 @@ public static class MenuBuilder
 
     public interface IAddOptions
     {
+        public IAddOptions ClearWhenAsk();
         public IAddOptions CustomSeperator(string seperator);
         public Menu Options(params MenuOption[] options);
+        public IAddOptions OptionsAnd(params MenuOption[] options);
     }
 
     private class Builder() : ISetTitle, IAddOptions
@@ -37,6 +35,11 @@ public static class MenuBuilder
         public IAddOptions Title(string title, ConsoleColor color)
         {
             _item.Title = new ColorLine(title, color);
+            return this;
+        }
+        public IAddOptions ClearWhenAsk()
+        {
+            _item.ClearWhenAsk = true;
             return this;
         }
 
@@ -52,6 +55,14 @@ public static class MenuBuilder
                 Add(option);
             }
             return _item;
+        }
+        public IAddOptions OptionsAnd(params MenuOption[] options)
+        {
+            foreach (MenuOption option in options)
+            {
+                Add(option);
+            }
+            return this;
         }
 
         private void Add(MenuOption option)
@@ -70,6 +81,7 @@ public static class MenuBuilder
     /// The input a user would need to give to activate this option.
     /// </summary>
     public static ISetDescription Key(string key) => new OptionBuilder().Key(key);
+    public static ISetDescription Key(char key) => new OptionBuilder().Key(key);
 
     public static ISetEffect Description(string description) => new OptionBuilder().Key("1").Description(description);
 
