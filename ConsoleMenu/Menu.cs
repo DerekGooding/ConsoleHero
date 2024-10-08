@@ -24,7 +24,9 @@ public class Menu(List<MenuOption>? options = null)
         while (choice == null)
         {
             string? line = ReadLine();
-            choice = Find(x => string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
+            choice = Find(x => x.IsCaseSensitive
+                ? string.Equals(x.Key, line)
+                : string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
             if (choice == null)
             {
                 WriteLine("Not a valid choice\n");
