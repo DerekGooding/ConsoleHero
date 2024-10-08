@@ -7,13 +7,12 @@
 	  
 	 <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleMenu</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Derek Gooding</Authors>
     <Description>A library for making quick menus in a console application.</Description>
     <PackageTags>Console;Menu</PackageTags>
 
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
 
