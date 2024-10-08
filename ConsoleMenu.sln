@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMenu", "ConsoleMenu\ConsoleMenu.csproj", "{5BF1AB4E-FB6B-4F2C-AA19-27A3B5A045BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero", "ConsoleMenu\ConsoleHero.csproj", "{5BF1AB4E-FB6B-4F2C-AA19-27A3B5A045BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMenu.Test", "ConsoleMenu.Test\ConsoleMenu.Test.csproj", "{64342212-9130-4815-8454-FDFBA0DE3368}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.Test", "ConsoleMenu.Test\ConsoleHero.Test.csproj", "{64342212-9130-4815-8454-FDFBA0DE3368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

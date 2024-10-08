@@ -1,4 +1,4 @@
-﻿namespace ConsoleMenu;
+﻿namespace ConsoleHero;
 
 public static class ListExtensions
 {

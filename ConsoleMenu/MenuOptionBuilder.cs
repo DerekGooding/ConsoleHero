@@ -1,4 +1,4 @@
-﻿namespace ConsoleMenu.Builders;
+﻿namespace ConsoleHero;
 
 public static class MenuOptionBuilder
 {

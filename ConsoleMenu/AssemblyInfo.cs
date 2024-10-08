@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("ConsoleMenu.Test")]
+[assembly: InternalsVisibleTo("ConsoleHero.Test")]

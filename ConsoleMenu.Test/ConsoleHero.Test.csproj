@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleMenu\ConsoleMenu.csproj" />
+    <ProjectReference Include="..\ConsoleMenu\ConsoleHero.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace ConsoleMenu;
+﻿namespace ConsoleHero.Model;
 
 public class Menu(List<MenuOption>? options = null)
 {

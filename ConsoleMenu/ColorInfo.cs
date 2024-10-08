@@ -1,4 +1,4 @@
-namespace ConsoleMenu;
+namespace ConsoleHero;
 
 public class ColorInfo(string text, ConsoleColor color = ConsoleColor.White)
 {

@@ -1,6 +1,7 @@
+using ConsoleHero.Model;
 using Moq;
 
-namespace ConsoleMenu.Test;
+namespace ConsoleHero.Test;
 
 [TestClass]
 public class MenuTests
