@@ -10,7 +10,7 @@ public class Menu(List<MenuOption>? options = null)
 
     public MenuOption? Find(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
 
-    internal int Count => Options.Count;
+    public int Count => Options.Count;
 
     public string Print() => string.Join('\n', CheckedOptions.Select(x => x.Print()));
 
