@@ -6,13 +6,19 @@ public class Menu(List<MenuOption>? options = null)
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? Find(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     internal int Count => Options.Count;
+    internal string Title { get; set; } = string.Empty;
 
     public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
-    public string Print() => string.Join('\n', CheckedOptions.Select(x => x.Print(Seperator)));
+    public string Print() => string.Join(Environment.NewLine, CheckedOptions.Select(x => x.Print(Seperator)));
     public void Ask()
     {
         if (Count == 0) return;
+
+        if(Title != string.Empty)
+        {
+            WriteLine(Title + Environment.NewLine);
+        }
 
         WriteLine(Print());
         MenuOption? choice = null;
@@ -25,7 +31,7 @@ public class Menu(List<MenuOption>? options = null)
                 : string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
             if (choice == null)
             {
-                WriteLine("Not a valid choice\n");
+                WriteLine("Not a valid choice" + Environment.NewLine);
             }
             else
             {
