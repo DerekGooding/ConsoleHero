@@ -5,7 +5,7 @@ public static class Program
 {
     private static void Main()
     {
-        Menu mainMenu = Title("|---- Main Menu ----|")
+        Menu mainMenu = Title("|---- Main Menu ----|", ConsoleColor.Red)
         .Options
         ([
             Key("1").Description("Open Door").GoTo(OtherMenu).Always(),

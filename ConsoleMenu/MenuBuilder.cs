@@ -5,10 +5,13 @@ public static class MenuBuilder
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     public static IAddOptions Title(string title) => new Builder().Title(title);
 
+    public static IAddOptions Title(string title, ConsoleColor color) => new Builder().Title(title, color);
+
     public interface ISetTitle
     {
         public IAddOptions NoTitle();
         public IAddOptions Title(string title);
+        public IAddOptions Title(string title, ConsoleColor color);
     }
 
     public interface IAddOptions
@@ -24,7 +27,12 @@ public static class MenuBuilder
         public IAddOptions NoTitle() => this;
         public IAddOptions Title(string title)
         {
-            _item.Title = title;
+            _item.Title.Text = title;
+            return this;
+        }
+        public IAddOptions Title(string title, ConsoleColor color)
+        {
+            _item.Title = new ColorLine(title, color);
             return this;
         }
 
@@ -107,7 +115,6 @@ public static class MenuBuilder
         }
 
         public MenuOption Always() => _item;
-
     }
     #endregion
 

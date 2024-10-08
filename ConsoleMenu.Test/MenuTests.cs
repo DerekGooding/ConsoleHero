@@ -45,7 +45,7 @@ public class MenuTests
     {
         Menu menu = new([new("1", "Open Door"), new("2", "Close Door")]);
 
-        const string expected = "1 => Open Door\n2 => Close Door";
+        string expected = "1 => Open Door" + Environment.NewLine + "2 => Close Door";
 
         Assert.AreEqual(expected, menu.Print());
     }
@@ -58,7 +58,7 @@ public class MenuTests
             Seperator = " | "
         };
 
-        const string expected = "1 | Open Door\n2 | Close Door";
+        string expected = "1 | Open Door" + Environment.NewLine + "2 | Close Door";
 
         Assert.AreEqual(expected, menu.Print());
     }

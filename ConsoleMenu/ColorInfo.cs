@@ -1,7 +1,14 @@
 namespace ConsoleHero;
 
-public class ColorInfo(string text, ConsoleColor color = ConsoleColor.White)
+internal class ColorLine(string text, ConsoleColor color = ConsoleColor.White)
 {
-    public string Text { get; } = text;
-    public ConsoleColor Color { get; } = color;
+    internal string Text { get; set; } = text;
+    internal ConsoleColor Color { get; } = color;
+
+    internal void Print()
+    {
+        ForegroundColor = Color;
+        WriteLine(Text);
+        ForegroundColor = ConsoleColor.White;
+    }
 }
