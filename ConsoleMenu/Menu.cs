@@ -1,6 +1,6 @@
 ﻿namespace ConsoleMenu;
 
-internal class Menu(List<MenuOption>? options = null)
+public class Menu(List<MenuOption>? options = null)
 {
     private List<MenuOption> Options { get; } = options ?? [];
 

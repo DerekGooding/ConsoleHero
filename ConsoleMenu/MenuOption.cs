@@ -1,6 +1,6 @@
 ﻿namespace ConsoleMenu;
 
-internal class MenuOption(string key, string description, Action? effect = null, Func<bool>? check = null)
+public class MenuOption(string key, string description, Action? effect = null, Func<bool>? check = null)
 {
     public string Key { get; set; } = key;
     public string Description { get; set; } = description;
