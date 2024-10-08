@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero.Model;
+﻿namespace ConsoleHero;
 
 public class Menu(List<MenuOption>? options = null)
 {
@@ -15,7 +15,7 @@ public class Menu(List<MenuOption>? options = null)
     {
         if (Count == 0) return;
 
-        if(Title != string.Empty)
+        if (Title != string.Empty)
         {
             WriteLine(Title + Environment.NewLine);
         }

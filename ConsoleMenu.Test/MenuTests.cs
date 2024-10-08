@@ -1,4 +1,3 @@
-using ConsoleHero.Model;
 using Moq;
 
 namespace ConsoleHero.Test;

@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero.Model;
+﻿namespace ConsoleHero;
 
 public sealed class MenuOption
 {

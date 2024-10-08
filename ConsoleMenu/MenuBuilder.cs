@@ -13,8 +13,8 @@ public static class MenuBuilder
 
     public interface IAddOptions
     {
-        public IAddOptions Add(MenuOption option);
-        public Menu AddLast(MenuOption option);
+        public IAddOptions CustomSeperator(string seperator);
+        public Menu Options(MenuOption[] options);
     }
 
     private class Builder() : ISetTitle, IAddOptions
@@ -28,15 +28,87 @@ public static class MenuBuilder
             return this;
         }
 
-        public IAddOptions Add(MenuOption option)
+        public IAddOptions CustomSeperator(string seperator)
         {
-            _item.Add(option);
+            _item.Seperator = seperator;
             return this;
         }
-        public Menu AddLast(MenuOption option)
+
+        public Menu Options(MenuOption[] options)
         {
-            _item.Add(option);
+            foreach (MenuOption option in options)
+                _item.Add(option);
             return _item;
         }
     }
+
+    #region OptionBuilder
+    /// <summary>
+    /// The input a user would need to give to activate this option.
+    /// </summary>
+    public static ISetDescription Key(string key) => new OptionBuilder().Key(key);
+
+    public static MenuOption Back(string key) => new OptionBuilder().Key(key).Description("Back").GoTo(() => { }).Always();
+
+    public static MenuOption Exit(string key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0)).Always();
+
+    public interface ISetKey
+    {
+        public ISetDescription Key(string key);
+        public ISetDescription Key(char key);
+    }
+    public interface ISetDescription
+    {
+        public ISetDescription IsCaseSensitive();
+        public ISetEffect Description(string description);
+    }
+    public interface ISetEffect
+    {
+        public ISetCondition GoTo(Action action);
+    }
+    public interface ISetCondition
+    {
+        public MenuOption OnlyIf(Func<bool> condition);
+        public MenuOption Always();
+    }
+
+    private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect, ISetCondition
+    {
+        readonly MenuOption _item = new();
+        public ISetDescription Key(string key)
+        {
+            _item.Key = key;
+            return this;
+        }
+        public ISetDescription Key(char key) => Key(key.ToString());
+
+        public ISetDescription IsCaseSensitive()
+        {
+            _item.IsCaseSensitive = true;
+            return this;
+        }
+
+        public ISetEffect Description(string description)
+        {
+            _item.Description = description;
+            return this;
+        }
+
+        public ISetCondition GoTo(Action action)
+        {
+            _item.Effect = action;
+            return this;
+        }
+
+        public MenuOption OnlyIf(Func<bool> condition)
+        {
+            _item.Check = condition;
+            return _item;
+        }
+
+        public MenuOption Always() => _item;
+
+    }
+    #endregion
+
 }
