@@ -51,6 +51,19 @@ public class MenuTests
     }
 
     [TestMethod]
+    public void Menu_ShouldPrint_DifferentSeperator()
+    {
+        Menu menu = new([new("1", "Open Door"), new("2", "Close Door")])
+        {
+            Seperator = " | "
+        };
+
+        const string expected = "1 | Open Door\n2 | Close Door";
+
+        Assert.AreEqual(expected, menu.Print());
+    }
+
+    [TestMethod]
     public void MenuOption_ShouldPrint()
     {
         MenuOption menuOption = new("1", "Open Door");

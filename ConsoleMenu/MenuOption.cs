@@ -26,5 +26,5 @@ public sealed class MenuOption
 
     internal void Invoke() => Effect.Invoke();
 
-    internal string Print() => $"{Key} => {Description}";
+    internal string Print(string seperator = " => ") => Key + seperator + Description;
 }

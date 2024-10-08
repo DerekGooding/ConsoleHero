@@ -5,10 +5,11 @@ public class Menu(List<MenuOption>? options = null)
     private List<MenuOption> Options { get; } = options ?? [];
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? Find(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
+    internal int Count => Options.Count;
 
-    public int Count => Options.Count;
+    public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
-    public string Print() => string.Join('\n', CheckedOptions.Select(x => x.Print()));
+    public string Print() => string.Join('\n', CheckedOptions.Select(x => x.Print(Seperator)));
     public void Ask()
     {
         if (Count == 0) return;

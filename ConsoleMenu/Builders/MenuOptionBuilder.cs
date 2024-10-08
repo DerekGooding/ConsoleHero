@@ -16,7 +16,9 @@ public static class MenuOptionBuilder
     public interface ISetKey
     {
         public ISetDescription Key(string key);
+        public ISetDescription Key(char key);
         public ISetDescription KeyCaseSensitive(string key);
+        public ISetDescription KeyCaseSensitive(char key);
     }
     public interface ISetDescription
     {
@@ -40,12 +42,15 @@ public static class MenuOptionBuilder
             _item.Key = key;
             return this;
         }
+        public ISetDescription Key(char key) => Key(key.ToString());
         public ISetDescription KeyCaseSensitive(string key)
         {
             _item.IsCaseSensitive = true;
             _item.Key = key;
             return this;
         }
+
+        public ISetDescription KeyCaseSensitive(char key) => KeyCaseSensitive(key.ToString());
 
         public ISetEffect HasDescription(string description)
         {
