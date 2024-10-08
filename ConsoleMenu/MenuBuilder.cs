@@ -3,14 +3,11 @@
 public static class MenuBuilder
 {
     public static IAddOptions NoTitle() => new Builder().NoTitle();
-    public static IAddOptions Title(string title) => new Builder().Title(title);
-
-    public static IAddOptions Title(string title, ConsoleColor color) => new Builder().Title(title, color);
+    public static IAddOptions Title(string title, ConsoleColor color = ConsoleColor.White) => new Builder().Title(title, color);
 
     public interface ISetTitle
     {
         public IAddOptions NoTitle();
-        public IAddOptions Title(string title);
         public IAddOptions Title(string title, ConsoleColor color);
     }
 
@@ -25,11 +22,6 @@ public static class MenuBuilder
         readonly Menu _item = new();
 
         public IAddOptions NoTitle() => this;
-        public IAddOptions Title(string title)
-        {
-            _item.Title.Text = title;
-            return this;
-        }
         public IAddOptions Title(string title, ConsoleColor color)
         {
             _item.Title = new ColorLine(title, color);
@@ -44,8 +36,13 @@ public static class MenuBuilder
 
         public Menu Options(MenuOption[] options)
         {
+            int x = 1;
             foreach (MenuOption option in options)
+            {
+                if (option.Key.Length == 0)
+                    option.Key = $"{x++}";
                 _item.Add(option);
+            }
             return _item;
         }
     }
@@ -56,9 +53,13 @@ public static class MenuBuilder
     /// </summary>
     public static ISetDescription Key(string key) => new OptionBuilder().Key(key);
 
-    public static MenuOption Back(string key) => new OptionBuilder().Key(key).Description("Back").GoTo(() => { }).Always();
+    public static ISetEffect Description(string description) => new OptionBuilder().Key("1").Description(description);
 
-    public static MenuOption Exit(string key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0)).Always();
+    public static MenuOption Back() => new OptionBuilder().Key('B').Description("Back").GoTo(() => { });
+    public static MenuOption Back(string key) => new OptionBuilder().Key(key).Description("Back").GoTo(() => { });
+
+    public static MenuOption Exit() => new OptionBuilder().Key('X').Description("Exit").GoTo(() => Environment.Exit(0));
+    public static MenuOption Exit(string key) => new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0));
 
     public interface ISetKey
     {
@@ -72,15 +73,11 @@ public static class MenuBuilder
     }
     public interface ISetEffect
     {
-        public ISetCondition GoTo(Action action);
-    }
-    public interface ISetCondition
-    {
-        public MenuOption OnlyIf(Func<bool> condition);
-        public MenuOption Always();
+        public ISetEffect If(Func<bool> condition);
+        public MenuOption GoTo(Action action);
     }
 
-    private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect, ISetCondition
+    private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect
     {
         readonly MenuOption _item = new();
         public ISetDescription Key(string key)
@@ -95,27 +92,24 @@ public static class MenuBuilder
             _item.IsCaseSensitive = true;
             return this;
         }
-
         public ISetEffect Description(string description)
         {
             _item.Description = description;
             return this;
         }
-
-        public ISetCondition GoTo(Action action)
-        {
-            _item.Effect = action;
-            return this;
-        }
-
-        public MenuOption OnlyIf(Func<bool> condition)
+        public ISetEffect If(Func<bool> condition)
         {
             _item.Check = condition;
+            return this;
+        }
+        public MenuOption GoTo(Action action)
+        {
+            _item.Effect = action;
             return _item;
         }
-
-        public MenuOption Always() => _item;
     }
     #endregion
+
+
 
 }
