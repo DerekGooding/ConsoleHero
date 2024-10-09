@@ -18,6 +18,8 @@ public class Menu(List<MenuOption>? options = null)
         }
     }
 
+    public void PrintOptions<T>(T input) => PrintOptions();
+
     public void Ask()
     {
         if (Count == 0) return;

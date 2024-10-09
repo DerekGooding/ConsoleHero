@@ -3,6 +3,7 @@
 - Allow setting a text prompt within a menu or option
 - Allow beeps in a text prompt or menu
 - Additional menu types
+- Make conditions easier to write
 
 - Menu Node System 
 - Global Settings

@@ -1,6 +1,9 @@
 ﻿namespace ConsoleHero;
 public static class ParagraphBuilder
 {
+    public static ISetLines Line(string text) => new Builder().Line(text);
+    public static ISetLines Line(string text, ConsoleColor color) => new Builder().Line(text, color);
+
     public interface ISetInputs
     {
         

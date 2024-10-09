@@ -7,6 +7,7 @@ public class Paragraph
     internal bool PressToContinue { get; set; } = true;
     internal TimeSpan Delay {  get; set; }
 
+    public void PrintMessage<T>(T input) => PrintMessage();
     public void PrintMessage()
     {
         foreach (ColorLine line in Outputs)

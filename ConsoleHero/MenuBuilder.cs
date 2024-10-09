@@ -1,7 +1,4 @@
-﻿using System;
-using static System.Collections.Specialized.BitVector32;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero;
 
 public static class MenuBuilder
 {
@@ -104,6 +101,7 @@ public static class MenuBuilder
         public ISetEffect If(Func<bool> condition);
         public MenuOption GoTo(Action action);
         public MenuOption GoTo(Menu menu);
+        public MenuOption GoTo(Paragraph paragraph);
     }
 
     private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect
@@ -151,6 +149,11 @@ public static class MenuBuilder
         public MenuOption GoTo(Menu menu)
         {
             _item.Effect = menu.Ask;
+            return _item;
+        }
+        public MenuOption GoTo(Paragraph paragraph)
+        {
+            _item.Effect = paragraph.PrintMessage;
             return _item;
         }
     }

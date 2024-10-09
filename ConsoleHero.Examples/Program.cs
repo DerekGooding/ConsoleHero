@@ -1,20 +1,29 @@
 ﻿using static ConsoleHero.MenuBuilder;
+using static ConsoleHero.ParagraphBuilder;
 
 namespace ConsoleHero.Examples;
 public static class Program
 {
+    private static void Main()
+    {
+        while (true)
+        {
+            MainMenu.Ask();
+        }
+    }
+
     public static Menu MainMenu =>
-    Title("|---- Main Menu ----|", ConsoleColor.Red)
-    .ClearWhenAsk()
-    .Options
+    Title("|---- Main Menu ----|", ConsoleColor.Red).
+    ClearWhenAsk().
+    Options
     (
         Description("Approach Door").GoTo(DoorMenu),
         Description("Check Numbers").GoTo(NumberMenu)
     ).Exit();
 
     public static Menu DoorMenu =>
-    NoTitle()
-    .Options
+    NoTitle().
+    Options
     (
         Description("Open Door").If(() => !_isOpen).GoTo(() => _isOpen = true),
         Description("Close Door").If(() => _isOpen).GoTo(() => _isOpen = false),
@@ -25,24 +34,37 @@ public static class Program
     ).Cancel();
 
     public static Menu FruitMenu =>
-    Title("|---- Fruit ----|", ConsoleColor.Green)
-    .Options(Fruit.ToOptions(Eat))
-    .Cancel();
+    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Options(Fruit.ToOptions(Eat)).
+    Cancel();
 
     public static Menu FruitMenuColored =>
-    Title("|---- Fruit ----|", ConsoleColor.Green)
-    .Options(ColoredFruit.ToOptions(Eat))
-    .Cancel();
+    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Options(ColoredFruit.ToOptions(Eat)).
+    Cancel();
 
     public static Menu FruitMenuWithA =>
-    Title("|---- Fruit ----|", ConsoleColor.Green)
-    .Options(Fruit.ToOptions(Eat, x => x.StartsWith('A')))
-    .Cancel();
+    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Options(Fruit.ToOptions(Eat, x => x.StartsWith('A'))).
+    Cancel();
 
     public static Menu NumberMenu =>
-    NoTitle()
-    .Options(Numbers.ToOptions(ReadNumbers))
-    .Cancel();
+    NoTitle().
+    Options(Numbers.ToOptions(ReadNumbers)).
+    Cancel();
+
+    public static Paragraph Eat =>
+    Line("You just at a.").
+    PressToContinue();
+
+    public static Paragraph Crying =>
+    Line("You cry and cry!", ConsoleColor.DarkBlue).
+    PressToContinue();
+
+    public static Paragraph ReadNumbers =>
+    Line("You read the number {number}").
+    Line("Twice that number is {number * 2}").
+    PressToContinue();
 
     private static bool _isOpen = false;
 
@@ -69,31 +91,4 @@ public static class Program
         9001,
         55,
     ];
-
-    private static void Main()
-    {
-        while (true)
-        {
-            MainMenu.Ask();
-        }
-    }
-
-    private static void Eat(string item)
-    {
-        Console.WriteLine($"You just at a {item}");
-        Console.ReadKey();
-    }
-
-    private static void ReadNumbers(int number)
-    {
-        Console.WriteLine($"You read the number {number}");
-        Console.WriteLine($"Twice that number is {number * 2}");
-        Console.ReadKey();
-    }
-
-    private static void Crying()
-    {
-        Console.WriteLine("You cry and cry!");
-        Console.ReadKey();
-    }
 }
