@@ -4,11 +4,6 @@ namespace ConsoleHero;
 
 public static class MenuBuilder
 {
-    public static MenuOption[] ToOptions<T>(this List<T> list, Action<T> effect, Func<T, bool>? condition = null)
-        => condition == null
-        ? [.. list.Select(x => Description(x?.ToString() ?? string.Empty).GoTo(() => effect(x)))]
-        : [.. list.Select(x => Description(x?.ToString() ?? string.Empty).If(() => condition(x)).GoTo(() => effect(x)))];
-
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     public static IAddOptions Title(string title, ConsoleColor color = ConsoleColor.White) => new Builder().Title(title, color);
 
@@ -104,6 +99,7 @@ public static class MenuBuilder
     }
     public interface ISetEffect
     {
+        public ISetEffect Color(ConsoleColor color);
         public ISetEffect If(Func<bool> condition);
         public MenuOption GoTo(Action action);
     }
@@ -134,6 +130,11 @@ public static class MenuBuilder
             _item.Description = description;
             return this;
         }
+        public ISetEffect Color(ConsoleColor color)
+        {
+            _item.Color = color;
+            return this;
+        }
         public ISetEffect If(Func<bool> condition)
         {
             _item.Check = condition;
@@ -144,8 +145,6 @@ public static class MenuBuilder
             _item.Effect = action;
             return _item;
         }
-
-
     }
     #endregion
 }

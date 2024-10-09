@@ -1,10 +1,17 @@
-﻿- Color Option lines
-- Easy Text Prompts
+﻿- Easy Text Prompts
 - Easy beeps
 - Allow setting a text prompt within a menu or option
 - Allow beeps in a text prompt or menu
 - Additional menu types
-- Menu Node System
+
+- Menu Node System 
+- Global Settings
+
+- Summary code => Documentation
+- Unit testing
+- Readme
+- Publish nuget
 
 DONE
 - Hidden options
+- Color Option lines

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero;
 
 public class Menu(List<MenuOption>? options = null)
 {
@@ -12,7 +10,14 @@ public class Menu(List<MenuOption>? options = null)
 
     public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
-    public string Print() => string.Join(Environment.NewLine, CheckedOptions.Where(x => !x.IsHidden).Select(x => x.Print(Seperator)));
+    public void PrintOptions()
+    {
+        foreach(MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
+        {
+            option.Print(Seperator);
+        }
+    }
+
     public void Ask()
     {
         if (Count == 0) return;
@@ -27,7 +32,7 @@ public class Menu(List<MenuOption>? options = null)
             WriteLine();
         }
 
-        WriteLine(Print());
+        PrintOptions();
         MenuOption? choice = null;
 
         while (choice == null)

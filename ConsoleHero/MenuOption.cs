@@ -25,8 +25,14 @@ public sealed class MenuOption
     internal bool IsCaseSensitive { get; set; }
     internal bool UsesAutoKey { get; set; } = true;
     internal bool IsHidden { get; set; }
+    internal ConsoleColor Color { get; set; } = ConsoleColor.White;
 
     internal void Invoke() => Effect.Invoke();
 
-    internal string Print(string seperator = " => ") => Key + seperator + Description;
+    internal void Print(string seperator = " => ")
+    {
+        ForegroundColor = Color;
+        WriteLine(Key + seperator + Description);
+        ForegroundColor = ConsoleColor.White;
+    }
 }
