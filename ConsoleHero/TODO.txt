@@ -8,7 +8,7 @@
 - Global Settings
 
 - Summary code => Documentation
-- Unit testing
+- Unit testing => Turn back on and properly abstract. I want to wrap the console printing but I also want it returning strings I can test...
 - Readme
 - Publish nuget
 
