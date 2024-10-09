@@ -18,7 +18,8 @@ public static class Program
         Description("Open Door").If(() => !_isOpen).GoTo(() => _isOpen = true),
         Description("Close Door").If(() => _isOpen).GoTo(() => _isOpen = false),
         Description("Try to Eat").GoTo(FruitMenu.Ask),
-        Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask)
+        Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask),
+        Key("Cry").IsHidden().GoTo(Crying)
     ).Cancel();
 
     public static Menu FruitMenu =>
@@ -52,6 +53,12 @@ public static class Program
     private static void Eat(string item)
     {
         Console.WriteLine($"You just at a {item}");
+        Console.ReadKey();
+    }
+
+    private static void Crying()
+    {
+        Console.WriteLine("You cry and cry!");
         Console.ReadKey();
     }
 }

@@ -99,6 +99,7 @@ public static class MenuBuilder
     public interface ISetDescription
     {
         public ISetDescription IsCaseSensitive();
+        public ISetEffect IsHidden();
         public ISetEffect Description(string description);
     }
     public interface ISetEffect
@@ -123,6 +124,11 @@ public static class MenuBuilder
             _item.IsCaseSensitive = true;
             return this;
         }
+        public ISetEffect IsHidden()
+        {
+            _item.IsHidden = true;
+            return this;
+        }
         public ISetEffect Description(string description)
         {
             _item.Description = description;
@@ -138,6 +144,8 @@ public static class MenuBuilder
             _item.Effect = action;
             return _item;
         }
+
+
     }
     #endregion
 }

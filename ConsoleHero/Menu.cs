@@ -12,7 +12,7 @@ public class Menu(List<MenuOption>? options = null)
 
     public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
-    public string Print() => string.Join(Environment.NewLine, CheckedOptions.Select(x => x.Print(Seperator)));
+    public string Print() => string.Join(Environment.NewLine, CheckedOptions.Where(x => !x.IsHidden).Select(x => x.Print(Seperator)));
     public void Ask()
     {
         if (Count == 0) return;

@@ -24,6 +24,7 @@ public sealed class MenuOption
     internal Func<bool> Check { get; set; }
     internal bool IsCaseSensitive { get; set; }
     internal bool UsesAutoKey { get; set; } = true;
+    internal bool IsHidden { get; set; }
 
     internal void Invoke() => Effect.Invoke();
 
