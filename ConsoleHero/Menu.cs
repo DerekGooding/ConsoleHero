@@ -1,10 +1,11 @@
-﻿namespace ConsoleHero;
+﻿using System.Linq;
+
+namespace ConsoleHero;
 
 public class Menu(List<MenuOption>? options = null)
 {
     private List<MenuOption> Options { get; } = options ?? [];
-    private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
-    private MenuOption? Find(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
+
     internal int Count => Options.Count;
     internal ColorLine Title { get; set; } = new(string.Empty, ConsoleColor.White);
     internal bool ClearWhenAsk { get; set; }
@@ -15,6 +16,8 @@ public class Menu(List<MenuOption>? options = null)
     public void Ask()
     {
         if (Count == 0) return;
+        AutoIncrimentKeys();
+
         if (ClearWhenAsk)
             Clear();
 
@@ -30,7 +33,7 @@ public class Menu(List<MenuOption>? options = null)
         while (choice == null)
         {
             string? line = ReadLine();
-            choice = Find(x => x.IsCaseSensitive
+            choice = FindFirst(x => x.IsCaseSensitive
                 ? string.Equals(x.Key, line)
                 : string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
             if (choice == null)
@@ -42,6 +45,16 @@ public class Menu(List<MenuOption>? options = null)
                 WriteLine();
                 choice.Invoke();
             }
+        }
+    }
+    private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
+    private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
+    private void AutoIncrimentKeys()
+    {
+        int x = 1;
+        foreach (MenuOption? option in CheckedOptions.Where(option => option.UsesAutoKey))
+        {
+            option.Key = $"{x++}";
         }
     }
 }

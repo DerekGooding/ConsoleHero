@@ -36,7 +36,6 @@ public static class MenuBuilder
     private class Builder() : ISetTitle, IAddOptions
     {
         readonly Menu _item = new();
-        private int _x = 1;
 
         public IAddOptions NoTitle() => this;
         public IAddOptions Title(string title, ConsoleColor color)
@@ -59,7 +58,7 @@ public static class MenuBuilder
         {
             foreach (MenuOption option in options)
             {
-                Add(option);
+                _item.Add(option);
             }
             return this;
         }
@@ -81,16 +80,6 @@ public static class MenuBuilder
         }
 
         public Menu NoRefuse() => _item;
-
-        private void Add(MenuOption option)
-        {
-            if (option.Key.Length == 0)
-            {
-                option.Key = $"{_x}";
-                _x++;
-            }
-            _item.Add(option);
-        }
     }
 
     #region OptionBuilder
@@ -124,6 +113,7 @@ public static class MenuBuilder
         public ISetDescription Key(string key)
         {
             _item.Key = key;
+            _item.UsesAutoKey = false;
             return this;
         }
         public ISetDescription Key(char key) => Key(key.ToString());

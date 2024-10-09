@@ -23,6 +23,7 @@ public sealed class MenuOption
     internal Action Effect { get; set; }
     internal Func<bool> Check { get; set; }
     internal bool IsCaseSensitive { get; set; }
+    internal bool UsesAutoKey { get; set; } = true;
 
     internal void Invoke() => Effect.Invoke();
 
