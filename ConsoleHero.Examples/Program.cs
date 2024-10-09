@@ -8,8 +8,8 @@ public static class Program
     .ClearWhenAsk()
     .Options
     (
-        Description("Approach Door").GoTo(DoorMenu.Ask),
-        Description("Check Numbers").GoTo(NumberMenu.Ask)
+        Description("Approach Door").GoTo(DoorMenu),
+        Description("Check Numbers").GoTo(NumberMenu)
     ).Exit();
 
     public static Menu DoorMenu =>
@@ -18,9 +18,9 @@ public static class Program
     (
         Description("Open Door").If(() => !_isOpen).GoTo(() => _isOpen = true),
         Description("Close Door").If(() => _isOpen).GoTo(() => _isOpen = false),
-        Description("Try to Eat").GoTo(FruitMenu.Ask),
-        Description("Try to Eat COLORFUL").GoTo(FruitMenuColored.Ask),
-        Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA.Ask),
+        Description("Try to Eat").GoTo(FruitMenu),
+        Description("Try to Eat COLORFUL").GoTo(FruitMenuColored),
+        Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA),
         Key("Cry").IsHidden().GoTo(Crying)
     ).Cancel();
 
