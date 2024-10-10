@@ -1,18 +1,19 @@
-﻿- Easy Text Prompts => Pass params
-- Allow beeps in a text prompt or menu
-- Info box with x, y
-- Per character coloring
-- Per character animations
-
-- Menu Node System 
+﻿- Menu Node System 
 - Global Settings
 
-- Easy beeps => Windows only
+- Info box with x, y
 
 - Summary code => Documentation
 - Unit testing => Turn back on and properly abstract. I want to wrap the console printing but I also want it returning strings I can test...
 - Readme
 - Publish nuget
 
+- Easy beeps => Windows only
+- Per character coloring
+- "Variable coloring"
+- Per character animations
+
 DONE
 - Allow setting a text prompt within a menu or option
+- Easy Text Prompts => Pass params
+- Allow beeps in a text prompt or menu

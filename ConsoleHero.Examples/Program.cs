@@ -81,6 +81,7 @@ public static class Program
         Red("Apple"),
         Yellow("Banana"),
         NoColor("Cantaloupe"),
+        new("Another Cantaloupe", ConsoleColor.White),
         DarkGreen("Artichoke")
     ];
 

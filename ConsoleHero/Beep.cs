@@ -1,6 +1,6 @@
 ﻿namespace ConsoleHero;
 
-public class Tune
+public class Tune : INode
 {
     internal enum Tone
     {
@@ -61,4 +61,7 @@ public class Tune
             Beep((int)item.NoteTone, (int)item.NoteDuration);
         }
     }
+
+    public void Call() => Play();
+    public void Call(string input) => Play();
 }
