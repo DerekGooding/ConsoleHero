@@ -1,12 +1,13 @@
-﻿- Easy Text Prompts
-- Easy beeps
+﻿- Easy Text Prompts => Pass params
 - Allow setting a text prompt within a menu or option
 - Allow beeps in a text prompt or menu
 - Additional menu types
-- Make conditions easier to write
+
 
 - Menu Node System 
 - Global Settings
+
+- Easy beeps => Windows only
 
 - Summary code => Documentation
 - Unit testing => Turn back on and properly abstract. I want to wrap the console printing but I also want it returning strings I can test...
@@ -16,3 +17,4 @@
 DONE
 - Hidden options
 - Color Option lines
+- Make conditions easier to write

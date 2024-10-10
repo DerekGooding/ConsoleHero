@@ -25,8 +25,8 @@ public static class Program
     NoTitle().
     Options
     (
-        Description("Open Door").If(() => !_isOpen).GoTo(() => _isOpen = true),
-        Description("Close Door").If(() => _isOpen).GoTo(() => _isOpen = false),
+        Description("Open Door").If(!_isOpen).GoTo(() => _isOpen = true),
+        Description("Close Door").If(_isOpen).GoTo(() => _isOpen = false),
         Description("Try to Eat").GoTo(FruitMenu),
         Description("Try to Eat COLORFUL").GoTo(FruitMenuColored),
         Key('A').Description("Try to Eat if starts with A").GoTo(FruitMenuWithA),

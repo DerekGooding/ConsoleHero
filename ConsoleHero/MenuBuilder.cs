@@ -99,6 +99,7 @@ public static class MenuBuilder
     {
         public ISetEffect Color(ConsoleColor color);
         public ISetEffect If(Func<bool> condition);
+        public ISetEffect If(bool condition);
         public MenuOption GoTo(Action action);
         public MenuOption GoTo(Menu menu);
         public MenuOption GoTo(Paragraph paragraph);
@@ -140,6 +141,11 @@ public static class MenuBuilder
             _item.Check = condition;
             return this;
         }
+        public ISetEffect If(bool condition)
+        {
+            _item.Check = () => condition;
+            return this;
+        }
         public MenuOption GoTo(Action action)
         {
             _item.Effect = action;
@@ -156,6 +162,8 @@ public static class MenuBuilder
             _item.Effect = paragraph.PrintMessage;
             return _item;
         }
+
+
     }
     #endregion
 }
