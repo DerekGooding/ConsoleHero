@@ -7,7 +7,7 @@ public static class ListExtensions
     : [.. list.Select(x => Description(x.Text).Color(x.Color).If(() => condition(x.Text)).GoTo(() => effect(x.Text)))];
 
     public static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
-        => list.Select(x => new ColorLine(x, ConsoleColor.White)).ToOptions(effect, condition);
+        => list.Select(x => new ColorLine(x, GlobalSettings.DefaultTextColor)).ToOptions(effect, condition);
 
     public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null)
     => list.ToOptions(node.Call, condition);

@@ -1,5 +1,4 @@
-﻿- Menu Node System 
-- Global Settings
+﻿- Global Settings
 
 - Info box with x, y
 
@@ -17,3 +16,4 @@ DONE
 - Allow setting a text prompt within a menu or option
 - Easy Text Prompts => Pass params
 - Allow beeps in a text prompt or menu
+- Menu Node System 

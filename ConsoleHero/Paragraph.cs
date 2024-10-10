@@ -21,7 +21,7 @@ public class Paragraph : INode
             else
                 WriteLine(line.Text);
         }
-        ForegroundColor = ConsoleColor.White;
+        GlobalSettings.SetColorToDefault();
 
         FinalizeMessage();
     }

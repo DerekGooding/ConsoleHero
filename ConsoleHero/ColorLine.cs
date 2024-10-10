@@ -2,10 +2,10 @@ namespace ConsoleHero;
 
 public class ColorLine
 {
-    public ColorLine(string text, ConsoleColor color = ConsoleColor.White)
+    public ColorLine(string text, ConsoleColor? color = null)
     {
         Text = text;
-        Color = color;
+        Color = color ?? GlobalSettings.DefaultTextColor;
     }
 
     internal ColorLine() { }
@@ -14,8 +14,8 @@ public class ColorLine
 
     internal void Print()
     {
-        ForegroundColor = Color;
+        //ForegroundColor = Color;
         WriteLine(Text);
-        ForegroundColor = ConsoleColor.White;
+        GlobalSettings.SetColorToDefault();
     }
 }

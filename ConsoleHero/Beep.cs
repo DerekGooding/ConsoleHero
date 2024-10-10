@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Helpers;
+
+namespace ConsoleHero;
 
 public class Tune : INode
 {
@@ -56,9 +58,9 @@ public class Tune : INode
 
     internal void Play()
     {
-        foreach(var item in  Mary)
+        foreach(Note item in  Mary)
         {
-            Beep((int)item.NoteTone, (int)item.NoteDuration);
+            BeepHelper.Beep((int)item.NoteTone, (int)item.NoteDuration);
         }
     }
 

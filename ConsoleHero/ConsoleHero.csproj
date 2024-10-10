@@ -13,6 +13,8 @@
     <PackageTags>Console;Menu</PackageTags>
 
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
 

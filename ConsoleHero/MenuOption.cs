@@ -31,8 +31,8 @@ public sealed class MenuOption
 
     internal void Print(string seperator = " => ")
     {
-        ForegroundColor = Color;
+        //ForegroundColor = Color;
         WriteLine(Key + seperator + Description);
-        ForegroundColor = ConsoleColor.White;
+        GlobalSettings.SetColorToDefault();
     }
 }
