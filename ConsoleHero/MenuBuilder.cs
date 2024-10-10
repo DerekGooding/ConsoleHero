@@ -101,8 +101,7 @@ public static class MenuBuilder
         public ISetEffect If(Func<bool> condition);
         public ISetEffect If(bool condition);
         public MenuOption GoTo(Action action);
-        public MenuOption GoTo(Menu menu);
-        public MenuOption GoTo(Paragraph paragraph);
+        public MenuOption GoTo(INode node);
     }
 
     private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect
@@ -152,18 +151,11 @@ public static class MenuBuilder
             return _item;
         }
 
-        public MenuOption GoTo(Menu menu)
+        public MenuOption GoTo(INode node)
         {
-            _item.Effect = menu.Ask;
+            _item.Effect = node.Call;
             return _item;
         }
-        public MenuOption GoTo(Paragraph paragraph)
-        {
-            _item.Effect = paragraph.PrintMessage;
-            return _item;
-        }
-
-
     }
     #endregion
 }

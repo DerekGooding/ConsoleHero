@@ -1,6 +1,6 @@
 ﻿namespace ConsoleHero;
 
-public class Menu(List<MenuOption>? options = null)
+public class Menu(List<MenuOption>? options = null) : INode
 {
     private List<MenuOption> Options { get; } = options ?? [];
 
@@ -10,15 +10,17 @@ public class Menu(List<MenuOption>? options = null)
 
     public string Seperator { get; set; } = " => ";
     public void Add(MenuOption option) => Options.Add(option);
-    public void PrintOptions()
+
+    public void Call() => Ask();
+    public void Call<T>(T item) => Ask();
+
+    public void Print()
     {
         foreach(MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
         {
             option.Print(Seperator);
         }
     }
-
-    public void PrintOptions<T>(T input) => PrintOptions();
 
     public void Ask()
     {
@@ -34,7 +36,7 @@ public class Menu(List<MenuOption>? options = null)
             WriteLine();
         }
 
-        PrintOptions();
+        Print();
         MenuOption? choice = null;
 
         while (choice == null)

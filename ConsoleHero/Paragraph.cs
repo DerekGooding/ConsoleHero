@@ -1,5 +1,5 @@
 ﻿namespace ConsoleHero;
-public class Paragraph
+public class Paragraph : INode
 {
     internal Paragraph() { }
 
@@ -7,8 +7,10 @@ public class Paragraph
     internal bool PressToContinue { get; set; } = true;
     internal TimeSpan Delay {  get; set; }
 
-    public void PrintMessage<T>(T input) => PrintMessage();
-    public void PrintMessage()
+    public void Call() => Print();
+    public void Call<T>(T item) => Print();
+
+    public void Print()
     {
         foreach (ColorLine line in Outputs)
         {

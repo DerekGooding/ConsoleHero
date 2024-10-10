@@ -9,17 +9,11 @@ public static class ListExtensions
     public static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
         => list.Select(x => new ColorLine(x, ConsoleColor.White)).ToOptions(effect, condition);
 
-    public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Menu menu, Func<string, bool>? condition = null)
-    => list.ToOptions(menu.PrintOptions, condition);
+    public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null)
+    => list.ToOptions(node.Call, condition);
 
-    public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Paragraph paragraph, Func<string, bool>? condition = null)
-        => list.ToOptions(paragraph.PrintMessage, condition);
-
-    public static MenuOption[] ToOptions(this IEnumerable<string> list, Menu menu, Func<string, bool>? condition = null)
-        => list.ToOptions(menu.PrintOptions, condition);
-
-    public static MenuOption[] ToOptions(this IEnumerable<string> list, Paragraph paragraph, Func<string, bool>? condition = null)
-        => list.ToOptions(paragraph.PrintMessage, condition);
+    public static MenuOption[] ToOptions(this IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
+        => list.ToOptions(node.Call, condition);
 
     #region Generics
     public static MenuOption[] ToOptions<T>(this IEnumerable<(T, ColorLine)> list, Action<T> effect, Func<T, bool>? condition = null)
@@ -30,10 +24,7 @@ public static class ListExtensions
     public static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<T, bool>? condition = null)
     => list.Select(x => (x, new ColorLine(x?.ToString() ?? string.Empty, ConsoleColor.White))).ToOptions(effect, condition);
 
-    public static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Menu menu, Func<T, bool>? condition = null)
-    => list.ToOptions(menu.PrintOptions, condition);
-
-    public static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Paragraph paragraph, Func<T, bool>? condition = null)
-    => list.ToOptions(paragraph.PrintMessage, condition);
+    public static MenuOption[] ToOptions<T>(this IEnumerable<T> list, INode node, Func<T, bool>? condition = null)
+    => list.ToOptions(node.Call, condition);
     #endregion
 }
