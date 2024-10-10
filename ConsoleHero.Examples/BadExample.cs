@@ -1,7 +1,7 @@
-﻿namespace ConsoleHero.Examples.Bad;
-public static class Program
+﻿namespace ConsoleHero.Examples;
+public static class ProgramBad
 {
-    private static void Main()
+    private static void MainBad()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("|---- Main Menu ----|");

@@ -21,7 +21,7 @@ public class Paragraph : INode
             else
                 WriteLine(line.Text);
         }
-        GlobalSettings.SetColorToDefault();
+        ForegroundColor = GlobalSettings.DefaultTextColor;
 
         FinalizeMessage();
     }

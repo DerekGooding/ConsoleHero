@@ -14,8 +14,8 @@ public class ColorLine
 
     internal void Print()
     {
-        //ForegroundColor = Color;
+        ForegroundColor = Color;
         WriteLine(Text);
-        GlobalSettings.SetColorToDefault();
+        ForegroundColor = GlobalSettings.DefaultTextColor;
     }
 }

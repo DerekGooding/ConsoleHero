@@ -18,7 +18,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ReadmeImages\" />
+    <Compile Remove="ReadmeImages\**" />
+    <EmbeddedResource Remove="ReadmeImages\**" />
+    <None Remove="ReadmeImages\**" />
   </ItemGroup>
 
 
