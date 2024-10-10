@@ -56,6 +56,19 @@ public class Tune : INode
         public Duration NoteDuration { get; } = time;
     }
 
+    public static void PlayMary()
+    {
+        new Thread(() =>
+        {
+            foreach (Note item in Mary)
+            {
+                BeepHelper.Beep((int)item.NoteTone, (int)item.NoteDuration);
+            }
+            BeepHelper.Beep();
+            BeepHelper.Beep();
+            BeepHelper.Beep();
+        }).Start();
+    }
     internal void Play()
     {
         foreach(Note item in  Mary)
