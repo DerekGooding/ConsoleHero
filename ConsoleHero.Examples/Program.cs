@@ -50,11 +50,11 @@ public static class Program
 
     public static Menu NumberMenu =>
     NoTitle().
-    Options(Numbers.ToOptions(ReadNumbers)).
+    Options(Numbers.Select(x=>x.ToString()).ToOptions(ReadNumbers)).
     Cancel();
 
     public static Paragraph Eat =>
-    Line("You just at a.").
+    Line("You just at a ").Input().
     PressToContinue();
 
     public static Paragraph Crying =>
@@ -62,7 +62,7 @@ public static class Program
     PressToContinue();
 
     public static Paragraph ReadNumbers =>
-    Line("You read the number {number}").
+    Line("You read the number ").Input().
     Line("Twice that number is {number * 2}").
     PressToContinue();
 

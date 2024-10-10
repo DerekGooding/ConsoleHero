@@ -12,7 +12,7 @@ public class Menu(List<MenuOption>? options = null) : INode
     public void Add(MenuOption option) => Options.Add(option);
 
     public void Call() => Ask();
-    public void Call<T>(T item) => Ask();
+    public void Call(string input) => Ask();
 
     public void Print()
     {

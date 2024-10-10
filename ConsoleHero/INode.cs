@@ -3,5 +3,5 @@
 public interface INode
 {
     public abstract void Call();
-    public abstract void Call<T>(T item);
+    public abstract void Call(string input);
 }
