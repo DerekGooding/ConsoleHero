@@ -17,6 +17,10 @@
 	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ReadmeImages\" />
+  </ItemGroup>
+
 
 
 </Project>

@@ -18,7 +18,7 @@ public static class Program
     Options
     (
         Description("Approach Door").GoTo(DoorMenu),
-        Description("Check Numbers").GoTo(NumberMenu)
+        Description("Check Surroundings").GoTo(CheckSurroundingsMenu)
     ).Exit();
 
     public static Menu DoorMenu =>
@@ -51,6 +51,11 @@ public static class Program
     public static Menu NumberMenu =>
     NoTitle().
     Options(Numbers.Select(x=>x.ToString()).ToOptions(ReadNumbers)).
+    Cancel();
+
+    public static Menu CheckSurroundingsMenu =>
+    NoTitle().
+    Options(Numbers.Select(x => x.ToString()).ToOptions(ReadNumbers)).
     Cancel();
 
     public static Paragraph Eat =>
