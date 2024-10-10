@@ -9,6 +9,12 @@ public static class ListExtensions
     public static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
         => list.Select(x => new ColorLine(x, ConsoleColor.White)).ToOptions(effect, condition);
 
+    public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Menu menu, Func<string, bool>? condition = null)
+    => list.ToOptions(menu.PrintOptions, condition);
+
+    public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Paragraph paragraph, Func<string, bool>? condition = null)
+        => list.ToOptions(paragraph.PrintMessage, condition);
+
     public static MenuOption[] ToOptions(this IEnumerable<string> list, Menu menu, Func<string, bool>? condition = null)
         => list.ToOptions(menu.PrintOptions, condition);
 

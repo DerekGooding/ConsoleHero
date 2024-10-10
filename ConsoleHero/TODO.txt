@@ -1,8 +1,8 @@
 ﻿- Easy Text Prompts => Pass params
-- Allow setting a text prompt within a menu or option
 - Allow beeps in a text prompt or menu
-- Additional menu types
-
+- Info box with x, y
+- Per character coloring
+- Per character animations
 
 - Menu Node System 
 - Global Settings
@@ -15,6 +15,4 @@
 - Publish nuget
 
 DONE
-- Hidden options
-- Color Option lines
-- Make conditions easier to write
+- Allow setting a text prompt within a menu or option
