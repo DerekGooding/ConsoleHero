@@ -7,14 +7,13 @@ public class Menu(List<MenuOption>? options = null) : INode
     internal int Count => Options.Count;
     internal ColorLine Title { get; set; } = new(string.Empty, ConsoleColor.White);
     internal bool ClearWhenAsk { get; set; }
-
-    public string Seperator { get; set; } = " => ";
-    public void Add(MenuOption option) => Options.Add(option);
+    internal string Seperator { get; set; } = " => ";
+    internal void Add(MenuOption option) => Options.Add(option);
 
     public void Call() => Ask();
     public void Call(string input) => Ask();
 
-    public void Print()
+    internal void Print()
     {
         foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
         {
@@ -22,6 +21,10 @@ public class Menu(List<MenuOption>? options = null) : INode
         }
     }
 
+    /// <summary>
+    /// Display all the menu Title and each unhidden option. Then wait for a user response.
+    /// Failed responses will loop back and ask again.
+    /// </summary>
     public void Ask()
     {
         if (Count == 0) return;

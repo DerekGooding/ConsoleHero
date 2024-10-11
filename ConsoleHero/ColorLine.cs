@@ -4,13 +4,13 @@ namespace ConsoleHero;
 
 public class ColorLine
 {
-    public ColorLine(string text, Color? color = null)
+    internal ColorLine(string text, Color? color = null)
     {
         Text = text;
         Color = color ?? GlobalSettings.DefaultTextColor;
     }
 
-    public ColorLine(string text, ConsoleColor color)
+    internal ColorLine(string text, ConsoleColor color)
     {
         Text = text;
         Color = ColorHelper.ConsoleColorToDrawingColor(color);
