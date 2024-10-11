@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using static ConsoleHero.MenuBuilder;
 using static ConsoleHero.ParagraphBuilder;
+using static ConsoleHero.Tune;
 
 namespace ConsoleHero.Examples;
 public static class Program
@@ -21,7 +22,8 @@ public static class Program
     Options
     (
         Description("Approach Door").GoTo(DoorMenu),
-        Description("Check Surroundings").GoTo(CheckSurroundingsMenu)
+        Description("Check Surroundings").GoTo(CheckSurroundingsMenu),
+        Key("Mary").Description("Listen to Mary").GoTo(Mary)
     ).Exit();
 
     public static Menu DoorMenu =>
@@ -100,6 +102,23 @@ public static class Program
         9001,
         55,
     ];
+
+    public readonly static Tune Mary = new(
+    [
+        new(Tone.B, Duration.QUARTER),
+        new(Tone.A, Duration.QUARTER),
+        new(Tone.GbelowC, Duration.QUARTER),
+        new(Tone.A, Duration.QUARTER),
+        new(Tone.B, Duration.QUARTER),
+        new(Tone.B, Duration.QUARTER),
+        new(Tone.B, Duration.HALF),
+        new(Tone.A, Duration.QUARTER),
+        new(Tone.A, Duration.QUARTER),
+        new(Tone.A, Duration.HALF),
+        new(Tone.B, Duration.QUARTER),
+        new(Tone.D, Duration.QUARTER),
+        new(Tone.D, Duration.HALF)
+    ]);
 
     public static void ToggleDoor() => _isOpen = !_isOpen;
 }
