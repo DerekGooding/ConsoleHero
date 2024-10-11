@@ -1,13 +1,16 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Helpers;
+
+namespace ConsoleHero;
 
 public sealed class MenuOption
 {
-    public MenuOption(string key, string description, Action? effect = null, Func<bool>? check = null)
+    public MenuOption(string key, string description, Action? effect = null, Color? color = null, Func<bool>? check = null)
     {
         Key = key;
         Description = description;
         Effect = effect ?? (() => { });
         Check = check ?? (static () => true);
+        Color = color ?? GlobalSettings.DefaultTextColor;
     }
 
     internal MenuOption()
@@ -16,6 +19,7 @@ public sealed class MenuOption
         Description = string.Empty;
         Effect = () => { };
         Check = static () => true;
+        Color = GlobalSettings.DefaultTextColor;
     }
 
     internal string Key { get; set; }
@@ -25,14 +29,14 @@ public sealed class MenuOption
     internal bool IsCaseSensitive { get; set; }
     internal bool UsesAutoKey { get; set; } = true;
     internal bool IsHidden { get; set; }
-    internal ConsoleColor Color { get; set; } = ConsoleColor.White;
+    internal Color Color { get; set; }
 
     internal void Invoke() => Effect.Invoke();
 
     internal void Print(string seperator = " => ")
     {
-        ForegroundColor = Color;
+        ColorHelper.SetTextColor(Color);
         WriteLine(Key + seperator + Description);
-        ForegroundColor = GlobalSettings.DefaultTextColor;
+        ColorHelper.SetToDefault();
     }
 }

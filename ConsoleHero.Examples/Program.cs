@@ -1,4 +1,5 @@
-﻿using static ConsoleHero.MenuBuilder;
+﻿using System.Drawing;
+using static ConsoleHero.MenuBuilder;
 using static ConsoleHero.ParagraphBuilder;
 
 namespace ConsoleHero.Examples;
@@ -7,6 +8,7 @@ public static class Program
     private static void Main()
     {
         GlobalSettings.Spacing = 2;
+        GlobalSettings.DefaultTextColor = Color.AliceBlue;
         while (true)
         {
             MainMenu.Ask();

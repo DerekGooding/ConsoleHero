@@ -1,7 +1,10 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Helpers;
+
+namespace ConsoleHero;
+
 public static class GlobalSettings
 {
-    public static ConsoleColor DefaultTextColor { get; set; } = ConsoleColor.White;
+    public static Color DefaultTextColor { get; set; } = ColorHelper.ConsoleColorToDrawingColor(ConsoleColor.White);
 
     public static int Spacing { get; set; } = 1;
 }

@@ -4,9 +4,9 @@ internal static class ColorHelper
 {
     internal static void SetTextColor(Color color) => SetRgbTextColor(color.R, color.G, color.B);
 
-    internal static void SetTextcolor(ConsoleColor consoleColor) => SetTextColor(ConsoleColorToDrawingColor(consoleColor));
+    internal static void SetTextColor(ConsoleColor consoleColor) => SetTextColor(ConsoleColorToDrawingColor(consoleColor));
 
-    private static Color ConsoleColorToDrawingColor(ConsoleColor consoleColor) => consoleColor switch
+    internal static Color ConsoleColorToDrawingColor(ConsoleColor consoleColor) => consoleColor switch
     {
         ConsoleColor.Black => Color.Black,
         ConsoleColor.DarkBlue => Color.FromArgb(0, 0, 139),
@@ -29,5 +29,7 @@ internal static class ColorHelper
 
     private static void SetRgbTextColor(byte r, byte g, byte b) => Write($"\u001b[38;2;{r};{g};{b}m");
 
-    internal static void ResetColor() => Write("\u001b[0m");
+    //internal static void ResetColor() => Write("\u001b[0m");
+
+    internal static void SetToDefault() => SetTextColor(GlobalSettings.DefaultTextColor);
 }

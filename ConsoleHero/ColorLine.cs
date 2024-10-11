@@ -1,21 +1,29 @@
+using ConsoleHero.Helpers;
+
 namespace ConsoleHero;
 
 public class ColorLine
 {
-    public ColorLine(string text, ConsoleColor? color = null)
+    public ColorLine(string text, Color? color = null)
     {
         Text = text;
         Color = color ?? GlobalSettings.DefaultTextColor;
     }
 
+    public ColorLine(string text, ConsoleColor color)
+    {
+        Text = text;
+        Color = ColorHelper.ConsoleColorToDrawingColor(color);
+    }
+
     internal ColorLine() { }
     internal string Text { get; set; } = string.Empty;
-    internal ConsoleColor Color { get; }
+    internal Color Color { get; }
 
     internal void Print()
     {
-        ForegroundColor = Color;
+        ColorHelper.SetTextColor(Color);
         WriteLine(Text);
-        ForegroundColor = GlobalSettings.DefaultTextColor;
+        ColorHelper.SetToDefault();
     }
 }

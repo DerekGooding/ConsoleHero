@@ -97,7 +97,7 @@ public static class MenuBuilder
     }
     public interface ISetEffect
     {
-        public ISetEffect Color(ConsoleColor color);
+        public ISetEffect Color(Color color);
         public ISetEffect If(Func<bool> condition);
         public ISetEffect If(bool condition);
         public MenuOption GoTo(Action action);
@@ -130,7 +130,7 @@ public static class MenuBuilder
             _item.Description = description;
             return this;
         }
-        public ISetEffect Color(ConsoleColor color)
+        public ISetEffect Color(Color color)
         {
             _item.Color = color;
             return this;

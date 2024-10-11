@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Helpers;
+
+namespace ConsoleHero;
 public class Paragraph : INode
 {
     internal Paragraph() { }
@@ -15,13 +17,13 @@ public class Paragraph : INode
     {
         foreach (ColorLine line in Outputs)
         {
-            ForegroundColor = line.Color;
+            ColorHelper.SetTextColor(line.Color);
             if(line.Text.Contains("{0}"))
                 WriteLine(string.Format(line.Text, input));
             else
                 WriteLine(line.Text);
         }
-        ForegroundColor = GlobalSettings.DefaultTextColor;
+        ColorHelper.SetToDefault();
 
         FinalizeMessage();
     }
