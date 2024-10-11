@@ -13,7 +13,7 @@ internal static class ListExtensions
     /// <param name="effect">The action to perform when a menu option is selected.</param>
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
-    internal static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null)
+    internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
     => condition == null
     ? [.. list.Select(x => Description(x.Text).Color(x.Color).GoTo(() => effect(x.Text)))]
     : [.. list.Select(x => Description(x.Text).Color(x.Color).If(() => condition(x.Text)).GoTo(() => effect(x.Text)))];
@@ -26,7 +26,7 @@ internal static class ListExtensions
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
-        => list.Select(x => new ColorLine(x, GlobalSettings.DefaultTextColor)).ToOptions(effect, condition);
+        => list.Select(x => new ColorText(x, GlobalSettings.DefaultTextColor)).ToOptions(effect, condition);
 
     /// <summary>
     /// Converts an IEnumerable of ColorLine objects to an array of MenuOption objects, linking the effect to an INode object.
@@ -35,7 +35,7 @@ internal static class ListExtensions
     /// <param name="node">The node that contains the action to perform when a menu option is selected.</param>
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
-    internal static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null)
+    internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null)
     => list.ToOptions(node.Call, condition);
 
     /// <summary>

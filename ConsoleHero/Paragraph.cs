@@ -5,24 +5,29 @@ public class Paragraph : INode
 {
     internal Paragraph() { }
 
-    internal List<ColorLine> Outputs { get; set; } = [];
+    internal List<ParagraphLine> Outputs { get; set; } = [];
     internal object[] Arguments { get; set; } = [];
     internal bool PressToContinue { get; set; } = true;
     internal TimeSpan Delay { get; set; }
-    internal List<Func<object, string>> Modifiers { get; set; } = [];
 
     public void Call() => Print();
     public void Call(string input) => Print(input);
 
     public void Print(string input = "")
     {
-        foreach (ColorLine line in Outputs)
+        foreach (ParagraphLine line in Outputs)
         {
-            ColorHelper.SetTextColor(line.Color);
-            if (line.Text.Contains("{0}"))
-                WriteLine(string.Format(line.Text, input));
-            else
-                WriteLine(line.Text);
+            foreach(ILineComponent component in line.Components)
+            {
+                ColorHelper.SetTextColor(component.Color);
+                if (component is ColorText c)
+                    Write(c.Text);
+                else if(component is InputPlaceholder)
+                    Write(input);
+                else if(component is InputModifier modifier)
+                    Write(modifier.Modifier.Invoke(input));
+            }
+            WriteLine();
         }
         ColorHelper.SetToDefault();
 

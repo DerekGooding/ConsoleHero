@@ -1,21 +1,22 @@
 ﻿namespace ConsoleHero;
 
-public interface ILineComponent;
-
-public struct ColoredCharacter : ILineComponent
+public interface ILineComponent
 {
-    public char Character { get; set; }
-
-    public Color Color { get; set; }
+    public Color Color { get; }
 }
 
-public struct InputPlaceholder : ILineComponent
+public readonly struct InputPlaceholder(Color? color = null) : ILineComponent
 {
-    public Color Color { get; set; }
+    public Color Color { get; } = color ?? GlobalSettings.DefaultTextColor;
 }
 
-public struct InputModifier : ILineComponent
+public readonly struct InputModifier(Func<object, string> modifier, Color? color = null) : ILineComponent
 {
-    public Func<object, string>? Modifier { get; set; }
-    public Color Color { get; set; }
+    public Func<object, string> Modifier { get; } = modifier;
+    public Color Color { get; } = color ?? GlobalSettings.DefaultTextColor;
+}
+
+public class ParagraphLine()
+{
+    public List<ILineComponent> Components { get; } = [];
 }

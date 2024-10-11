@@ -17,8 +17,8 @@ public static class MenuBuilder
         public IAddOptions CustomSeperator(string seperator);
         public IAddOptions Options(params MenuOption[] options);
 
-        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null);
-        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null);
         public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
 
@@ -38,7 +38,7 @@ public static class MenuBuilder
         public IAddOptions NoTitle() => this;
         public IAddOptions Title(string title, ConsoleColor color)
         {
-            _item.Title = new ColorLine(title, color);
+            _item.Title = new ColorText(title, color);
             return this;
         }
         public IAddOptions ClearWhenAsk()
@@ -60,7 +60,7 @@ public static class MenuBuilder
             }
             return this;
         }
-        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null)
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
             {
@@ -68,7 +68,7 @@ public static class MenuBuilder
             }
             return this;
         }
-        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null)
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(node, condition))
             {

@@ -2,23 +2,22 @@ using ConsoleHero.Helpers;
 
 namespace ConsoleHero;
 
-public class ColorLine
+public class ColorText : ILineComponent
 {
-    internal ColorLine(string text, Color? color = null)
+    internal ColorText(string text, Color? color = null)
     {
         Text = text;
         Color = color ?? GlobalSettings.DefaultTextColor;
     }
 
-    internal ColorLine(string text, ConsoleColor color)
+    internal ColorText(string text, ConsoleColor color)
     {
         Text = text;
         Color = ColorHelper.ConsoleColorToDrawingColor(color);
     }
 
-    internal ColorLine() { }
     internal string Text { get; set; } = string.Empty;
-    internal Color Color { get; }
+    public Color Color { get; }
 
     internal void Print()
     {

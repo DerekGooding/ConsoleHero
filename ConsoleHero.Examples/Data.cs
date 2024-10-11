@@ -11,7 +11,7 @@ public static class Data
         "Artichoke"
     ];
 
-    public readonly static List<ColorLine> ColoredFruit =
+    public readonly static List<ColorText> ColoredFruit =
     [
         "Apple".             Color(Color.Red),
         "Banana".            Color(Color.Yellow),
