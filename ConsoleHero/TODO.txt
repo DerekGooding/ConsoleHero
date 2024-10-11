@@ -4,10 +4,7 @@
 - Publish nuget
 
 - Info box with x, y
-- Per character coloring
-- "Variable coloring"
 - Per character animations
-- Easy beeps => cross-plat => Fix gross sounding pops on windows
 
 DONE
 - Allow setting a text prompt within a menu or option
@@ -16,3 +13,6 @@ DONE
 - Menu Node System 
 - Global Settings
 - Change color handling to RBG
+- Easy beeps => cross-plat => Fix gross sounding pops on windows
+- Per character coloring
+- "Variable coloring"
