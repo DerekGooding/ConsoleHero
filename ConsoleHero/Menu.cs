@@ -33,7 +33,8 @@ public class Menu(List<MenuOption>? options = null) : INode
         if (Title.Text != string.Empty)
         {
             Title.Print();
-            WriteLine();
+            for (int i = 0; i < GlobalSettings.Spacing; i++)
+                WriteLine();
         }
 
         Print();
@@ -51,7 +52,8 @@ public class Menu(List<MenuOption>? options = null) : INode
             }
             else
             {
-                WriteLine();
+                for (int i = 0; i < GlobalSettings.Spacing; i++)
+                    WriteLine();
                 choice.Invoke();
             }
         }

@@ -6,6 +6,7 @@ public static class Program
 {
     private static void Main()
     {
+        GlobalSettings.Spacing = 2;
         while (true)
         {
             MainMenu.Ask();

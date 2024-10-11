@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero;
-internal static class GlobalSettings
+public static class GlobalSettings
 {
-    internal static ConsoleColor DefaultTextColor { get; set; } = ConsoleColor.White;
+    public static ConsoleColor DefaultTextColor { get; set; } = ConsoleColor.White;
 
-    internal static int Spacing { get; set; } = 1;
+    public static int Spacing { get; set; } = 1;
 }
