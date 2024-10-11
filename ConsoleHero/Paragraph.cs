@@ -31,10 +31,12 @@ public class Paragraph : INode
     private void FinalizeMessage()
     {
         if (PressToContinue)
+        {
             ReadLine();
+        }
         else
         {
-            //TODO - add delay
+            Thread.Sleep(Delay);
         }
     }
 }
