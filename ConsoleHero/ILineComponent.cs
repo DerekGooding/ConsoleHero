@@ -15,8 +15,3 @@ public readonly struct InputModifier(Func<object, string> modifier, Color? color
     public Func<object, string> Modifier { get; } = modifier;
     public Color Color { get; } = color ?? GlobalSettings.DefaultTextColor;
 }
-
-public class ParagraphLine()
-{
-    public List<ILineComponent> Components { get; } = [];
-}

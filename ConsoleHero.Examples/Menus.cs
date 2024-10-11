@@ -1,10 +1,11 @@
-﻿using static ConsoleHero.MenuBuilder;
+﻿using System.Drawing;
+using static ConsoleHero.MenuBuilder;
 
 namespace ConsoleHero.Examples;
 public static class Menus
 {
     public static Menu MainMenu =>
-    Title("|---- Main Menu ----|", ConsoleColor.Red).
+    Title("|---- Main Menu ----|", Color.Red).
     ClearWhenAsk().
     Options
     (
@@ -26,17 +27,17 @@ public static class Menus
     ).Cancel();
 
     public static Menu FruitMenu =>
-    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Title("|---- Fruit ----|", Color.Green).
     OptionsFromList(Data.Fruit, Paragraphs.Eat).
     Cancel();
 
     public static Menu FruitMenuColored =>
-    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Title("|---- Fruit ----|", Color.Green).
     OptionsFromList(Data.ColoredFruit, Paragraphs.Eat).
     Cancel();
 
     public static Menu FruitMenuWithA =>
-    Title("|---- Fruit ----|", ConsoleColor.Green).
+    Title("|---- Fruit ----|", Color.Green).
     OptionsFromList(Data.Fruit, Paragraphs.Eat, x => x.StartsWith('A')).
     Cancel();
 

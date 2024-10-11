@@ -3,12 +3,12 @@
 public static class MenuBuilder
 {
     public static IAddOptions NoTitle() => new Builder().NoTitle();
-    public static IAddOptions Title(string title, ConsoleColor color = ConsoleColor.White) => new Builder().Title(title, color);
+    public static IAddOptions Title(string title, Color? color = null) => new Builder().Title(title, color);
 
     public interface ISetTitle
     {
         public IAddOptions NoTitle();
-        public IAddOptions Title(string title, ConsoleColor color);
+        public IAddOptions Title(string title, Color? color);
     }
 
     public interface IAddOptions
@@ -36,7 +36,7 @@ public static class MenuBuilder
         readonly Menu _item = new();
 
         public IAddOptions NoTitle() => this;
-        public IAddOptions Title(string title, ConsoleColor color)
+        public IAddOptions Title(string title, Color? color)
         {
             _item.Title = new ColorText(title, color);
             return this;

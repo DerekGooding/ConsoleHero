@@ -5,7 +5,7 @@ public class Menu(List<MenuOption>? options = null) : INode
     private List<MenuOption> Options { get; } = options ?? [];
 
     internal int Count => Options.Count;
-    internal ColorText Title { get; set; } = new(string.Empty, ConsoleColor.White);
+    internal ColorText Title { get; set; } = new(string.Empty);
     internal bool ClearWhenAsk { get; set; }
     internal string Seperator { get; set; } = " => ";
     internal void Add(MenuOption option) => Options.Add(option);
