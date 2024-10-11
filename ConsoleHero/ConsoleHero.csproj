@@ -13,6 +13,7 @@
     <PackageTags>Console;Menu</PackageTags>
 
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 
 	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -21,6 +22,7 @@
     <Compile Remove="ReadmeImages\**" />
     <EmbeddedResource Remove="ReadmeImages\**" />
     <None Remove="ReadmeImages\**" />
+	<None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 
