@@ -1,21 +1,18 @@
-﻿- Global Settings
-- Change color handling to RBG
-- Create a new default pallete instead of ConsoleColor 1-16
-- Easy beeps => cross-plat
-
-- Info box with x, y
-
-- Summary code => Documentation
+﻿- Summary code => Documentation
 - Unit testing => Turn back on and properly abstract. I want to wrap the console printing but I also want it returning strings I can test...
 - Readme
 - Publish nuget
 
+- Info box with x, y
 - Per character coloring
 - "Variable coloring"
 - Per character animations
+- Easy beeps => cross-plat => Fix gross sounding pops on windows
 
 DONE
 - Allow setting a text prompt within a menu or option
 - Easy Text Prompts => Pass params
 - Allow beeps in a text prompt or menu
 - Menu Node System 
+- Global Settings
+- Change color handling to RBG

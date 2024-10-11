@@ -86,11 +86,11 @@ public static class Program
 
     public readonly static List<ColorLine> ColoredFruit =
     [
-        Red("Apple"),
-        Yellow("Banana"),
-        NoColor("Cantaloupe"),
-        new("Another Cantaloupe", ConsoleColor.White),
-        DarkGreen("Artichoke")
+        "Apple".             Color(Color.Red),
+        "Banana".            Color(Color.Yellow),
+        "Cantaloupe".        DefaultColor(),
+        "Another Cantaloupe".Color(Color.White),
+        "Artichoke".         Color(Color.Green)
     ];
 
     public readonly static List<int> Numbers =

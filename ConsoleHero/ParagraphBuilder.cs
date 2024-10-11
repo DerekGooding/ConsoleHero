@@ -43,24 +43,4 @@ public static class ParagraphBuilder
             return this;
         }
     }
-
-    #region ColorLine color defaults
-    public static ColorLine Black(string text) => new(text, ConsoleColor.Black);
-    public static ColorLine DarkBlue(string text) => new(text, ConsoleColor.DarkBlue);
-    public static ColorLine DarkGreen(string text) => new(text, ConsoleColor.DarkGreen);
-    public static ColorLine DarkCyan(string text) => new(text, ConsoleColor.DarkCyan);
-    public static ColorLine DarkRed(string text) => new(text, ConsoleColor.DarkRed);
-    public static ColorLine DarkMagenta(string text) => new(text, ConsoleColor.DarkMagenta);
-    public static ColorLine DarkYellow(string text) => new(text, ConsoleColor.DarkYellow);
-    public static ColorLine Gray(string text) => new(text, ConsoleColor.Gray);
-    public static ColorLine DarkGray(string text) => new(text, ConsoleColor.DarkGray);
-    public static ColorLine Blue(string text) => new(text, ConsoleColor.Blue);
-    public static ColorLine Green(string text) => new(text, ConsoleColor.Green);
-    public static ColorLine Cyan(string text) => new(text, ConsoleColor.Cyan);
-    public static ColorLine Red(string text) => new(text, ConsoleColor.Red);
-    public static ColorLine Magenta(string text) => new(text, ConsoleColor.Magenta);
-    public static ColorLine Yellow(string text) => new(text, ConsoleColor.Yellow);
-    public static ColorLine White(string text) => new(text, ConsoleColor.White);
-    public static ColorLine NoColor(string text) => new(text, ConsoleColor.White);
-    #endregion
 }
