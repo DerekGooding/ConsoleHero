@@ -4,7 +4,7 @@ namespace ConsoleHero.Examples;
 public static class Paragraphs
 {
     public static Paragraph Eat =>
-    Line("You just at a ").Input().
+    Line("You just ate a ").Input().Text(".").
     PressToContinue();
 
     public static Paragraph Crying =>

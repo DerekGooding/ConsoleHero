@@ -27,26 +27,26 @@ public static class Menus
 
     public static Menu FruitMenu =>
     Title("|---- Fruit ----|", ConsoleColor.Green).
-    Options(Data.Fruit.ToOptions(Paragraphs.Eat)).
+    OptionsFromList(Data.Fruit, Paragraphs.Eat).
     Cancel();
 
     public static Menu FruitMenuColored =>
     Title("|---- Fruit ----|", ConsoleColor.Green).
-    Options(Data.ColoredFruit.ToOptions(Paragraphs.Eat)).
+    OptionsFromList(Data.ColoredFruit, Paragraphs.Eat).
     Cancel();
 
     public static Menu FruitMenuWithA =>
     Title("|---- Fruit ----|", ConsoleColor.Green).
-    Options(Data.Fruit.ToOptions(Paragraphs.Eat, x => x.StartsWith('A'))).
+    OptionsFromList(Data.Fruit, Paragraphs.Eat, x => x.StartsWith('A')).
     Cancel();
 
     public static Menu NumberMenu =>
     NoTitle().
-    Options(Data.Numbers.Select(x => x.ToString()).ToOptions(Paragraphs.ReadNumbers)).
+    OptionsFromList(Data.Numbers.Select(x => x.ToString()), Paragraphs.ReadNumbers).
     Cancel();
 
     public static Menu CheckSurroundingsMenu =>
     NoTitle().
-    Options(Data.Numbers.Select(x => x.ToString()).ToOptions(Paragraphs.ReadNumbers)).
+    OptionsFromList(Data.Numbers.Select(x => x.ToString()), Paragraphs.ReadNumbers).
     Cancel();
 }

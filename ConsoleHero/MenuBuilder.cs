@@ -17,6 +17,11 @@ public static class MenuBuilder
         public IAddOptions CustomSeperator(string seperator);
         public IAddOptions Options(params MenuOption[] options);
 
+        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
+
         public Menu Cancel();
         public Menu Cancel(string key);
         public Menu Cancel(char key);
@@ -50,6 +55,38 @@ public static class MenuBuilder
         public IAddOptions Options(params MenuOption[] options)
         {
             foreach (MenuOption option in options)
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
+        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null)
+        {
+            foreach (MenuOption option in list.ToOptions(effect, condition))
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
+        public IAddOptions OptionsFromList(IEnumerable<ColorLine> list, INode node, Func<string, bool>? condition = null)
+        {
+            foreach (MenuOption option in list.ToOptions(node, condition))
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
+        public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
+        {
+            foreach (MenuOption option in list.ToOptions(effect, condition))
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
+        public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
+        {
+            foreach (MenuOption option in list.ToOptions(node, condition))
             {
                 _item.Add(option);
             }
