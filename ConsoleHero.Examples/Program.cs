@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using static ConsoleHero.MenuBuilder;
 using static ConsoleHero.ParagraphBuilder;
-using static ConsoleHero.Tune;
+using static ConsoleHero.TuneBuilder;
 
 namespace ConsoleHero.Examples;
 public static class Program
@@ -103,22 +103,21 @@ public static class Program
         55,
     ];
 
-    public readonly static Tune Mary = new(
-    [
-        new(Tone.B, Duration.QUARTER),
-        new(Tone.A, Duration.QUARTER),
-        new(Tone.GbelowC, Duration.QUARTER),
-        new(Tone.A, Duration.QUARTER),
-        new(Tone.B, Duration.QUARTER),
-        new(Tone.B, Duration.QUARTER),
-        new(Tone.B, Duration.HALF),
-        new(Tone.A, Duration.QUARTER),
-        new(Tone.A, Duration.QUARTER),
-        new(Tone.A, Duration.HALF),
-        new(Tone.B, Duration.QUARTER),
-        new(Tone.D, Duration.QUARTER),
-        new(Tone.D, Duration.HALF)
-    ]);
+    public static Tune Mary =>
+    Note(Tone.B, Duration.QUARTER).
+    Note(Tone.A, Duration.QUARTER).
+    Note(Tone.GbelowC, Duration.QUARTER).
+    Note(Tone.A, Duration.QUARTER).
+    Note(Tone.B, Duration.QUARTER).
+    Note(Tone.B, Duration.QUARTER).
+    Note(Tone.B, Duration.HALF).
+    Note(Tone.A, Duration.QUARTER).
+    Note(Tone.A, Duration.QUARTER).
+    Note(Tone.A, Duration.HALF).
+    Note(Tone.B, Duration.QUARTER).
+    Note(Tone.D, Duration.QUARTER).
+    Note(Tone.D, Duration.HALF).
+    ContinueWhilePlaying();
 
     public static void ToggleDoor() => _isOpen = !_isOpen;
 }

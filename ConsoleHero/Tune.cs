@@ -1,59 +1,39 @@
 ﻿using ConsoleHero.Helpers;
+using static ConsoleHero.TuneBuilder;
 
 namespace ConsoleHero;
 
 public class Tune : INode
 {
-    public Tune(List<Note> notes)
-    {
-        Notes = notes;
-    }
-
-    public List<Note> Notes { get; set; } = [];
-
-    public enum Tone
-    {
-        REST = 0,
-        GbelowC = 196,
-        A = 220,
-        Asharp = 233,
-        B = 247,
-        C = 262,
-        Csharp = 277,
-        D = 294,
-        Dsharp = 311,
-        E = 330,
-        F = 349,
-        Fsharp = 370,
-        G = 392,
-        Gsharp = 415,
-    }
-
-    public enum Duration
-    {
-        WHOLE = 1600,
-        HALF = WHOLE / 2,
-        QUARTER = HALF / 2,
-        EIGHTH = QUARTER / 2,
-        SIXTEENTH = EIGHTH / 2,
-    }
+    internal List<Note> Notes { get; set; } = [];
+    internal bool Wait { get; set; } = true;
 
     internal Tune() { }
 
-    public readonly struct Note(Tone frequency, Duration time)
+    internal readonly struct Note(int frequency, int time)
     {
-        public Tone NoteTone { get; } = frequency;
-        public Duration NoteDuration { get; } = time;
+        public int NoteTone { get; } = frequency;
+        public int NoteDuration { get; } = time;
     }
 
     internal void Play()
     {
+        if (Notes.Count == 0)
+            BeepHelper.Beep();
+
         foreach(Note item in Notes)
         {
-            BeepHelper.Beep((int)item.NoteTone, (int)item.NoteDuration);
+            BeepHelper.Beep(item.NoteTone, item.NoteDuration);
         }
     }
 
-    public void Call() => Play();
-    public void Call(string input) => Play();
+    public void Call()
+    {
+        if (Wait)
+            Play();
+        else
+            new Thread(Play).Start();
+    }
+
+    public void Call(string input) => Call();
 }

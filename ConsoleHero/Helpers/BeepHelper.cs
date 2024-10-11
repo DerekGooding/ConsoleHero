@@ -4,9 +4,9 @@ namespace ConsoleHero.Helpers;
 
 internal static class BeepHelper
 {
-    public static void Beep() => Write("\a");
+    internal static void Beep() => Write("\a");
 
-    public static void Beep(int frequency, int duration)
+    internal static void Beep(int frequency, int duration)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
