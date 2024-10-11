@@ -12,7 +12,7 @@ public static class Paragraphs
     PressToContinue();
 
     public static Paragraph ReadNumbers =>
-    Line("You read the number ").Input().
-    Line("Twice that number is {number * 2}").
+    Line("You read the number ").Input().Text(".").
+    Line("Twice that number is ").ModifiedInput((x) => $"{(int)x * 2}").Text(".").
     PressToContinue();
 }

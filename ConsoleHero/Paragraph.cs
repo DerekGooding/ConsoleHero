@@ -9,6 +9,7 @@ public class Paragraph : INode
     internal object[] Arguments { get; set; } = [];
     internal bool PressToContinue { get; set; } = true;
     internal TimeSpan Delay { get; set; }
+    internal List<Func<object, string>> Modifiers { get; set; } = [];
 
     public void Call() => Print();
     public void Call(string input) => Print(input);
@@ -32,7 +33,7 @@ public class Paragraph : INode
     {
         if (PressToContinue)
         {
-            ReadLine();
+            ReadKey();
         }
         else
         {
