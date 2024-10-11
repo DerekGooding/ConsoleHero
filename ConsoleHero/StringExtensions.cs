@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero.Extensions;
+﻿namespace ConsoleHero;
 public static class StringExtensions
 {
     public static ColorLine Color(this string text, Color color) => new(text, color);

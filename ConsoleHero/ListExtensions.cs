@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero.Extensions;
+﻿namespace ConsoleHero;
 public static class ListExtensions
 {
     public static MenuOption[] ToOptions(this IEnumerable<ColorLine> list, Action<string> effect, Func<string, bool>? condition = null)
