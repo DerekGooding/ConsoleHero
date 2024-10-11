@@ -1,4 +1,5 @@
 # ConsoleHero
+[![NuGet](https://img.shields.io/nuget/v/ConsoleHero.svg)](https://www.nuget.org/packages/ConsoleHero/)
 
 A light-weight library to help quickly and fluently develop Console application UI. 
 
