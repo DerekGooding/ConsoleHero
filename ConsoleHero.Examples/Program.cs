@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ConsoleHero.Extensions;
 using static ConsoleHero.MenuBuilder;
 using static ConsoleHero.ParagraphBuilder;
 using static ConsoleHero.TuneBuilder;

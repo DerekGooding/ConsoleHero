@@ -16,7 +16,7 @@ public class Menu(List<MenuOption>? options = null) : INode
 
     public void Print()
     {
-        foreach(MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
+        foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
         {
             option.Print(Seperator);
         }

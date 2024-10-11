@@ -1,5 +1,4 @@
 ﻿using ConsoleHero.Helpers;
-using static ConsoleHero.TuneBuilder;
 
 namespace ConsoleHero;
 
@@ -21,7 +20,7 @@ public class Tune : INode
         if (Notes.Count == 0)
             BeepHelper.Beep();
 
-        foreach(Note item in Notes)
+        foreach (Note item in Notes)
         {
             BeepHelper.Beep(item.NoteTone, item.NoteDuration);
         }

@@ -8,7 +8,7 @@ public class Paragraph : INode
     internal List<ColorLine> Outputs { get; set; } = [];
     internal object[] Arguments { get; set; } = [];
     internal bool PressToContinue { get; set; } = true;
-    internal TimeSpan Delay {  get; set; }
+    internal TimeSpan Delay { get; set; }
 
     public void Call() => Print();
     public void Call(string input) => Print(input);
@@ -18,7 +18,7 @@ public class Paragraph : INode
         foreach (ColorLine line in Outputs)
         {
             ColorHelper.SetTextColor(line.Color);
-            if(line.Text.Contains("{0}"))
+            if (line.Text.Contains("{0}"))
                 WriteLine(string.Format(line.Text, input));
             else
                 WriteLine(line.Text);
@@ -30,10 +30,8 @@ public class Paragraph : INode
 
     private void FinalizeMessage()
     {
-        if(PressToContinue)
-        {
+        if (PressToContinue)
             ReadLine();
-        }
         else
         {
             //TODO - add delay
