@@ -1,6 +1,4 @@
-﻿using static ConsoleHero.MenuBuilder;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero;
 /// <summary>
 /// Extension methods for converting collections of strings and ColorLine objects to MenuOption arrays.
 /// </summary>
@@ -15,8 +13,8 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
     => condition == null
-    ? [.. list.Select(x => Description(x.Text).Color(x.Color).GoTo(() => effect(x.Text)))]
-    : [.. list.Select(x => Description(x.Text).Color(x.Color).If(() => condition(x.Text)).GoTo(() => effect(x.Text)))];
+    ? [.. list.Select(x => new MenuOption() { Description = x.Text, Color = x.Color, Effect = () => effect(x.Text) })]
+    : [.. list.Select(x => new MenuOption() { Description = x.Text, Color = x.Color, Effect = () => effect(x.Text), Check = () => condition(x.Text) })];
 
     /// <summary>
     /// Converts an IEnumerable of strings to an array of MenuOption objects. Each string is wrapped in a ColorLine using a default color.

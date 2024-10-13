@@ -15,7 +15,10 @@ public static class MenuBuilder
     {
         public IAddOptions ClearWhenAsk();
         public IAddOptions CustomSeperator(string seperator);
-        public IAddOptions Options(params MenuOption[] options);
+
+        public IOptionDescription Key(string key);
+        public IOptionDescription Key(char key);
+        public IOptionEffect Description(string description);
 
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null);
@@ -31,9 +34,26 @@ public static class MenuBuilder
         public Menu NoRefuse();
     }
 
-    private class Builder() : ISetTitle, IAddOptions
+    public interface IOptionDescription
+    {
+        public IOptionDescription IsCaseSensitive();
+        public IOptionEffect IsHidden();
+        public IOptionEffect Description(string description);
+    }
+
+    public interface IOptionEffect
+    {
+        public IOptionEffect Color(Color color);
+        public IOptionEffect If(Func<bool> condition);
+        public IOptionEffect If(bool condition);
+        public IAddOptions GoTo(Action action);
+        public IAddOptions GoTo(INode node);
+    }
+
+    private class Builder() : ISetTitle, IAddOptions, IOptionDescription, IOptionEffect
     {
         readonly Menu _item = new();
+        MenuOption _menuOption = new();
 
         public IAddOptions NoTitle() => this;
         public IAddOptions Title(string title, Color? color)
@@ -52,14 +72,66 @@ public static class MenuBuilder
             _item.Seperator = seperator;
             return this;
         }
-        public IAddOptions Options(params MenuOption[] options)
+
+
+        public IOptionDescription Key(string key)
         {
-            foreach (MenuOption option in options)
-            {
-                _item.Add(option);
-            }
+            _menuOption.Key = key;
+            _menuOption.UsesAutoKey = false;
             return this;
         }
+        public IOptionDescription Key(char key) => Key(key.ToString());
+
+
+        public IOptionDescription IsCaseSensitive()
+        {
+            _menuOption.IsCaseSensitive = true;
+            return this;
+        }
+        public IOptionEffect IsHidden()
+        {
+            _menuOption.IsHidden = true;
+            return this;
+        }
+        public IOptionEffect Description(string description)
+        {
+            _menuOption.Description = description;
+            return this;
+        }
+        public IOptionEffect Color(Color color)
+        {
+            _menuOption.Color = color;
+            return this;
+        }
+        public IOptionEffect If(Func<bool> condition)
+        {
+            _menuOption.Check = condition;
+            return this;
+        }
+        public IOptionEffect If(bool condition)
+        {
+            _menuOption.Check = () => condition;
+            return this;
+        }
+        public IAddOptions GoTo(Action action)
+        {
+            _menuOption.Effect = action;
+            _item.Add(_menuOption);
+            _menuOption = new();
+            return this;
+        }
+
+        public IAddOptions GoTo(INode node)
+        {
+            _menuOption.Effect = node.Call;
+            _item.Add(_menuOption);
+            _menuOption = new();
+            return this;
+        }
+
+
+
+
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
@@ -97,7 +169,7 @@ public static class MenuBuilder
         public Menu Cancel(char key) => Cancel(key.ToString());
         public Menu Cancel(string key)
         {
-            _item.Add(new OptionBuilder().Key(key).Description("Cancel").GoTo(() => { }));
+            _item.Add(new MenuOption() { Key = key, Description = "Cancel", Effect = () => { } });
             return _item;
         }
 
@@ -105,94 +177,10 @@ public static class MenuBuilder
         public Menu Exit(char key) => Exit(key.ToString());
         public Menu Exit(string key)
         {
-            _item.Add(new OptionBuilder().Key(key).Description("Exit").GoTo(() => Environment.Exit(0)));
+            _item.Add(new MenuOption() { Key = key, Description = "Exit", Effect = () => Environment.Exit(0) });
             return _item;
         }
 
         public Menu NoRefuse() => _item;
     }
-
-    #region OptionBuilder
-    /// <summary>
-    /// The input a user would need to give to activate this option.
-    /// </summary>
-    public static ISetDescription Key(string key) => new OptionBuilder().Key(key);
-    public static ISetDescription Key(char key) => new OptionBuilder().Key(key);
-
-    public static ISetEffect Description(string description) => new OptionBuilder().Description(description);
-
-    public interface ISetKey
-    {
-        public ISetDescription Key(string key);
-        public ISetDescription Key(char key);
-    }
-    public interface ISetDescription
-    {
-        public ISetDescription IsCaseSensitive();
-        public ISetEffect IsHidden();
-        public ISetEffect Description(string description);
-    }
-    public interface ISetEffect
-    {
-        public ISetEffect Color(Color color);
-        public ISetEffect If(Func<bool> condition);
-        public ISetEffect If(bool condition);
-        public MenuOption GoTo(Action action);
-        public MenuOption GoTo(INode node);
-    }
-
-    private class OptionBuilder() : ISetKey, ISetDescription, ISetEffect
-    {
-        readonly MenuOption _item = new();
-        public ISetDescription Key(string key)
-        {
-            _item.Key = key;
-            _item.UsesAutoKey = false;
-            return this;
-        }
-        public ISetDescription Key(char key) => Key(key.ToString());
-
-        public ISetDescription IsCaseSensitive()
-        {
-            _item.IsCaseSensitive = true;
-            return this;
-        }
-        public ISetEffect IsHidden()
-        {
-            _item.IsHidden = true;
-            return this;
-        }
-        public ISetEffect Description(string description)
-        {
-            _item.Description = description;
-            return this;
-        }
-        public ISetEffect Color(Color color)
-        {
-            _item.Color = color;
-            return this;
-        }
-        public ISetEffect If(Func<bool> condition)
-        {
-            _item.Check = condition;
-            return this;
-        }
-        public ISetEffect If(bool condition)
-        {
-            _item.Check = () => condition;
-            return this;
-        }
-        public MenuOption GoTo(Action action)
-        {
-            _item.Effect = action;
-            return _item;
-        }
-
-        public MenuOption GoTo(INode node)
-        {
-            _item.Effect = node.Call;
-            return _item;
-        }
-    }
-    #endregion
 }
