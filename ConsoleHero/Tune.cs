@@ -2,6 +2,11 @@
 
 namespace ConsoleHero;
 
+/// <summary>
+/// Start make a new Tune with any of the <see cref="TuneBuilder.Note(TuneBuilder.Tone, TuneBuilder.Duration)"/> overloads.
+/// Or use a methhod named after the note duration eg. <see cref="TuneBuilder.Quarter(TuneBuilder.Tone)"/>.
+/// <br><see cref="TuneBuilder.Beep"/> for a simple single beep.</br>
+/// </summary>
 public class Tune : INode
 {
     internal List<Note> Notes { get; set; } = [];

@@ -1,6 +1,4 @@
-﻿using static ConsoleHero.TuneBuilder;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero;
 public static class TuneBuilder
 {
     public enum Tone
