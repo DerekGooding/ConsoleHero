@@ -64,11 +64,20 @@ public static class TuneBuilder
         public ISetNotes Sixteeth(Tone tone);
         public ISetNotes Sixteeth(int tone);
 
+        public ISetConfirm GoTo(Action action);
+        public ISetConfirm GoTo(INode node);
+
         public Tune WaitToPlay();
         public Tune ContinueWhilePlaying();
     }
 
-    private class Builder() : ISetNotes
+    public interface ISetConfirm
+    {
+        public Tune WaitToPlay();
+        public Tune ContinueWhilePlaying();
+    }
+
+    private class Builder() : ISetNotes, ISetConfirm
     {
         readonly Tune _item = new();
 
@@ -149,6 +158,18 @@ public static class TuneBuilder
         public ISetNotes Sixteeth(int tone)
         {
             _item.Notes.Add(new(tone, (int)Duration.SIXTEENTH));
+            return this;
+        }
+
+        public ISetConfirm GoTo(Action action)
+        {
+            _item.Effect = action;
+            return this;
+        }
+
+        public ISetConfirm GoTo(INode node)
+        {
+            _item.Effect = node.Call;
             return this;
         }
     }

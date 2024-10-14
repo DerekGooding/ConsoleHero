@@ -12,6 +12,8 @@ public class Tune : INode
     internal List<Note> Notes { get; set; } = [];
     internal bool Wait { get; set; } = true;
 
+    internal Action Effect { get; set; } = () => { };
+
     internal Tune() { }
 
     internal readonly struct Note(int frequency, int time)
@@ -37,6 +39,7 @@ public class Tune : INode
             Play();
         else
             new Thread(Play).Start();
+        Effect.Invoke();
     }
 
     public void Call(string input) => Call();
