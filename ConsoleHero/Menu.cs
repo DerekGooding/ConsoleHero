@@ -1,5 +1,9 @@
 ﻿namespace ConsoleHero;
 
+
+/// <summary>
+/// Start making a new Menu with either <see cref="MenuBuilder.Title(string, Color?)"/> or <see cref="MenuBuilder.NoTitle"/>.
+/// </summary>
 public class Menu(List<MenuOption>? options = null) : INode
 {
     private List<MenuOption> Options { get; } = options ?? [];

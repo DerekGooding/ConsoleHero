@@ -1,6 +1,9 @@
 ﻿using ConsoleHero.Helpers;
 
 namespace ConsoleHero;
+/// <summary>
+/// Start making a new paragraph with <see cref="ParagraphBuilder.Line(string)"/>.
+/// </summary>
 public class Paragraph : INode
 {
     internal Paragraph() { }
@@ -9,6 +12,7 @@ public class Paragraph : INode
     internal object[] Arguments { get; set; } = [];
     internal bool PressToContinue { get; set; } = true;
     internal TimeSpan Delay { get; set; }
+    internal Action Effect { get; set; } = () => { };
 
     public void Call() => Print();
     public void Call(string input) => Print(input);
@@ -44,5 +48,6 @@ public class Paragraph : INode
         {
             Thread.Sleep(Delay);
         }
+        Effect.Invoke();
     }
 }

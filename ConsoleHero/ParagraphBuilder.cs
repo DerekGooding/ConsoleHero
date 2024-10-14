@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero;
+﻿using static ConsoleHero.MenuBuilder;
+
+namespace ConsoleHero;
 public static class ParagraphBuilder
 {
     /// <summary>
@@ -49,8 +51,23 @@ public static class ParagraphBuilder
         /// After displaying this paragraph, will wait for the user to press a key to continue.
         /// </summary>
         public Paragraph PressToContinue();
+
+        public ISetConfirm GoTo(Action action);
+        public ISetConfirm GoTo(INode node);
     }
-    private class Builder() : ISetLines
+
+    public interface ISetConfirm
+    {
+        /// <summary>
+        /// After displaying this paragraph, will wait before continuing without input.
+        /// </summary>
+        public Paragraph Delay(TimeSpan delay);
+        /// <summary>
+        /// After displaying this paragraph, will wait for the user to press a key to continue.
+        /// </summary>
+        public Paragraph PressToContinue();
+    }
+    private class Builder() : ISetLines, ISetConfirm
     {
         readonly Paragraph _item = new();
         public ISetLines Line(string text)
@@ -98,6 +115,18 @@ public static class ParagraphBuilder
         public ISetLines ModifiedInput(Func<object, string> modifier)
         {
             _item.Outputs[^1].Components.Add(new InputModifier(modifier));
+            return this;
+        }
+
+        public ISetConfirm GoTo(Action action)
+        {
+            _item.Effect = action;
+            return this;
+        }
+
+        public ISetConfirm GoTo(INode node)
+        {
+            _item.Effect = node.Call;
             return this;
         }
     }

@@ -129,9 +129,6 @@ public static class MenuBuilder
             return this;
         }
 
-
-
-
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
