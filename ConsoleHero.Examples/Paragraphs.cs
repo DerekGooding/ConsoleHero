@@ -17,4 +17,18 @@ public static class Paragraphs
     Line("Twice that number is ").ModifiedInput((x) => $"{int.Parse(x.ToString() ?? string.Empty) * 2}").Text(".").
     Line("This is ").Text("red", Color.Red).Text(" Text.").
     PressToContinue();
+
+    public static Paragraph Part1 =>
+    Line("You take a deep breath...").
+    GoTo(Part2).
+    Delay(TimeSpan.FromSeconds(2));
+
+    public static Paragraph Part2 =>
+    Line("You release the breath...").
+    GoTo(Part3).
+    Delay(TimeSpan.FromSeconds(2));
+
+    public static Paragraph Part3 =>
+    Line("Everything is fine.").
+    Delay(TimeSpan.FromSeconds(2));
 }
