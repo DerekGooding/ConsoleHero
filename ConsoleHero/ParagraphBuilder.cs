@@ -1,6 +1,4 @@
-﻿using static ConsoleHero.MenuBuilder;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero;
 public static class ParagraphBuilder
 {
     /// <summary>
@@ -47,6 +45,8 @@ public static class ParagraphBuilder
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
         public Paragraph Delay(TimeSpan delay);
+
+        public Paragraph DelayInSeconds(int seconds);
         /// <summary>
         /// After displaying this paragraph, will wait for the user to press a key to continue.
         /// </summary>
@@ -62,6 +62,8 @@ public static class ParagraphBuilder
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
         public Paragraph Delay(TimeSpan delay);
+
+        public Paragraph DelayInSeconds(int seconds);
         /// <summary>
         /// After displaying this paragraph, will wait for the user to press a key to continue.
         /// </summary>
@@ -97,6 +99,12 @@ public static class ParagraphBuilder
         public Paragraph Delay(TimeSpan delay)
         {
             _item.Delay = delay;
+            _item.PressToContinue = false;
+            return _item;
+        }
+        public Paragraph DelayInSeconds(int seconds)
+        {
+            _item.Delay = TimeSpan.FromSeconds(seconds);
             _item.PressToContinue = false;
             return _item;
         }

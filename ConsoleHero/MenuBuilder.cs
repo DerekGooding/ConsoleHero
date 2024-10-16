@@ -73,7 +73,6 @@ public static class MenuBuilder
             return this;
         }
 
-
         public IOptionDescription Key(string key)
         {
             _menuOption.Key = key;
@@ -81,7 +80,6 @@ public static class MenuBuilder
             return this;
         }
         public IOptionDescription Key(char key) => Key(key.ToString());
-
 
         public IOptionDescription IsCaseSensitive()
         {

@@ -10,6 +10,7 @@ public static class Menus
     Description("Approach Door").GoTo(DoorMenu).
     Description("Check Surroundings").GoTo(CheckSurroundingsMenu).
     Description("Take a breath").GoTo(Paragraphs.Part1).
+    Description("Change Name").GoTo(Requests.AskForName).
     Key("Mary").Description("Listen to Mary").GoTo(Tunes.Mary).
     Exit();
 

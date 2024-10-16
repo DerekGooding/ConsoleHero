@@ -5,7 +5,7 @@ namespace ConsoleHero.Examples;
 public static class Paragraphs
 {
     public static Paragraph Eat =>
-    Line("You just ate a ").Input().Text(".").
+    Line("You just ate a ").Input().Text($", {Data.Name}.").
     PressToContinue();
 
     public static Paragraph Crying =>
@@ -31,4 +31,8 @@ public static class Paragraphs
     public static Paragraph Part3 =>
     Line("Everything is fine.").
     Delay(TimeSpan.FromSeconds(2));
+
+    public static Paragraph YourNameIs =>
+    Line($"Your Name is now {Data.Name}.").
+    DelayInSeconds(2);
 }

@@ -3,6 +3,8 @@
 namespace ConsoleHero.Examples;
 public static class Data
 {
+    public static string Name { get; set; } = "Person";
+
     public readonly static List<string> Fruit =
     [
         "Apple",
