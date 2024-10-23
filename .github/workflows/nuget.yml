@@ -21,7 +21,7 @@ jobs:
       - name: Get the version from the .csproj file
         id: get_version
         run: |
-          VERSION=$(cat ConsoleHero\ConsoleHero.csproj | grep -oPm1 "(?<=<Version>)[^<]+")
+          VERSION=$(cat ConsoleHero/ConsoleHero.csproj | grep -oPm1 "(?<=<Version>)[^<]+")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Get the latest published version from NuGet
