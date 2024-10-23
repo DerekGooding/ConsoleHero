@@ -1,12 +1,9 @@
 ﻿namespace ConsoleHero;
 /// <summary>
-/// Start making a new request with <see cref="RequestBuilder.Ask(string)"> or <see cref="RequestBuilder.NoMessage"/>.
+/// Start making a new request with <see cref="RequestBuilder.Ask(string)"/> or <see cref="RequestBuilder.NoMessage"/>.
 /// </summary>
 public class Request : INode
 {
-    public void Call() => Ask();
-    public void Call(string input) => Call();
-
     internal Request() => FailMessage = $"This is not a valid {DataType}.";
 
     internal RequestBuilder.DataType DataType { get; set; }
@@ -21,8 +18,13 @@ public class Request : INode
 
     internal string ConfirmMessage { get; set; } = string.Empty;
 
-    internal string Ask()
+    internal bool ClearOnCall { get; set; }
+
+    public void Call(string input = "")
     {
+        if (ClearOnCall)
+            Clear();
+
         WriteLine(StartingMessage);
         string? result;
         while (string.IsNullOrEmpty(result = ReadLine()))
@@ -33,6 +35,5 @@ public class Request : INode
         Effect.Invoke(result);
         for (int i = 0; i < GlobalSettings.Spacing; i++)
             WriteLine();
-        return result;
     }
 }

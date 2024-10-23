@@ -19,6 +19,10 @@ public static class TuneBuilder
         Gsharp = 415,
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Roslynator",
+        "RCS1154:Sort enum members",
+        Justification = "Sorted for Human reading")]
     public enum Duration
     {
         WHOLE = 1600,
@@ -169,7 +173,7 @@ public static class TuneBuilder
 
         public ISetConfirm GoTo(INode node)
         {
-            _item.Effect = node.Call;
+            _item.Effect = () => node.Call();
             return this;
         }
     }

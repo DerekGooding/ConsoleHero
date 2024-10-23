@@ -5,6 +5,5 @@
 /// </summary>
 public interface INode
 {
-    public abstract void Call();
-    public abstract void Call(string input);
+    public abstract void Call(string input = "");
 }

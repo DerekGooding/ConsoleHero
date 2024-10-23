@@ -2,7 +2,7 @@
 
 namespace ConsoleHero;
 /// <summary>
-/// Start making a new paragraph with <see cref="ParagraphBuilder.Line(string)"/>.
+/// Start making a new paragraph with <see cref="ParagraphBuilder.Line(string)"/> or <see cref="ParagraphBuilder.ClearOnCall"/>.
 /// </summary>
 public class Paragraph : INode
 {
@@ -11,24 +11,25 @@ public class Paragraph : INode
     internal List<ParagraphLine> Outputs { get; set; } = [];
     internal object[] Arguments { get; set; } = [];
     internal bool PressToContinue { get; set; } = true;
+    internal bool ClearOnCall { get; set; }
     internal TimeSpan Delay { get; set; }
     internal Action Effect { get; set; } = () => { };
 
-    public void Call() => Print();
-    public void Call(string input) => Print(input);
-
-    public void Print(string input = "")
+    public void Call(string input = "")
     {
+        if (ClearOnCall)
+            Clear();
+
         foreach (ParagraphLine line in Outputs)
         {
-            foreach(ILineComponent component in line.Components)
+            foreach (ILineComponent component in line.Components)
             {
                 ColorHelper.SetTextColor(component.Color);
                 if (component is ColorText c)
                     Write(c.Text);
-                else if(component is InputPlaceholder)
+                else if (component is InputPlaceholder)
                     Write(input);
-                else if(component is InputModifier modifier)
+                else if (component is InputModifier modifier)
                     Write(modifier.Modifier.Invoke(input));
             }
             WriteLine();

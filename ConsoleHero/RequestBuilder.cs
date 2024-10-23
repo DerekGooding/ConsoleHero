@@ -14,14 +14,9 @@ public static class RequestBuilder
     public static ISetFail Ask(string message) => new Builder().Ask(message);
     public static ISetFail NoMessage() => new Builder().NoMessage();
 
-    public interface ISetOriginalAsk
-    {
-        public ISetFail Ask(string message);
-        public ISetFail NoMessage();
-    }
-
     public interface ISetFail
     {
+        public ISetFail ClearOnCall();
         public ISetDataType FailMessage(string message);
         public ISetEffect For(DataType dataType);
         public ISetUse Goto(Action<string> effect);
@@ -53,10 +48,15 @@ public static class RequestBuilder
         public Request Use<T>(Action<T> apply);
     }
 
-    internal class Builder : ISetOriginalAsk, ISetFail, ISetDataType, ISetEffect, ISetUse
+    internal class Builder : ISetFail, ISetDataType, ISetEffect, ISetUse
     {
         private readonly Request _item = new();
 
+        public ISetFail ClearOnCall()
+        {
+            _item.ClearOnCall = true;
+            return this;
+        }
         public ISetFail Ask(string message)
         {
             _item.StartingMessage = message;

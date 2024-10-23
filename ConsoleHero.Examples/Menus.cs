@@ -6,7 +6,7 @@ public static class Menus
 {
     public static Menu MainMenu =>
     Title("|---- Main Menu ----|", Color.Red).
-    ClearWhenAsk().
+    ClearOnCall().
     Description("Approach Door").GoTo(DoorMenu).
     Description("Check Surroundings").GoTo(CheckSurroundingsMenu).
     Description("Take a breath").GoTo(Paragraphs.Part1).

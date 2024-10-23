@@ -9,31 +9,20 @@ public class Menu(List<MenuOption>? options = null) : INode
 
     internal int Count => Options.Count;
     internal ColorText Title { get; set; } = new(string.Empty);
-    internal bool ClearWhenAsk { get; set; }
+    internal bool ClearOnCall { get; set; }
     internal string Seperator { get; set; } = " => ";
     internal void Add(MenuOption option) => Options.Add(option);
-
-    public void Call() => Ask();
-    public void Call(string input) => Ask();
-
-    internal void Print()
-    {
-        foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
-        {
-            option.Print(Seperator);
-        }
-    }
 
     /// <summary>
     /// Display all the menu Title and each unhidden option. Then wait for a user response.
     /// Failed responses will loop back and ask again.
     /// </summary>
-    public void Ask()
+    public void Call(string input = "")
     {
         if (Count == 0) return;
         AutoIncrimentKeys();
 
-        if (ClearWhenAsk)
+        if (ClearOnCall)
             Clear();
 
         if (Title.Text != string.Empty)
@@ -64,6 +53,15 @@ public class Menu(List<MenuOption>? options = null) : INode
             }
         }
     }
+
+    internal void Print()
+    {
+        foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
+        {
+            option.Print(Seperator);
+        }
+    }
+
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     private void AutoIncrimentKeys()

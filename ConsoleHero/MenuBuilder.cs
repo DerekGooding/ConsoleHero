@@ -13,7 +13,7 @@ public static class MenuBuilder
 
     public interface IAddOptions
     {
-        public IAddOptions ClearWhenAsk();
+        public IAddOptions ClearOnCall();
         public IAddOptions CustomSeperator(string seperator);
 
         public IOptionDescription Key(string key);
@@ -63,9 +63,9 @@ public static class MenuBuilder
             _item.Title = new ColorText(title, color);
             return this;
         }
-        public IAddOptions ClearWhenAsk()
+        public IAddOptions ClearOnCall()
         {
-            _item.ClearWhenAsk = true;
+            _item.ClearOnCall = true;
             return this;
         }
 
@@ -123,7 +123,7 @@ public static class MenuBuilder
 
         public IAddOptions GoTo(INode node)
         {
-            _menuOption.Effect = node.Call;
+            _menuOption.Effect = () => node.Call();
             _item.Add(_menuOption);
             _menuOption = new();
             return this;

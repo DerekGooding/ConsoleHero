@@ -1,6 +1,8 @@
 ﻿namespace ConsoleHero;
 public static class ParagraphBuilder
 {
+    public static ISetLines ClearOnCall() => new Builder().ClearOnCall();
+
     /// <summary>
     /// Start building a new line of text. Default color.
     /// </summary>
@@ -72,6 +74,13 @@ public static class ParagraphBuilder
     private class Builder() : ISetLines, ISetConfirm
     {
         readonly Paragraph _item = new();
+
+        public ISetLines ClearOnCall()
+        {
+            _item.ClearOnCall = true;
+            return this;
+        }
+
         public ISetLines Line(string text)
         {
             ParagraphLine line = new();
@@ -134,7 +143,7 @@ public static class ParagraphBuilder
 
         public ISetConfirm GoTo(INode node)
         {
-            _item.Effect = node.Call;
+            _item.Effect = () => node.Call();
             return this;
         }
     }

@@ -9,7 +9,7 @@ public static class Program
         GlobalSettings.DefaultTextColor = Color.LightBlue;
         while (true)
         {
-            Menus.MainMenu.Ask();
+            Menus.MainMenu.Call();
         }
     }
 

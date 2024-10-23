@@ -33,7 +33,7 @@ public class Tune : INode
         }
     }
 
-    public void Call()
+    public void Call(string input = "")
     {
         if (Wait)
             Play();
@@ -41,6 +41,4 @@ public class Tune : INode
             new Thread(Play).Start();
         Effect.Invoke();
     }
-
-    public void Call(string input) => Call();
 }
