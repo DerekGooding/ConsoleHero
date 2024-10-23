@@ -33,6 +33,8 @@ public class Paragraph : INode
             }
             WriteLine();
         }
+        for (int i = 0; i < GlobalSettings.Spacing; i++)
+            WriteLine();
         ColorHelper.SetToDefault();
 
         FinalizeMessage();

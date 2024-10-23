@@ -31,6 +31,8 @@ public class Request : INode
         }
         Apply.Invoke(result);
         Effect.Invoke(result);
+        for (int i = 0; i < GlobalSettings.Spacing; i++)
+            WriteLine();
         return result;
     }
 }
