@@ -41,11 +41,11 @@ public static class Menus
 
     public static Menu NumberMenu =>
     NoTitle().
-    OptionsFromList(Data.Numbers.Select(x => x.ToString()), Paragraphs.ReadNumbers).
+    OptionsFromList(Data.Numbers, Paragraphs.ReadNumbers).
     Cancel();
 
     public static Menu CheckSurroundingsMenu =>
     NoTitle().
-    OptionsFromList(Data.Numbers.Select(x => x.ToString()), Paragraphs.ReadNumbers).
+    OptionsFromList(Data.Numbers, Paragraphs.ReadNumbers).
     Cancel();
 }

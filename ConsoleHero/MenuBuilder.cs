@@ -24,6 +24,8 @@ public static class MenuBuilder
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null);
         public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, INode node, Func<string, bool>? condition = null);
 
         public Menu Cancel();
         public Menu Cancel(string key);
@@ -159,6 +161,11 @@ public static class MenuBuilder
             }
             return this;
         }
+
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null) 
+            => OptionsFromList(list.Select(x => x?.ToString() ?? "Null"), effect, condition);
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, INode node, Func<string, bool>? condition = null)
+            => OptionsFromList(list.Select(x => x?.ToString() ?? "Null"), node, condition);
 
         public Menu Cancel() => Cancel("C");
         public Menu Cancel(char key) => Cancel(key.ToString());

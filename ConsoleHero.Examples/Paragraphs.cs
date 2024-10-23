@@ -33,6 +33,6 @@ public static class Paragraphs
     Delay(TimeSpan.FromSeconds(2));
 
     public static Paragraph YourNameIs =>
-    Line($"Your Name is now {Data.Name}.").
+    Line("Your Name is now ").Input().Text(".").
     DelayInSeconds(2);
 }
