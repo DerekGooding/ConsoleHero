@@ -16,7 +16,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0'
 
       - name: Get the version from the .csproj file
         id: get_version
@@ -39,6 +39,7 @@ jobs:
           else
             echo "No new version detected"
             echo "run_publish=false" >> $GITHUB_ENV
+          fi
 
       - name: Restore dependencies
         run: dotnet restore
