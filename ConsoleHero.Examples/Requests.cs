@@ -7,5 +7,5 @@ public static class Requests
     Ask("What is your name?").
     For(DataType.String).
     Goto(Paragraphs.YourNameIs).
-    Use((x) => Data.Name = (string)x);
+    Use<string>((x) => Data.Name = x);
 }

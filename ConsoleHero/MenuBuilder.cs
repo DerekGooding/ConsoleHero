@@ -162,7 +162,7 @@ public static class MenuBuilder
             return this;
         }
 
-        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null) 
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null)
             => OptionsFromList(list.Select(x => x?.ToString() ?? "Null"), effect, condition);
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, INode node, Func<string, bool>? condition = null)
             => OptionsFromList(list.Select(x => x?.ToString() ?? "Null"), node, condition);

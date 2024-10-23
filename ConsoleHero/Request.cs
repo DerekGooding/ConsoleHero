@@ -11,9 +11,9 @@ public class Request : INode
 
     internal RequestBuilder.DataType DataType { get; set; }
 
-    internal Action<object> Apply { get; set; } = (_) => { };
+    internal Action<string> Apply { get; set; } = (_) => { };
 
-    internal Action Effect { get; set; } = () => { };
+    internal Action<string> Effect { get; set; } = (_) => { };
 
     internal string FailMessage { get; set; }
 
@@ -30,7 +30,7 @@ public class Request : INode
             WriteLine(FailMessage);
         }
         Apply.Invoke(result);
-        Effect.Invoke();
+        Effect.Invoke(result);
         return result;
     }
 }

@@ -24,29 +24,33 @@ public static class RequestBuilder
     {
         public ISetDataType FailMessage(string message);
         public ISetEffect For(DataType dataType);
-        public ISetUse Goto(Action effect);
+        public ISetUse Goto(Action<string> effect);
         public ISetUse Goto(INode node);
-        public Request Use(Action<object> apply);
+        public Request Use(Action<string> apply);
+        public Request Use<T>(Action<T> apply);
     }
 
     public interface ISetDataType
     {
         public ISetEffect For(DataType dataType);
-        public ISetUse Goto(Action effect);
+        public ISetUse Goto(Action<string> effect);
         public ISetUse Goto(INode node);
-        public Request Use(Action<object> apply);
+        public Request Use(Action<string> apply);
+        public Request Use<T>(Action<T> apply);
     }
 
     public interface ISetEffect
     {
-        public ISetUse Goto(Action effect);
+        public ISetUse Goto(Action<string> effect);
         public ISetUse Goto(INode node);
-        public Request Use(Action<object> apply);
+        public Request Use(Action<string> apply);
+        public Request Use<T>(Action<T> apply);
     }
 
     public interface ISetUse
     {
-        public Request Use(Action<object> apply);
+        public Request Use(Action<string> apply);
+        public Request Use<T>(Action<T> apply);
     }
 
     internal class Builder : ISetOriginalAsk, ISetFail, ISetDataType, ISetEffect, ISetUse
@@ -71,7 +75,7 @@ public static class RequestBuilder
             return this;
         }
 
-        public ISetUse Goto(Action effect)
+        public ISetUse Goto(Action<string> effect)
         {
             _item.Effect = effect;
             return this;
@@ -82,9 +86,14 @@ public static class RequestBuilder
             return this;
         }
 
-        public Request Use(Action<object> effect)
+        public Request Use(Action<string> effect)
         {
             _item.Apply = effect;
+            return _item;
+        }
+        public Request Use<T>(Action<T> effect)
+        {
+            _item.Apply = (string s) => effect((T)(object)s);
             return _item;
         }
     }
