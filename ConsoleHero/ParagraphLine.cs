@@ -1,6 +1,6 @@
 ﻿namespace ConsoleHero;
 
-public class ParagraphLine()
+internal class ParagraphLine()
 {
-    public List<ILineComponent> Components { get; } = [];
+    internal List<ILineComponent> Components { get; } = [];
 }

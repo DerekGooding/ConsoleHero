@@ -33,6 +33,9 @@ public class Tune : INode
         }
     }
 
+    /// <summary>
+    /// Plays the tune using beeps. If it was set to wait, will pause the thread. Otherwise, runs asynconously.
+    /// </summary>
     public void Call(string input = "")
     {
         if (Wait)

@@ -15,6 +15,9 @@ public class Paragraph : INode
     internal TimeSpan Delay { get; set; }
     internal Action Effect { get; set; } = () => { };
 
+    /// <summary>
+    /// Displays a block of text and then either waits for a key to be pressed or delays a number of seconds. 
+    /// </summary>
     public void Call(string input = "")
     {
         if (ClearOnCall)

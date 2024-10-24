@@ -1,54 +1,227 @@
 ﻿namespace ConsoleHero;
 
+/// <summary>
+/// 
+/// </summary>
 public static class MenuBuilder
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static IAddOptions NoTitle() => new Builder().NoTitle();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="color"></param>
+    /// <returns></returns>
     public static IAddOptions Title(string title, Color? color = null) => new Builder().Title(title, color);
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISetTitle
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IAddOptions NoTitle();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public IAddOptions Title(string title, Color? color);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAddOptions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IAddOptions ClearOnCall();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seperator"></param>
+        /// <returns></returns>
         public IAddOptions CustomSeperator(string seperator);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public IOptionDescription Key(string key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public IOptionDescription Key(char key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public IOptionEffect Description(string description);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="effect"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="node"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="effect"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="node"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="effect"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="node"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, INode node, Func<string, bool>? condition = null);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Menu Cancel();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Menu Cancel(string key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Menu Cancel(char key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Menu Exit();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Menu Exit(string key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Menu Exit(char key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Menu NoRefuse();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IOptionDescription
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IOptionDescription IsCaseSensitive();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IOptionEffect IsHidden();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public IOptionEffect Description(string description);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IOptionEffect
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public IOptionEffect Color(Color color);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IOptionEffect If(Func<bool> condition);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IOptionEffect If(bool condition);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public IAddOptions GoTo(Action action);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public IAddOptions GoTo(INode node);
     }
 

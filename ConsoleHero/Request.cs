@@ -20,6 +20,9 @@ public class Request : INode
 
     internal bool ClearOnCall { get; set; }
 
+    /// <summary>
+    /// Asks for a result and will give a failure message if not an appropriate response, asking again.
+    /// </summary>
     public void Call(string input = "")
     {
         if (ClearOnCall)

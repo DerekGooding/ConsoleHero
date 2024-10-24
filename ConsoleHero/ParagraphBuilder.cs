@@ -1,6 +1,13 @@
 ﻿namespace ConsoleHero;
+/// <summary>
+/// 
+/// </summary>
 public static class ParagraphBuilder
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static ISetLines ClearOnCall() => new Builder().ClearOnCall();
 
     /// <summary>
@@ -13,6 +20,9 @@ public static class ParagraphBuilder
     /// </summary>
     public static ISetLines Line(string text, Color color) => new Builder().Line(text, color);
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISetLines
     {
         /// <summary>
@@ -48,16 +58,34 @@ public static class ParagraphBuilder
         /// </summary>
         public Paragraph Delay(TimeSpan delay);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
         public Paragraph DelayInSeconds(int seconds);
         /// <summary>
         /// After displaying this paragraph, will wait for the user to press a key to continue.
         /// </summary>
         public Paragraph PressToContinue();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public ISetConfirm GoTo(Action action);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public ISetConfirm GoTo(INode node);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISetConfirm
     {
         /// <summary>
@@ -65,6 +93,11 @@ public static class ParagraphBuilder
         /// </summary>
         public Paragraph Delay(TimeSpan delay);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
         public Paragraph DelayInSeconds(int seconds);
         /// <summary>
         /// After displaying this paragraph, will wait for the user to press a key to continue.

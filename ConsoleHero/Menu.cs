@@ -14,7 +14,7 @@ public class Menu(List<MenuOption>? options = null) : INode
     internal void Add(MenuOption option) => Options.Add(option);
 
     /// <summary>
-    /// Display all the menu Title and each unhidden option. Then wait for a user response.
+    /// Display the menu Title and each unhidden option. Then wait for a user response.
     /// Failed responses will loop back and ask again.
     /// </summary>
     public void Call(string input = "")

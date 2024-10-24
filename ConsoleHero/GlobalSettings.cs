@@ -2,6 +2,9 @@
 
 namespace ConsoleHero;
 
+/// <summary>
+/// A static set of settings that affect all future console text printed with ConsoleHero.
+/// </summary>
 public static class GlobalSettings
 {
     /// <summary>
