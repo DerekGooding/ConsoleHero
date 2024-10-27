@@ -53,3 +53,4 @@ jobs:
       - name: Publish to NuGet
         if: env.run_publish == 'true'
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        continue-on-error: true
