@@ -16,7 +16,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageProjectUrl>https://github.com/DerekGooding/ConsoleHero</PackageProjectUrl>
 
-	  <PackageIcon>assets/icon.png</PackageIcon>
+	  <PackageIcon>icon.png</PackageIcon>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <DocumentationFile>bin\ConsoleHero.xml</DocumentationFile>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <EmbeddedResource Remove="ReadmeImages\**" />
     <None Remove="ReadmeImages\**" />
 	<None Include="README.md" Pack="true" PackagePath="\" />
-	<Resource Include="assets/icon.png" Pack="true" PackagePath="" />
+	<Resource Include="assets/icon.png" Pack="true" PackagePath="icon.png" />
   </ItemGroup>
 
 </Project>
