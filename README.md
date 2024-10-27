@@ -1,4 +1,6 @@
 # ConsoleHero
+<img src="https://github.com/DerekGooding/ConsoleHero/blob/master/ConsoleHero/assets/icon.png" width=15%>
+
 [![NuGet](https://img.shields.io/nuget/v/ConsoleHero.svg)](https://www.nuget.org/packages/ConsoleHero/) 
 [![GitHub license](https://img.shields.io/github/license/DerekGooding/ConsoleHero?color=blue)](https://github.com/DerekGooding/ConsoleHero/blob/master/LICENSE)
 <!---[![GitHub stars](https://img.shields.io/github/stars/DerekGooding/ConsoleHero?logo=github&style=flat)](https://github.com/modernuo/ModernUO/stargazers)-->
