@@ -214,14 +214,23 @@ public static class TuneBuilder
 
         public ISetNotes Sixteeth(int tone);
 
-
+        /// <summary>
+        /// Specifies an action to execute when the sequence is reached.
+        /// </summary>
         public ISetConfirm GoTo(Action action);
-
+        /// <summary>
+        /// Specifies a node to transition to when the sequence is reached.
+        /// </summary>
         public ISetConfirm GoTo(INode node);
 
-
+        /// <summary>
+        /// Waits for the tune to complete before continuing.
+        /// </summary>
         public Tune WaitToPlay();
 
+        /// <summary>
+        /// The tune will be played asynconously. If thie node has a GoTo, it will call it immediately.
+        /// </summary>
         public Tune ContinueWhilePlaying();
     }
 
