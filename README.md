@@ -1,5 +1,8 @@
 # ConsoleHero
-[![NuGet](https://img.shields.io/nuget/v/ConsoleHero.svg)](https://www.nuget.org/packages/ConsoleHero/)
+[![NuGet](https://img.shields.io/nuget/v/ConsoleHero.svg)](https://www.nuget.org/packages/ConsoleHero/) 
+[![GitHub license](https://img.shields.io/github/license/DerekGooding/ConsoleHero?color=blue)](https://github.com/DerekGooding/ConsoleHero/blob/master/LICENSE)
+<!---[![GitHub stars](https://img.shields.io/github/stars/DerekGooding/ConsoleHero?logo=github&style=flat)](https://github.com/modernuo/ModernUO/stargazers)-->
+[![GitHub issues](https://img.shields.io/github/issues/DerekGooding/ConsoleHero?logo=github)](https://github.com/DerekGooding/ConsoleHero/issues)
 
 A light-weight library to help quickly and fluently develop Console application UI. 
 
