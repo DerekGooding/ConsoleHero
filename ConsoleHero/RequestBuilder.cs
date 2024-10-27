@@ -6,46 +6,50 @@
 public static class RequestBuilder
 {
     /// <summary>
-    /// 
+    /// The requirement datatype for the user input. By setting this to something specific, a check is done during input.
+    /// If the response fails to meet this reqirement, the user is informed and requested again. 
     /// </summary>
     public enum DataType
     {
         /// <summary>
-        /// 
+        /// By default. The requirement of a user input is string which covers everything except a null response.
         /// </summary>
         String,
         /// <summary>
-        /// 
+        /// Not yet implimented.
         /// </summary>
         Int,
         /// <summary>
-        /// 
+        /// Not yet implimented.
         /// </summary>
         Double,
         /// <summary>
-        /// 
+        /// Not yet implimented.
         /// </summary>
         DateTime,
         /// <summary>
-        /// 
+        /// Not yet implimented.
         /// </summary>
         FilePath,
     }
 
     /// <summary>
-    /// 
+    /// The message shown to the user before waiting on a response.
     /// </summary>
-    /// <param name="message"></param>
-    /// <returns></returns>
     public static ISetFail Ask(string message) => new Builder().Ask(message);
     /// <summary>
-    /// 
+    /// There is no additional message. 
+    /// Useful if you connect a request right after a paragraph, allowing for more complicated, multi-line messages.
     /// </summary>
-    /// <returns></returns>
     public static ISetFail NoMessage() => new Builder().NoMessage();
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="ClearOnCall"/></br>
+    /// <br><see cref="FailMessage(string)"/></br>
+    /// <br><see cref="For(DataType)"/></br>
+    /// <br><see cref="Goto(INode)"/> </br>
+    /// <br><see cref="Use(Action{string})"/></br>
     /// </summary>
     public interface ISetFail
     {
@@ -94,7 +98,10 @@ public static class RequestBuilder
     }
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="For(DataType)"/></br>
+    /// <br><see cref="Goto(INode)"/> </br>
+    /// <br><see cref="Use(Action{string})"/></br>
     /// </summary>
     public interface ISetDataType
     {
@@ -132,7 +139,9 @@ public static class RequestBuilder
     }
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="Goto(INode)"/> </br>
+    /// <br><see cref="Use(Action{string})"/></br>
     /// </summary>
     public interface ISetEffect
     {
@@ -164,7 +173,7 @@ public static class RequestBuilder
     }
 
     /// <summary>
-    /// 
+    /// Finish the build with a <see cref="Use(Action{string})"/>.
     /// </summary>
     public interface ISetUse
     {
