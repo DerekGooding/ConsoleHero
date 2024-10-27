@@ -1,6 +1,6 @@
 ﻿namespace ConsoleHero;
 /// <summary>
-/// 
+/// The builder class for handling new <see cref="Paragraph"/>s.
 /// </summary>
 public static class ParagraphBuilder
 {

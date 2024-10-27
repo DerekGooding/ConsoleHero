@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero;
 
 /// <summary>
-/// 
+/// The builder class for handling new <see cref="Menu"/>s.
 /// </summary>
 public static class MenuBuilder
 {

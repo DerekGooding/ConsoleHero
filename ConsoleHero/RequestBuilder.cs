@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero;
 
 /// <summary>
-/// 
+/// The builder class for handling new <see cref="Request"/>s.
 /// </summary>
 public static class RequestBuilder
 {
