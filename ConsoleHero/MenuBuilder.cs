@@ -24,14 +24,14 @@ public static class MenuBuilder
     public interface ISetTitle
     {
         /// <summary>
-        /// 
+        /// This menu has no title.
         /// </summary>
         public IAddOptions NoTitle();
         /// <summary>
-        /// 
+        /// The title for this menu.
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="color"></param>
+        /// <param name="title">The full string that will be printed.</param>
+        /// <param name="color">Can be a custom color from the rest of the options text.</param>
         /// <returns></returns>
         public IAddOptions Title(string title, Color? color);
     }
@@ -50,125 +50,81 @@ public static class MenuBuilder
     public interface IAddOptions
     {
         /// <summary>
-        /// 
+        /// Clear the console when this <see cref="INode"/> is called.
         /// </summary>
-        /// <returns></returns>
         public IAddOptions ClearOnCall();
         /// <summary>
-        /// 
+        /// Change the default " => " seperator.
         /// </summary>
-        /// <param name="seperator"></param>
-        /// <returns></returns>
+        /// <param name="seperator">The full string that will be printed between the key and description of a <see cref="MenuOption"/></param>
         public IAddOptions CustomSeperator(string seperator);
 
         /// <summary>
-        /// 
+        /// What the user will need to input to choose this option.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public IOptionDescription Key(string key);
         /// <summary>
-        /// 
+        /// What the user will need to input to choose this option.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public IOptionDescription Key(char key);
         /// <summary>
-        /// 
+        /// The text that is displayed to explain what this option does when the <see cref="Menu"/> is Called.
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
+        /// <param name="description">The full string to be printed after the Key and seperator.</param>
         public IOptionEffect Description(string description);
 
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="effect"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="node"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null);
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="effect"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="node"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="effect"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<string> effect, Func<string, bool>? condition = null);
         /// <summary>
-        /// 
+        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="node"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, INode node, Func<string, bool>? condition = null);
 
         /// <summary>
-        /// 
+        /// Adds an option with Key = "c" and Description = "Cancel" that ends the <see cref="INode"/> chain.
         /// </summary>
-        /// <returns></returns>
         public Menu Cancel();
         /// <summary>
-        /// 
+        /// Adds an option with a custom key and Description = "Cancel" that ends the <see cref="INode"/> chain.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public Menu Cancel(string key);
         /// <summary>
-        /// 
+        /// Adds an option with a custom key and Description = "Cancel" that ends the <see cref="INode"/> chain.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public Menu Cancel(char key);
         /// <summary>
-        /// 
+        /// Adds an option with Key = "x" and Description = "Exit" that closes the application.
         /// </summary>
-        /// <returns></returns>
         public Menu Exit();
         /// <summary>
-        /// 
+        /// Adds an option with a custom key and Description = "Exit" that closes the application.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public Menu Exit(string key);
         /// <summary>
-        /// 
+        /// Adds an option with a custom key and Description = "Exit" that closes the application.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public Menu Exit(char key);
         /// <summary>
-        /// 
+        /// No backing out, the user must give a valid option.
         /// </summary>
-        /// <returns></returns>
         public Menu NoRefuse();
     }
 
@@ -181,20 +137,17 @@ public static class MenuBuilder
     public interface IOptionDescription
     {
         /// <summary>
-        /// 
+        /// By default, user inputs are case agnostic. This sets the option to accept a case sensitive key only.
         /// </summary>
-        /// <returns></returns>
         public IOptionDescription IsCaseSensitive();
         /// <summary>
-        /// 
+        /// The user can choose this option by inputting the key but it is not displayed when the <see cref="Menu"/> is Called.
         /// </summary>
-        /// <returns></returns>
         public IOptionEffect IsHidden();
         /// <summary>
-        /// 
+        /// The text that is displayed to explain what this option does when the <see cref="Menu"/> is Called.
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
+        /// <param name="description">The full string to be printed after the Key and seperator.</param>
         public IOptionEffect Description(string description);
     }
 
@@ -207,34 +160,24 @@ public static class MenuBuilder
     public interface IOptionEffect
     {
         /// <summary>
-        /// 
+        /// Sets the custom color text will be printed for this specific <see cref="MenuOption"/>.
         /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
         public IOptionEffect Color(Color color);
         /// <summary>
-        /// 
+        /// If this function returns false, this <see cref="MenuOption"/> will not be printed or be a choice for user input.
         /// </summary>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IOptionEffect If(Func<bool> condition);
         /// <summary>
-        /// 
+        /// If this function returns false, this <see cref="MenuOption"/> will not be printed or be a choice for user input.
         /// </summary>
-        /// <param name="condition"></param>
-        /// <returns></returns>
         public IOptionEffect If(bool condition);
         /// <summary>
-        /// 
+        /// The next custom action to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
         public IAddOptions GoTo(Action action);
         /// <summary>
-        /// 
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         public IAddOptions GoTo(INode node);
     }
 
