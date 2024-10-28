@@ -8,7 +8,6 @@ public static class MenuBuilder
     /// <summary>
     /// 
     /// </summary>
-    /// <returns></returns>
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     /// <summary>
     /// 
@@ -19,14 +18,15 @@ public static class MenuBuilder
     public static IAddOptions Title(string title, Color? color = null) => new Builder().Title(title, color);
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="NoTitle"/></br>
+    /// <br><see cref="Title(string, Color?)"/></br>
     /// </summary>
     public interface ISetTitle
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
         public IAddOptions NoTitle();
         /// <summary>
         /// 
@@ -38,7 +38,15 @@ public static class MenuBuilder
     }
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="ClearOnCall"/></br>
+    /// <br><see cref="CustomSeperator(string)"/></br>
+    /// <br><see cref="Key(string)"/></br>
+    /// <br><see cref="Description(string)"/> </br>
+    /// <br><see cref="OptionsFromList(IEnumerable{string}, INode, Func{string, bool}?)"/></br>
+    /// <br><see cref="Cancel()"/> </br>
+    /// <br><see cref="Exit()"/> </br>
+    /// <br><see cref="NoRefuse()"/> </br>
     /// </summary>
     public interface IAddOptions
     {
@@ -166,7 +174,10 @@ public static class MenuBuilder
     }
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="IsCaseSensitive"/></br>
+    /// <br><see cref="IsHidden()"/></br>
+    /// <br><see cref="Description(string)"/></br>
     /// </summary>
     public interface IOptionDescription
     {
@@ -189,7 +200,10 @@ public static class MenuBuilder
     }
 
     /// <summary>
-    /// 
+    /// Continue building with one of the following:
+    /// <br><see cref="Color(Color)"/></br>
+    /// <br><see cref="If(bool)"/></br>
+    /// <br><see cref="GoTo(INode)"/></br>
     /// </summary>
     public interface IOptionEffect
     {

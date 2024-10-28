@@ -38,7 +38,7 @@ public static class RequestBuilder
     /// </summary>
     public static ISetFail Ask(string message) => new Builder().Ask(message);
     /// <summary>
-    /// There is no additional message. 
+    /// There is no additional message.
     /// Useful if you connect a request right after a paragraph, allowing for more complicated, multi-line messages.
     /// </summary>
     public static ISetFail NoMessage() => new Builder().NoMessage();
