@@ -6,15 +6,14 @@
 public static class MenuBuilder
 {
     /// <summary>
-    /// 
+    /// This menu has no title.
     /// </summary>
     public static IAddOptions NoTitle() => new Builder().NoTitle();
     /// <summary>
-    /// 
+    /// The title for this menu.
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="color"></param>
-    /// <returns></returns>
+    /// <param name="title">The full string that will be printed.</param>
+    /// <param name="color">Can be a custom color from the rest of the options text.</param>
     public static IAddOptions Title(string title, Color? color = null) => new Builder().Title(title, color);
 
     /// <summary>

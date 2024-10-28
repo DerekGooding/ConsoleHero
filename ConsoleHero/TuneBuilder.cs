@@ -178,40 +178,76 @@ public static class TuneBuilder
     public static ISetNotes Sixteeth(int customTone) => new Builder().Sixteeth(customTone);
 
     /// <summary>
-    /// Interface for setting up notes in a sequence.
+    /// Continue building with one of the following:
+    /// <br><see cref="Note(Tone, Duration)"/></br>
+    /// <br><see cref="Beep()"/></br>
+    /// <br>Any <see cref="Duration"/> is also an option. Ex <see cref="Quarter(Tone)"/></br>
+    /// <br><see cref="GoTo(INode)"/></br>
+    /// <br><see cref="WaitToPlay()"/></br>
+    /// <br><see cref="ContinueWhilePlaying()"/></br>
     /// </summary>
     public interface ISetNotes
     {
-
+        /// <summary>
+        /// Plays a single beep tone with default settings.
+        /// </summary>
         public Tune Beep();
-
+        /// <summary>
+        /// Adds a note with a specified tone and duration.
+        /// </summary>
         public ISetNotes Note(Tone tone, Duration duration);
-
+        /// <summary>
+        /// Adds a note with a custom frequency (Hz) and a predefined duration.
+        /// </summary>
         public ISetNotes Note(int customTone, Duration duration);
-
+        /// <summary>
+        /// Adds a note with a specified tone and custom duration.
+        /// </summary>
         public ISetNotes Note(Tone tone, int customDuration);
-
+        /// <summary>
+        /// Adds a note with custom frequency and custom duration.
+        /// </summary>
         public ISetNotes Note(int customTone, int customDuration);
 
-
+        /// <summary>
+        /// Adds a quarter note with the specified tone.
+        /// </summary>
         public ISetNotes Quarter(Tone tone);
-
+        /// <summary>
+        /// Adds a quarter note with a custom frequency.
+        /// </summary>
         public ISetNotes Quarter(int tone);
-
+        /// <summary>
+        /// Adds a whole note with the specified tone.
+        /// </summary>
         public ISetNotes Whole(Tone tone);
-
+        /// <summary>
+        /// Adds a whole note with a custom frequency.
+        /// </summary>
         public ISetNotes Whole(int tone);
-
+        /// <summary>
+        /// Adds a half note with the specified tone.
+        /// </summary>
         public ISetNotes Half(Tone tone);
-
+        /// <summary>
+        /// Adds a half note with a custom frequency.
+        /// </summary>
         public ISetNotes Half(int tone);
-
+        /// <summary>
+        /// Adds a eighth note with the specified tone.
+        /// </summary>
         public ISetNotes Eighth(Tone tone);
-
+        /// <summary>
+        /// Adds a eighth note with a custom frequency.
+        /// </summary>
         public ISetNotes Eighth(int tone);
-
+        /// <summary>
+        /// Adds a sixteenth note with the specified tone.
+        /// </summary>
         public ISetNotes Sixteeth(Tone tone);
-
+        /// <summary>
+        /// Adds a sixteenth note with a custom frequency.
+        /// </summary>
         public ISetNotes Sixteeth(int tone);
 
         /// <summary>
@@ -234,11 +270,21 @@ public static class TuneBuilder
         public Tune ContinueWhilePlaying();
     }
 
-
+    /// <summary>
+    /// Continue building with one of the following:
+    /// <br><see cref="WaitToPlay"/></br>
+    /// <br><see cref="ContinueWhilePlaying()"/></br>
+    /// </summary>
     public interface ISetConfirm
     {
+        /// <summary>
+        /// Waits for the tune to complete before continuing.
+        /// </summary>
         public Tune WaitToPlay();
 
+        /// <summary>
+        /// The tune will be played asynconously. If thie node has a GoTo, it will call it immediately.
+        /// </summary>
         public Tune ContinueWhilePlaying();
     }
 
