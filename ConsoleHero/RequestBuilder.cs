@@ -7,7 +7,7 @@ public static class RequestBuilder
 {
     /// <summary>
     /// The requirement datatype for the user input. By setting this to something specific, a check is done during input.
-    /// If the response fails to meet this reqirement, the user is informed and requested again. 
+    /// If the response fails to meet this reqirement, the user is informed and requested again.
     /// </summary>
     public enum DataType
     {
@@ -56,7 +56,6 @@ public static class RequestBuilder
         /// <summary>
         /// Clear the console when this <see cref="INode"/> is called.
         /// </summary>
-        /// <returns></returns>
         public ISetFail ClearOnCall();
         /// <summary>
         /// Set a custom message to inform the user an erronous response has been given.
