@@ -13,9 +13,25 @@ internal static class ListExtensions
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
-    => condition == null
-    ? [.. list.Select(x => new MenuOption() { Description = x.Text, Color = ((ILineComponent)x).Color, Effect = () => effect(x.Text) })]
-    : [.. list.Select(x => new MenuOption() { Description = x.Text, Color = ((ILineComponent)x).Color, Effect = () => effect(x.Text), Check = () => condition(x.Text) })];
+    {
+        List<MenuOption> options = [];
+        foreach (ColorText x in list)
+        {
+            Color color = ((ILineComponent)x).Color;  // Cache cast
+            MenuOption menuOption = new()
+            {
+                Description = x.Text,
+                Color = color,
+                Effect = () => effect(x.Text)
+            };
+            if (condition != null)
+            {
+                menuOption.Check = () => condition(x.Text);
+            }
+            options.Add(menuOption);
+        }
+        return [.. options];
+    }
 
     /// <summary>
     /// Converts an IEnumerable of strings to an array of MenuOption objects. Each string is wrapped in a ColorLine using a default color.
@@ -25,7 +41,10 @@ internal static class ListExtensions
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
-        => list.Select(x => new ColorText(x, GlobalSettings.DefaultTextColor)).ToOptions(effect, condition);
+    {
+        IEnumerable<ColorText> colorTextList = list.Select(x => new ColorText(x, GlobalSettings.DefaultTextColor));
+        return colorTextList.ToOptions(effect, condition);
+    }
 
     /// <summary>
     /// Converts an IEnumerable of ColorLine objects to an array of MenuOption objects, linking the effect to an INode object.

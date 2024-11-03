@@ -7,10 +7,10 @@
 	  
 	 <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
-    <Version>0.1.3</Version>
+    <Version>0.1.4</Version>
     <Authors>Derek Gooding</Authors>
     <Description>A library for making quick menus in a console application.</Description>
-	<PackageTags>Console;FluentAPI;Menu;CLI;ConsoleApp;CSharp;UserInterface;MenuNavigation;Scalable;ConsoleMenu</PackageTags>
+	<PackageTags>Console;FluentAPI;Menu;CLI;ConsoleApp;CSharp;UserInterface;MenuNavigation;Scalable;ConsoleMenu;Fluent;</PackageTags>
 
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -7,7 +7,7 @@ public static class RequestBuilder
 {
     /// <summary>
     /// The requirement datatype for the user input. By setting this to something specific, a check is done during input.
-    /// If the response fails to meet this reqirement, the user is informed and requested again. 
+    /// If the response fails to meet this reqirement, the user is informed and requested again.
     /// </summary>
     public enum DataType
     {
@@ -38,7 +38,7 @@ public static class RequestBuilder
     /// </summary>
     public static ISetFail Ask(string message) => new Builder().Ask(message);
     /// <summary>
-    /// There is no additional message. 
+    /// There is no additional message.
     /// Useful if you connect a request right after a paragraph, allowing for more complicated, multi-line messages.
     /// </summary>
     public static ISetFail NoMessage() => new Builder().NoMessage();
@@ -54,46 +54,33 @@ public static class RequestBuilder
     public interface ISetFail
     {
         /// <summary>
-        /// 
+        /// Clear the console when this <see cref="INode"/> is called.
         /// </summary>
-        /// <returns></returns>
         public ISetFail ClearOnCall();
         /// <summary>
-        /// 
+        /// Set a custom message to inform the user an erronous response has been given.
         /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="message">The full string message to be printed when a failed user input is given.</param>
         public ISetDataType FailMessage(string message);
         /// <summary>
-        /// 
+        /// Set a restriction for the type of response the user can give as a valid response.
         /// </summary>
-        /// <param name="dataType"></param>
-        /// <returns></returns>
         public ISetEffect For(DataType dataType);
         /// <summary>
-        /// 
+        /// The next custom action to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="effect"></param>
-        /// <returns></returns>
         public ISetUse Goto(Action<string> effect);
         /// <summary>
-        /// 
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         public ISetUse Goto(INode node);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use(Action<string> apply);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use<T>(Action<T> apply);
     }
 
@@ -106,35 +93,24 @@ public static class RequestBuilder
     public interface ISetDataType
     {
         /// <summary>
-        /// 
+        /// Set a restriction for the type of response the user can give as a valid response.
         /// </summary>
-        /// <param name="dataType"></param>
-        /// <returns></returns>
         public ISetEffect For(DataType dataType);
         /// <summary>
-        /// 
+        /// The next custom action to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="effect"></param>
-        /// <returns></returns>
         public ISetUse Goto(Action<string> effect);
         /// <summary>
-        /// 
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         public ISetUse Goto(INode node);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use(Action<string> apply);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use<T>(Action<T> apply);
     }
 
@@ -146,29 +122,20 @@ public static class RequestBuilder
     public interface ISetEffect
     {
         /// <summary>
-        /// 
+        /// The next custom action to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="effect"></param>
-        /// <returns></returns>
         public ISetUse Goto(Action<string> effect);
         /// <summary>
-        /// 
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         public ISetUse Goto(INode node);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use(Action<string> apply);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use<T>(Action<T> apply);
     }
 
@@ -178,17 +145,12 @@ public static class RequestBuilder
     public interface ISetUse
     {
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use(Action<string> apply);
         /// <summary>
-        /// 
+        /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="apply"></param>
-        /// <returns></returns>
         public Request Use<T>(Action<T> apply);
     }
 
