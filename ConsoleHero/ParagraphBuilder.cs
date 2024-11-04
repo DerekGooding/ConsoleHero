@@ -24,7 +24,7 @@ public static class ParagraphBuilder
     /// <br><see cref="Line(string, Color)"/></br>
     /// <br><see cref="Text(string, Color)"/></br>
     /// <br><see cref="Input()"/></br>
-    /// <br><see cref="ModifiedInput(Func{object, string})"/></br>
+    /// <br><see cref="ModifiedInput(Func{string, string})"/></br>
     /// <br><see cref="DelayInSeconds(double)"/></br>
     /// <br><see cref="Delay(TimeSpan)"/></br>
     /// </summary>
@@ -57,11 +57,11 @@ public static class ParagraphBuilder
         /// <summary>
         /// Add the input variable to this line but apply some modifier to it. Default Color.
         /// </summary>
-        public ISetLines ModifiedInput(Func<object, string> modifier);
+        public ISetLines ModifiedInput(Func<string, string> modifier);
         /// <summary>
         /// Add the input variable to this line but apply some modifier to it. Custom Color.
         /// </summary>
-        public ISetLines ModifiedInput(Func<object, string> modifier, Color color);
+        public ISetLines ModifiedInput(Func<string, string> modifier, Color color);
         /// <summary>
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
@@ -166,12 +166,12 @@ public static class ParagraphBuilder
             _item.Outputs[^1].Components.Add(new InputPlaceholder(color));
             return this;
         }
-        public ISetLines ModifiedInput(Func<object, string> modifier)
+        public ISetLines ModifiedInput(Func<string, string> modifier)
         {
             _item.Outputs[^1].Components.Add(new InputModifier(modifier));
             return this;
         }
-        public ISetLines ModifiedInput(Func<object, string> modifier, Color color)
+        public ISetLines ModifiedInput(Func<string, string> modifier, Color color)
         {
             _item.Outputs[^1].Components.Add(new InputModifier(modifier, color));
             return this;

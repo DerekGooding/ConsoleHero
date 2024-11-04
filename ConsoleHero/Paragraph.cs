@@ -16,7 +16,7 @@ public class Paragraph : INode
     internal Action Effect { get; set; } = () => { };
 
     /// <summary>
-    /// Displays a block of text and then either waits for a key to be pressed or delays a number of seconds. 
+    /// Displays a block of text and then either waits for a key to be pressed or delays a number of seconds.
     /// </summary>
     public void Call(string input = "")
     {

@@ -13,13 +13,13 @@ public static class Paragraphs
     PressToContinue();
 
     public static Paragraph ReadNumbers =>
-    Line("You read the number ").Input().Text(".").
-    Line("Twice that number is ").ModifiedInput((x) => $"{int.Parse(x.ToString() ?? string.Empty) * 2}").Text(".").
+    Line("You read the number ").Input(GlobalSettings.DefaultTextColor).Text(".").
+    Line("Twice that number is ").ModifiedInput((x) => $"{int.Parse(x) * 2}").Text(".").
     Line("This is ").Text("red", Color.Red).Text(" Text.").
     PressToContinue();
 
     public static Paragraph ReadPlayers =>
-    Line("").ModifiedInput((x) => ((Player)x).Review(), Color.Red).
+    Line("").Input(Color.Red).
     PressToContinue();
 
     public static Paragraph Part1 =>
