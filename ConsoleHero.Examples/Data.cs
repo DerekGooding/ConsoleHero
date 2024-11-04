@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Xml.Linq;
 
 namespace ConsoleHero.Examples;
 public static class Data
@@ -22,11 +23,32 @@ public static class Data
         "Artichoke".         Color(Color.Green)
     ];
 
-    public readonly static List<int> Numbers =
+    public readonly static List<Number> Numbers =
     [
-        7000,
-        8888,
-        9001,
-        55,
+        new(7000),
+        new(8888),
+        new(9001),
+        new(55),
     ];
+
+    public readonly static List<Player> Players =
+    [
+        new("Cathy"),
+        new("Jim"),
+        new("Moose")
+    ];
+}
+
+public class Player(string name) : IMenuOption
+{
+    public string Name { get; set; } = name;
+    public int Health { get; set; } = 100;
+    public ColorText Print() => Name.DefaultColor();
+    public string Review() => $"{Name} | Health : {Health}";
+}
+
+public class Number(int value) : IMenuOption
+{
+    public int Value { get; } = value;
+    public ColorText Print() => $"{Value}".DefaultColor();
 }

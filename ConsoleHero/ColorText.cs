@@ -4,6 +4,8 @@ namespace ConsoleHero;
 
 /// <summary>
 /// A holder for a string and a color. Is consumed by ConsoleHero and it's implimented <see cref="INode"/>.
+/// <br>To create a ColorText object, use the <see cref="StringExtensions.Color"/> or <see cref="StringExtensions.DefaultColor"/> with any string.</br>
+/// <br>Example: "ExampleText123".DefaultColor();</br>
 /// <br/>
 /// <br><see cref="Menu"/></br>
 /// <br><see cref="Paragraph"/></br>

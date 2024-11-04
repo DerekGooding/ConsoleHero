@@ -51,13 +51,17 @@ public static class ParagraphBuilder
         /// </summary>
         public ISetLines Input();
         /// <summary>
-        /// Add the input variable to this line. Custom color.
+        /// Add the input variable to this line. Custom Color.
         /// </summary>
         public ISetLines Input(Color color);
         /// <summary>
-        /// Add the input variable to this line but apply some modifier to it.
+        /// Add the input variable to this line but apply some modifier to it. Default Color.
         /// </summary>
         public ISetLines ModifiedInput(Func<object, string> modifier);
+        /// <summary>
+        /// Add the input variable to this line but apply some modifier to it. Custom Color.
+        /// </summary>
+        public ISetLines ModifiedInput(Func<object, string> modifier, Color color);
         /// <summary>
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
@@ -154,7 +158,7 @@ public static class ParagraphBuilder
 
         public ISetLines Input()
         {
-            _item.Outputs[^1].Components.Add(new InputPlaceholder(GlobalSettings.DefaultTextColor));
+            _item.Outputs[^1].Components.Add(new InputPlaceholder());
             return this;
         }
         public ISetLines Input(Color color)
@@ -165,6 +169,11 @@ public static class ParagraphBuilder
         public ISetLines ModifiedInput(Func<object, string> modifier)
         {
             _item.Outputs[^1].Components.Add(new InputModifier(modifier));
+            return this;
+        }
+        public ISetLines ModifiedInput(Func<object, string> modifier, Color color)
+        {
+            _item.Outputs[^1].Components.Add(new InputModifier(modifier, color));
             return this;
         }
 

@@ -18,6 +18,10 @@ public static class Paragraphs
     Line("This is ").Text("red", Color.Red).Text(" Text.").
     PressToContinue();
 
+    public static Paragraph ReadPlayers =>
+    Line("").ModifiedInput((x) => ((Player)x).Review(), Color.Red).
+    PressToContinue();
+
     public static Paragraph Part1 =>
     Line("You take a deep breath...").
     GoTo(Part2).

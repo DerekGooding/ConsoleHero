@@ -8,9 +8,10 @@ public static class Menus
     Title("|---- Main Menu ----|", Color.Red).
     ClearOnCall().
     Description("Approach Door").GoTo(DoorMenu).
-    Description("Check Surroundings").GoTo(CheckSurroundingsMenu).
+    Description("Check Surroundings").GoTo(NumberMenu).
     Description("Take a breath").GoTo(Paragraphs.Part1).
     Description("Change Name").GoTo(Requests.AskForName).
+    Description("Review Players").GoTo(ReviewPlayers).
     Key("Mary").Description("Listen to Mary").GoTo(Tunes.Mary).
     Exit();
 
@@ -44,8 +45,8 @@ public static class Menus
     OptionsFromList(Data.Numbers, Paragraphs.ReadNumbers).
     Cancel();
 
-    public static Menu CheckSurroundingsMenu =>
+    public static Menu ReviewPlayers =>
     NoTitle().
-    OptionsFromList(Data.Numbers, Paragraphs.ReadNumbers).
+    OptionsFromList(Data.Players, Paragraphs.ReadPlayers).
     Cancel();
 }

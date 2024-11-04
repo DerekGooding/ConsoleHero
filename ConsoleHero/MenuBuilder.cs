@@ -32,7 +32,6 @@ public static class MenuBuilder
         /// </summary>
         /// <param name="title">The full string that will be printed.</param>
         /// <param name="color">Can be a custom color from the rest of the options text.</param>
-        /// <returns></returns>
         public IAddOptions Title(string title, Color? color);
     }
 
