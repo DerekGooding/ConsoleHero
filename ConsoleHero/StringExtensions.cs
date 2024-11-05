@@ -18,4 +18,10 @@ public static class StringExtensions
     /// <param name="text">The text to be converted into a ColorLine.</param>
     /// <returns>A ColorLine object with the default color.</returns>
     public static ColorText DefaultColor(this string text) => new(text);
+
+    /// <summary>
+    /// Converts any list of objects into their ToString equivalent.
+    /// </summary>
+    public static IEnumerable<string> ListToString<T>(this IEnumerable<T> list)
+        => list.Select(x => x?.ToString() ?? string.Empty);
 }

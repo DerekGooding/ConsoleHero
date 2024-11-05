@@ -42,11 +42,11 @@ public static class Menus
 
     public static Menu NumberMenu =>
     NoTitle().
-    OptionsFromList(Data.Numbers, Paragraphs.ReadNumbers).
+    OptionsFromList(Data.Numbers.ListToString(), Paragraphs.ReadNumbers).
     Cancel();
 
     public static Menu ReviewPlayers =>
     NoTitle().
-    OptionsFromList(Data.Players, Paragraphs.ReadPlayers).
+    OptionsFromList(Data.Players, (x) => Logic.ReviewPlayer((Player)x)).
     Cancel();
 }

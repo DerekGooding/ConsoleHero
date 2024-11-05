@@ -73,6 +73,10 @@ public static class MenuBuilder
         public IOptionEffect Description(string description);
 
         /// <summary>
+        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
+        /// </summary>
+        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, Action<IMenuOption> effect, Func<string, bool>? condition = null);
+        /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
@@ -88,14 +92,6 @@ public static class MenuBuilder
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null);
-        /// <summary>
-        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
-        /// </summary>
-        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, Action<string> effect, Func<string, bool>? condition = null);
-        /// <summary>
-        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
-        /// </summary>
-        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, INode node, Func<string, bool>? condition = null);
 
         /// <summary>
         /// Adds an option with Key = "c" and Description = "Cancel" that ends the <see cref="INode"/> chain.
@@ -257,6 +253,14 @@ public static class MenuBuilder
             return this;
         }
 
+        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, Action<IMenuOption> effect, Func<string, bool>? condition = null)
+        {
+            foreach (MenuOption option in list.ToOptions(effect, condition))
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
@@ -289,11 +293,6 @@ public static class MenuBuilder
             }
             return this;
         }
-
-        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, Action<string> effect, Func<string, bool>? condition = null)
-            => OptionsFromList(list.Select(x => x.Print()), effect, condition);
-        public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, INode node, Func<string, bool>? condition = null)
-            => OptionsFromList(list.Select(x => x.Print()), node, condition);
 
         public Menu Cancel() => Cancel("C");
         public Menu Cancel(char key) => Cancel(key.ToString());

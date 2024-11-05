@@ -10,7 +10,7 @@ public static class Data
         "Apple",
         "Banana",
         "Cantaloupe",
-        "Artichoke"
+        "Artichoke",
     ];
 
     public readonly static List<ColorText> ColoredFruit =
@@ -19,22 +19,22 @@ public static class Data
         "Banana".            Color(Color.Yellow),
         "Cantaloupe".        DefaultColor(),
         "Another Cantaloupe".Color(Color.White),
-        "Artichoke".         Color(Color.Green)
+        "Artichoke".         Color(Color.Green),
     ];
 
-    public readonly static List<string> Numbers =
+    public readonly static List<int> Numbers =
     [
-        "7000",
-        "8888",
-        "9001",
-        "55",
+        7000,
+        8888,
+        9001,
+        55,
     ];
 
     public readonly static List<Player> Players =
     [
-        new("Cathy"),
-        new("Jim"),
-        new("Moose")
+        new ("Cathy"),
+        new ("Jim"),
+        new ("Moose"),
     ];
 }
 
@@ -42,5 +42,6 @@ public class Player(string name) : IMenuOption
 {
     public string Name { get; set; } = name;
     public int Health { get; set; } = 100;
-    public ColorText Print() => $"{Name} | Health : {Health}".DefaultColor();
+    public ColorText Print() => Name.DefaultColor();
+    public string Review => $"{Name} | Health : {Health}";
 }

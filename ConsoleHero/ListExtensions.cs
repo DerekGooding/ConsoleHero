@@ -17,7 +17,7 @@ internal static class ListExtensions
         List<MenuOption> options = [];
         foreach (ColorText x in list)
         {
-            Color color = ((ILineComponent)x).Color;  // Cache cast
+            Color color = ((ILineComponent)x).Color;
             MenuOption menuOption = new()
             {
                 Description = x.Text,
@@ -65,4 +65,26 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
         => list.ToOptions(node.Call, condition);
+
+    internal static MenuOption[] ToOptions(this IEnumerable<IMenuOption> list, Action<IMenuOption> effect, Func<string, bool>? condition = null)
+    {
+        List<MenuOption> options = [];
+        foreach (IMenuOption x in list)
+        {
+            ColorText colorText = x.Print();
+            Color color = ((ILineComponent)colorText).Color;
+            MenuOption menuOption = new()
+            {
+                Description = colorText.Text,
+                Color = color,
+                Effect = () => effect(x)
+            };
+            if (condition != null)
+            {
+                menuOption.Check = () => condition(colorText.Text);
+            }
+            options.Add(menuOption);
+        }
+        return [.. options];
+    }
 }
