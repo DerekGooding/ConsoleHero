@@ -66,7 +66,7 @@ internal static class ListExtensions
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
         => list.ToOptions(node.Call, condition);
 
-    internal static MenuOption[] ToOptions(this IEnumerable<IMenuOption> list, Action<IMenuOption> effect, Func<string, bool>? condition = null)
+    internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption
     {
         List<MenuOption> options = [];
         foreach (IMenuOption x in list)
@@ -77,7 +77,7 @@ internal static class ListExtensions
             {
                 Description = colorText.Text,
                 Color = color,
-                Effect = () => effect(x)
+                Effect = () => effect((T)x)
             };
             if (condition != null)
             {

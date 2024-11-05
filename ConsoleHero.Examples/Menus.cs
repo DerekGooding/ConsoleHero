@@ -47,6 +47,6 @@ public static class Menus
 
     public static Menu ReviewPlayers =>
     NoTitle().
-    OptionsFromList(Data.Players, (x) => Logic.ReviewPlayer((Player)x)).
+    OptionsFromList(Data.Players, Logic.ReviewPlayer).
     Cancel();
 }
