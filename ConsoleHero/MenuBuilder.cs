@@ -73,7 +73,7 @@ public static class MenuBuilder
         public IOptionEffect Description(string description);
 
         /// <summary>
-        /// Creates a set of <see cref="MenuOption"/> based of a generic list.
+        /// Creates a set of <see cref="MenuOption"/> base off IMenuOptions. Only works with custom GoTo logic.
         /// </summary>
         public IAddOptions OptionsFromList(IEnumerable<IMenuOption> list, Action<IMenuOption> effect, Func<string, bool>? condition = null);
         /// <summary>
