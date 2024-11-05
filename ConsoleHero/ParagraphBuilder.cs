@@ -158,7 +158,7 @@ public static class ParagraphBuilder
 
         public ISetLines Input()
         {
-            _item.Outputs[^1].Components.Add(new InputPlaceholder());
+            _item.Outputs[^1].Components.Add(new InputPlaceholder(GlobalSettings.DefaultTextColor));
             return this;
         }
         public ISetLines Input(Color color)

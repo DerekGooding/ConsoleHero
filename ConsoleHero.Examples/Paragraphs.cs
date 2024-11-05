@@ -13,7 +13,7 @@ public static class Paragraphs
     PressToContinue();
 
     public static Paragraph ReadNumbers =>
-    Line("You read the number ").Input(GlobalSettings.DefaultTextColor).Text(".").
+    Line("You read the number ").Input().Text(".").
     Line("Twice that number is ").ModifiedInput((x) => $"{int.Parse(x) * 2}").Text(".").
     Line("This is ").Text("red", Color.Red).Text(" Text.").
     PressToContinue();
