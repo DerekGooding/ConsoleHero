@@ -3,9 +3,11 @@
 /// <summary>
 /// Start making a new Menu with either <see cref="MenuBuilder.Title(string, Color?)"/> or <see cref="MenuBuilder.NoTitle"/>.
 /// </summary>
-public record Menu(List<MenuOption>? Options = null) : INode
+public record Menu : INode
 {
-    private List<MenuOption> Options { get; } = Options ?? [];
+    internal Menu() { }
+
+    private List<MenuOption> Options { get; } = [];
 
     internal int Count => Options.Count;
     internal ColorText Title { get; set; } = new(string.Empty);
@@ -67,7 +69,7 @@ public record Menu(List<MenuOption>? Options = null) : INode
     private void AutoIncrimentKeys()
     {
         int x = 1;
-        foreach (MenuOption? option in CheckedOptions.Where(option => option.UsesAutoKey))
+        foreach (MenuOption option in CheckedOptions.Where(option => option.UsesAutoKey))
         {
             option.Key = $"{x++}";
         }

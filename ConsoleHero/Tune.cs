@@ -9,12 +9,11 @@ namespace ConsoleHero;
 /// </summary>
 public record Tune : INode
 {
+    internal Tune() { }
     internal List<Note> Notes { get; set; } = [];
     internal bool Wait { get; set; } = true;
 
     internal Action Effect { get; set; } = () => { };
-
-    internal Tune() { }
 
     internal readonly struct Note(int frequency, int time)
     {
