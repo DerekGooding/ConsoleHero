@@ -29,10 +29,11 @@ public record Menu : INode
 
         if (Title.Text != string.Empty)
         {
-            Title.Print().Print();
+            Title.Print();
         }
 
-        Print();
+        CheckedOptions.Where(x => !x.IsHidden).Print(Seperator);
+
         MenuOption? choice = null;
 
         while (choice == null)
@@ -53,15 +54,6 @@ public record Menu : INode
             }
         }
     }
-
-    internal void Print()
-    {
-        foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
-        {
-            option.Print(Seperator);
-        }
-    }
-
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     private void AutoIncrimentKeys()

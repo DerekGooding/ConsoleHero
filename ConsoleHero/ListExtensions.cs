@@ -90,6 +90,19 @@ internal static class ListExtensions
         return [.. options];
     }
 
+    internal static void Print(this IEnumerable<MenuOption> list, string seperator)
+    {
+        List<ParagraphLine> lines = [];
+        foreach (ColorText item in list.Select(x => $"{x.Key} {seperator} {x.Description}".DefaultColor()))
+        {
+            ParagraphLine paragraphLine = new();
+            paragraphLine.Components.Add(item);
+            lines.Add(paragraphLine);
+        }
+        lines.Print();
+    }
+
+    //TODO - clean up
     internal static void Print(this IList<ParagraphLine> list, string input = "")
     {
         foreach (ParagraphLine line in list)
