@@ -4,7 +4,7 @@ namespace ConsoleHero;
 /// <summary>
 /// Start making a new paragraph with <see cref="ParagraphBuilder.Line(string)"/> or <see cref="ParagraphBuilder.ClearOnCall"/>.
 /// </summary>
-public class Paragraph : INode
+public record Paragraph : INode
 {
     internal Paragraph() { }
 

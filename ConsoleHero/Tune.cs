@@ -7,7 +7,7 @@ namespace ConsoleHero;
 /// Or use a methhod named after the note duration eg. <see cref="TuneBuilder.Quarter(TuneBuilder.Tone)"/>.
 /// <br><see cref="TuneBuilder.Beep"/> for a simple single beep.</br>
 /// </summary>
-public class Tune : INode
+public record Tune : INode
 {
     internal List<Note> Notes { get; set; } = [];
     internal bool Wait { get; set; } = true;

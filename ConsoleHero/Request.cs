@@ -2,7 +2,7 @@
 /// <summary>
 /// Start making a new request with <see cref="RequestBuilder.Ask(string)"/> or <see cref="RequestBuilder.NoMessage"/>.
 /// </summary>
-public class Request : INode
+public record Request : INode
 {
     internal Request() => FailMessage = $"This is not a valid {DataType}.";
 

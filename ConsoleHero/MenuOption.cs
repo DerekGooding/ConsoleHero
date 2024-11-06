@@ -5,7 +5,7 @@ namespace ConsoleHero;
 /// <summary>
 /// The main component in a <see cref="Menu"/>.
 /// </summary>
-public sealed class MenuOption
+public sealed record MenuOption
 {
     /// <summary>
     /// The main component in a <see cref="Menu"/>.

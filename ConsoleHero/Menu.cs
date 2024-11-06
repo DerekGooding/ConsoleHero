@@ -3,9 +3,9 @@
 /// <summary>
 /// Start making a new Menu with either <see cref="MenuBuilder.Title(string, Color?)"/> or <see cref="MenuBuilder.NoTitle"/>.
 /// </summary>
-public class Menu(List<MenuOption>? options = null) : INode
+public record Menu(List<MenuOption>? Options = null) : INode
 {
-    private List<MenuOption> Options { get; } = options ?? [];
+    private List<MenuOption> Options { get; } = Options ?? [];
 
     internal int Count => Options.Count;
     internal ColorText Title { get; set; } = new(string.Empty);

@@ -11,7 +11,7 @@ namespace ConsoleHero;
 /// <br><see cref="Paragraph"/></br>
 /// <br><see cref="Request"/></br>
 /// </summary>
-public class ColorText : ILineComponent
+public record struct ColorText : ILineComponent
 {
     private readonly Color _color;
 
@@ -28,9 +28,10 @@ public class ColorText : ILineComponent
     }
 
     internal string Text { get; set; } = string.Empty;
-    Color ILineComponent.Color => _color;
 
-    internal void Print()
+    readonly Color ILineComponent.Color => _color;
+
+    internal readonly void Print()
     {
         ColorHelper.SetTextColor(_color);
         WriteLine(Text);
