@@ -29,9 +29,7 @@ public record Menu : INode
 
         if (Title.Text != string.Empty)
         {
-            Title.Print();
-            for (int i = 0; i < GlobalSettings.Spacing; i++)
-                WriteLine();
+            Title.Print().Print();
         }
 
         Print();

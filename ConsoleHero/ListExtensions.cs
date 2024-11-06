@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Helpers;
+
+namespace ConsoleHero;
 
 /// <summary>
 /// Extension methods for converting collections of strings and ColorLine objects to MenuOption arrays.
@@ -86,5 +88,27 @@ internal static class ListExtensions
             options.Add(menuOption);
         }
         return [.. options];
+    }
+
+    internal static void Print(this IList<ParagraphLine> list, string input = "")
+    {
+        foreach (ParagraphLine line in list)
+        {
+            foreach (ILineComponent component in line.Components)
+            {
+                ColorHelper.SetTextColor(component.Color);
+                if (component is ColorText c)
+                    Write(c.Text);
+                else if (component is InputPlaceholder)
+                    Write(input);
+                else if (component is InputModifier modifier)
+                    Write(modifier.Modifier.Invoke(input));
+            }
+            WriteLine();
+        }
+        for (int i = 0; i < GlobalSettings.Spacing; i++)
+            WriteLine();
+
+        ColorHelper.SetToDefault();
     }
 }

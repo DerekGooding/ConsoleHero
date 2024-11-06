@@ -1,6 +1,6 @@
 ﻿using ConsoleHero.Helpers;
 
-namespace ConsoleHero;
+namespace ConsoleHero.Model;
 
 /// <summary>
 /// The main component in a <see cref="Menu"/>.
