@@ -28,8 +28,7 @@ jobs:
       - name: Run Tests with Coverage
         run: dotnet test --no-build --collect:"XPlat Code Coverage"
 
-      - name: make test-coverage
-        run: make test-coverage
-
       - name: Upload to Codecov
         uses: coverallsapp/github-action@v2
+        with:
+          file: /home/runner/work/ConsoleHero/ConsoleHero/ConsoleHero.Test/TestResults/4a06c7e8-4abf-4731-89b8-a1091c640654/coverage.cobertura.xml
