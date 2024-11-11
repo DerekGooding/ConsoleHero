@@ -6,7 +6,7 @@ namespace ConsoleHero.Test;
 public class MenuTests
 {
     [TestMethod]
-    public void Menu_ShouldCreate()
+    public void ShouldCreate()
     {
         Menu menu = new();
 
@@ -14,7 +14,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ShouldAddOptions()
+    public void ShouldAddOptions()
     {
         Menu menu = new();
         MenuOption menuOption = new()
@@ -29,7 +29,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ShouldNot_AddOption_IfReturnsFalse()
+    public void ShouldNot_AddOption_IfReturnsFalse()
     {
         Menu menu = new();
         MenuOption menuOption = new()
@@ -57,7 +57,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ShouldPrint()
+    public void ShouldPrint()
     {
         Menu menu = new();
         MenuOption menuOption = new()
@@ -81,7 +81,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ShouldInvoke()
+    public void ShouldInvoke()
     {
         Mock<Action> mockService = new();
         Action myClass = new(mockService.Object);
@@ -100,7 +100,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_DefaultSeperator()
+    public void DefaultSeperator()
     {
         Menu menu = new();
 
@@ -112,7 +112,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_NoTitle()
+    public void NoTitle()
     {
         Menu menu = MenuBuilder.NoTitle().Cancel();
 
@@ -122,7 +122,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_BuildTitle()
+    public void Title_Set()
     {
         Menu menu = MenuBuilder.Title("Main", Color.Red).Cancel();
 
@@ -133,7 +133,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ClearOnCall_Default()
+    public void ClearOnCall_Default()
     {
         Menu menu = MenuBuilder.NoTitle().Cancel();
 
@@ -141,7 +141,7 @@ public class MenuTests
     }
 
     [TestMethod]
-    public void Menu_ClearOnCall_Set()
+    public void ClearOnCall_Set()
     {
         Menu menu = MenuBuilder.NoTitle().ClearOnCall().Cancel();
 
