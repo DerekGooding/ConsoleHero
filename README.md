@@ -6,6 +6,7 @@
 <!---[![GitHub stars](https://img.shields.io/github/stars/DerekGooding/ConsoleHero?logo=github&style=flat)](https://github.com/modernuo/ModernUO/stargazers)-->
 [![GitHub issues](https://img.shields.io/github/issues/DerekGooding/ConsoleHero?logo=github)](https://github.com/DerekGooding/ConsoleHero/issues)
 [![GitHub build](https://img.shields.io/github/actions/workflow/status/DerekGooding/ConsoleHero/build-test.yml?branch=master&logo=github)](https://github.com/DerekGooding/ConsoleHero/actions)
+![Coveralls](https://coveralls.io/repos/github/username/repo/badge.svg?branch=main)
 
 A light-weight library to help quickly and fluently develop Console application UI. 
 
