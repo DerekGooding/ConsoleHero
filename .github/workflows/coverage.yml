@@ -32,6 +32,5 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./TestResults/**/*.xml
           flags: unittests
           name: codecov-coverage
