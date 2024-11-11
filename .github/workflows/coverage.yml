@@ -31,4 +31,4 @@ jobs:
       - name: Upload to Codecov
         uses: coverallsapp/github-action@v2
         with:
-          file: /home/runner/work/ConsoleHero/ConsoleHero/ConsoleHero.Test/TestResults/4a06c7e8-4abf-4731-89b8-a1091c640654/coverage.cobertura.xml
+          file: /home/runner/work/ConsoleHero/ConsoleHero/ConsoleHero.Test/TestResults/**/coverage.cobertura.xml
