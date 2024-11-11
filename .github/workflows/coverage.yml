@@ -26,11 +26,10 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Run Tests with Coverage
-        run: 
-          dotnet test --no-build --collect:"XPlat Code Coverage"
-          make test-coverage
+        run: dotnet test --no-build --collect:"XPlat Code Coverage"
+
+      - name: make test-coverage
+        run: make test-coverage
 
       - name: Upload to Codecov
         uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
