@@ -23,7 +23,6 @@ public class MenuTests
             Description = "Open Door"
         };
 
-
         menu.Add(menuOption);
 
         Assert.AreEqual(1, menu.Count);
