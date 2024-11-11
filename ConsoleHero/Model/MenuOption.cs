@@ -17,11 +17,4 @@ internal sealed record MenuOption
     internal Color Color { get; set; } = GlobalSettings.DefaultTextColor;
 
     internal void Invoke() => Effect.Invoke();
-
-    //internal void Print(string seperator = " => ")
-    //{
-    //    ColorHelper.SetTextColor(Color);
-    //    WriteLine(Key + seperator + Description);
-    //    ColorHelper.SetToDefault();
-    //}
 }
