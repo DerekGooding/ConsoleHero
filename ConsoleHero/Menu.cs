@@ -32,7 +32,7 @@ public record Menu : INode
             Title.Print();
         }
 
-        CheckedOptions.Where(x => !x.IsHidden).Print(Seperator);
+        OuputOptions.Print(Seperator);
 
         MenuOption? choice = null;
 
@@ -54,6 +54,9 @@ public record Menu : INode
             }
         }
     }
+
+    internal IEnumerable<MenuOption> OuputOptions => CheckedOptions.Where(x => !x.IsHidden);
+
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     private void AutoIncrimentKeys()

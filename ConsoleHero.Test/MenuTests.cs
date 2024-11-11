@@ -1,89 +1,102 @@
-//using Moq;
+using Moq;
 
-//namespace ConsoleHero.Test;
+namespace ConsoleHero.Test;
 
-//[TestClass]
-//public class MenuTests
-//{
-//    [TestMethod]
-//    public void Menu_ShouldCreate()
-//    {
-//        Menu menu = new();
+[TestClass]
+public class MenuTests
+{
+    [TestMethod]
+    public void Menu_ShouldCreate()
+    {
+        Menu menu = new();
 
-//        Assert.IsNotNull(menu);
-//    }
+        Assert.IsNotNull(menu);
+    }
 
-//    [TestMethod]
-//    public void Menu_ShouldAddOptions()
-//    {
-//        Menu menu = new();
-//        MenuOption menuOption = new("1", "Open Door");
+    [TestMethod]
+    public void Menu_ShouldAddOptions()
+    {
+        Menu menu = new();
+        MenuOption menuOption = new()
+        {
+            Key = "1",
+            Description = "Open Door"
+        };
 
-//        menu.Add(menuOption);
 
-//        Assert.AreEqual(1, menu.Count);
-//    }
+        menu.Add(menuOption);
 
-//    [TestMethod]
-//    public void Menu_ShouldNot_AddOption_IfReturnsFalse()
-//    {
-//        Menu menu = new();
-//        MenuOption menuOption = new("1", "Open Door", check: () => false);
-//        MenuOption menuOption2 = new("2", "Close Door", check: () => true);
+        Assert.AreEqual(1, menu.Count);
+    }
 
-//        const string expected = "2 => Close Door";
+    [TestMethod]
+    public void Menu_ShouldNot_AddOption_IfReturnsFalse()
+    {
+        Menu menu = new();
+        MenuOption menuOption = new()
+        {
+            Key = "1",
+            Description = "Open Door",
+            Check = () => false,
+        };
+        MenuOption menuOption2 = new()
+        {
+            Key = "2",
+            Description = "Close Door",
+            Check = () => true,
+        };
 
-//        menu.Add(menuOption);
-//        menu.Add(menuOption2);
+        IEnumerable<MenuOption> expected = [menuOption2];
 
-//        Assert.AreEqual(2, menu.Count);
-//        Assert.AreEqual(expected, menu.Print());
-//    }
+        menu.Add(menuOption);
+        menu.Add(menuOption2);
 
-//    [TestMethod]
-//    public void Menu_ShouldPrint()
-//    {
-//        Menu menu = new([new("1", "Open Door"), new("2", "Close Door")]);
+        IEnumerable<MenuOption> actual = menu.OuputOptions;
+        Assert.AreEqual(2, menu.Count);
+        Assert.AreEqual(expected.Count(), actual.Count());
+        Assert.AreEqual(expected.First(), actual.First());
+    }
 
-//        string expected = "1 => Open Door" + Environment.NewLine + "2 => Close Door";
+    [TestMethod]
+    public void Menu_ShouldPrint()
+    {
+        Menu menu = new();
+        MenuOption menuOption = new()
+        {
+            Key = "1",
+            Description = "Open Door",
+        };
+        MenuOption menuOption2 = new()
+        {
+            Key = "2",
+            Description = "Close Door",
+        };
+        IEnumerable<MenuOption> expected = [menuOption, menuOption2];
 
-//        Assert.AreEqual(expected, menu.Print());
-//    }
+        menu.Add(menuOption);
+        menu.Add(menuOption2);
 
-//    [TestMethod]
-//    public void Menu_ShouldPrint_DifferentSeperator()
-//    {
-//        Menu menu = new([new("1", "Open Door"), new("2", "Close Door")])
-//        {
-//            Seperator = " | "
-//        };
+        IEnumerable<MenuOption> actual = menu.OuputOptions;
+        Assert.AreEqual(expected.Count(), actual.Count());
+        Assert.AreEqual(expected.First(), actual.First());
+    }
 
-//        string expected = "1 | Open Door" + Environment.NewLine + "2 | Close Door";
+    [TestMethod]
+    public void Menu_ShouldInvoke()
+    {
+        Mock<Action> mockService = new();
+        Action myClass = new(mockService.Object);
+        Action action = new(() => { });
 
-//        Assert.AreEqual(expected, menu.Print());
-//    }
+        MenuOption menuOption = new()
+        {
+            Key = "1",
+            Description = "Open Door",
+            Effect = myClass
+        };
 
-//    [TestMethod]
-//    public void MenuOption_ShouldPrint()
-//    {
-//        MenuOption menuOption = new("1", "Open Door");
+        menuOption.Invoke();
 
-//        const string expected = "1 => Open Door";
-
-//        Assert.AreEqual(expected, menuOption.Print());
-//    }
-
-//    [TestMethod]
-//    public void Menu_ShouldInvoke()
-//    {
-//        Mock<Action> mockService = new();
-//        Action myClass = new(mockService.Object);
-//        Action action = new(() => { });
-
-//        MenuOption menuOption = new("1", "Open Door", myClass);
-
-//        menuOption.Invoke();
-
-//        mockService.Verify(service => service.Invoke(), Times.Once);
-//    }
-//}
+        mockService.Verify(service => service.Invoke(), Times.Once);
+    }
+}

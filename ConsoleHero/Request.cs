@@ -34,9 +34,8 @@ public record Request : INode
         {
             WriteLine(FailMessage);
         }
+
         Apply.Invoke(result);
         Effect.Invoke(result);
-        for (int i = 0; i < GlobalSettings.Spacing; i++)
-            WriteLine();
     }
 }
