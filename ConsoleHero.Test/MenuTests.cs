@@ -98,4 +98,53 @@ public class MenuTests
 
         mockService.Verify(service => service.Invoke(), Times.Once);
     }
+
+    [TestMethod]
+    public void Menu_DefaultSeperator()
+    {
+        Menu menu = new();
+
+        string actual = menu.Seperator;
+
+        const string expected = " => ";
+
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void Menu_NoTitle()
+    {
+        Menu menu = MenuBuilder.NoTitle().Cancel();
+
+        ColorText expected = new(string.Empty);
+
+        Assert.AreEqual(expected, menu.Title);
+    }
+
+    [TestMethod]
+    public void Menu_BuildTitle()
+    {
+        Menu menu = MenuBuilder.Title("Main", Color.Red).Cancel();
+
+        ColorText expected = new("Main", ConsoleColor.Red);
+
+        Assert.AreEqual(expected.Text, menu.Title.Text);
+        Assert.AreEqual(expected._color, menu.Title._color);
+    }
+
+    [TestMethod]
+    public void Menu_ClearOnCall_Default()
+    {
+        Menu menu = MenuBuilder.NoTitle().Cancel();
+
+        Assert.AreEqual(false, menu.ClearOnCall);
+    }
+
+    [TestMethod]
+    public void Menu_ClearOnCall_Set()
+    {
+        Menu menu = MenuBuilder.NoTitle().ClearOnCall().Cancel();
+
+        Assert.AreEqual(true, menu.ClearOnCall);
+    }
 }

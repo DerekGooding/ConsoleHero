@@ -11,9 +11,9 @@ namespace ConsoleHero;
 /// <br><see cref="Paragraph"/></br>
 /// <br><see cref="Request"/></br>
 /// </summary>
-public record struct ColorText : ILineComponent
+public readonly record struct ColorText : ILineComponent
 {
-    private readonly Color _color;
+    internal readonly Color _color;
 
     internal ColorText(string text, Color? color = null)
     {
@@ -27,7 +27,7 @@ public record struct ColorText : ILineComponent
         _color = ColorHelper.ConsoleColorToDrawingColor(color);
     }
 
-    internal string Text { get; set; } = string.Empty;
+    internal string Text { get; } = string.Empty;
 
     readonly Color ILineComponent.Color => _color;
 
