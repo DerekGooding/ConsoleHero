@@ -30,4 +30,9 @@ jobs:
 
       - name: Upload to Codecov
         uses: coverallsapp/github-action@v2
-
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: ./TestResults/**/*.xml
+          flags: unittests
+          name: codecov-coverage
