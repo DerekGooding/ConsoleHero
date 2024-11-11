@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coveralls.io" Version="1.4.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ConsoleHero\ConsoleHero.csproj" />
   </ItemGroup>
 
