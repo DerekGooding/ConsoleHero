@@ -33,8 +33,9 @@ public record struct ColorText : ILineComponent
 
     internal readonly void Print()
     {
-        ColorHelper.SetTextColor(_color);
-        WriteLine(Text);
-        ColorHelper.SetToDefault();
+        ParagraphLine paragraphLine = new();
+        paragraphLine.Components.Add(this);
+        List<ParagraphLine> list = [paragraphLine];
+        list.Print();
     }
 }

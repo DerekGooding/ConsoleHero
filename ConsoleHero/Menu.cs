@@ -30,11 +30,10 @@ public record Menu : INode
         if (Title.Text != string.Empty)
         {
             Title.Print();
-            for (int i = 0; i < GlobalSettings.Spacing; i++)
-                WriteLine();
         }
 
-        Print();
+        OuputOptions.Print(Seperator);
+
         MenuOption? choice = null;
 
         while (choice == null)
@@ -56,13 +55,7 @@ public record Menu : INode
         }
     }
 
-    internal void Print()
-    {
-        foreach (MenuOption option in CheckedOptions.Where(x => !x.IsHidden))
-        {
-            option.Print(Seperator);
-        }
-    }
+    internal IEnumerable<MenuOption> OuputOptions => CheckedOptions.Where(x => !x.IsHidden);
 
     private IEnumerable<MenuOption> CheckedOptions => Options.Where(static x => x.Check?.Invoke() != false);
     private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));

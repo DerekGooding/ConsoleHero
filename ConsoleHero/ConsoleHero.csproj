@@ -26,6 +26,7 @@
     <EmbeddedResource Remove="ReadmeImages\**" />
     <None Remove="ReadmeImages\**" />
 	<None Include="README.md" Pack="true" PackagePath="\" />
+	<PackageReference Include="coveralls.io" Version="1.4.2" />
 	<Resource Include="assets/icon.png" Pack="true" PackagePath="icon.png" />
   </ItemGroup>
 

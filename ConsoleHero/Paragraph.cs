@@ -22,24 +22,24 @@ public record Paragraph : INode
     {
         if (ClearOnCall)
             Clear();
-
-        foreach (ParagraphLine line in Outputs)
-        {
-            foreach (ILineComponent component in line.Components)
-            {
-                ColorHelper.SetTextColor(component.Color);
-                if (component is ColorText c)
-                    Write(c.Text);
-                else if (component is InputPlaceholder)
-                    Write(input);
-                else if (component is InputModifier modifier)
-                    Write(modifier.Modifier.Invoke(input));
-            }
-            WriteLine();
-        }
-        for (int i = 0; i < GlobalSettings.Spacing; i++)
-            WriteLine();
-        ColorHelper.SetToDefault();
+        Outputs.Print(input);
+        //foreach (ParagraphLine line in Outputs)
+        //{
+        //    foreach (ILineComponent component in line.Components)
+        //    {
+        //        ColorHelper.SetTextColor(component.Color);
+        //        if (component is ColorText c)
+        //            Write(c.Text);
+        //        else if (component is InputPlaceholder)
+        //            Write(input);
+        //        else if (component is InputModifier modifier)
+        //            Write(modifier.Modifier.Invoke(input));
+        //    }
+        //    WriteLine();
+        //}
+        //for (int i = 0; i < GlobalSettings.Spacing; i++)
+        //    WriteLine();
+        //ColorHelper.SetToDefault();
 
         FinalizeMessage();
     }

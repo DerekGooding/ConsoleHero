@@ -1,6 +1,4 @@
-﻿using ConsoleHero.Helpers;
-
-namespace ConsoleHero;
+﻿namespace ConsoleHero.Model;
 
 /// <summary>
 /// The main component in a <see cref="Menu"/>.
@@ -20,10 +18,10 @@ internal sealed record MenuOption
 
     internal void Invoke() => Effect.Invoke();
 
-    internal void Print(string seperator = " => ")
-    {
-        ColorHelper.SetTextColor(Color);
-        WriteLine(Key + seperator + Description);
-        ColorHelper.SetToDefault();
-    }
+    //internal void Print(string seperator = " => ")
+    //{
+    //    ColorHelper.SetTextColor(Color);
+    //    WriteLine(Key + seperator + Description);
+    //    ColorHelper.SetToDefault();
+    //}
 }
