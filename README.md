@@ -8,7 +8,7 @@
 [![GitHub build](https://img.shields.io/github/actions/workflow/status/DerekGooding/ConsoleHero/build-test.yml?branch=master&logo=github)](https://github.com/DerekGooding/ConsoleHero/actions)
 ![Coveralls](https://coveralls.io/repos/github/username/repo/badge.svg?branch=master)
 
-A light-weight library to help quickly and fluently develop Console application UI. 
+A light-weight library to help quickly and fluently develop Console application UI. Recommended for tool development or text-based games. 
 
 # Turn
 ![Before](https://github.com/DerekGooding/ConsoleHero/blob/master/ReadmeImages/Before.png)
