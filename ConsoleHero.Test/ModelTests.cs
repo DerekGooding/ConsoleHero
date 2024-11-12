@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero.Test;
 
 [TestClass]
-public class ModelTesting
+public class ModelTests
 {
     static string ExpectedModifier(string s) => s.ToUpper();
 

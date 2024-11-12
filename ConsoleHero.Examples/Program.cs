@@ -7,6 +7,7 @@ public static class Program
     {
         GlobalSettings.Spacing = 2;
         GlobalSettings.DefaultTextColor = Color.LightBlue;
+
         while (true)
         {
             Menus.MainMenu.Call();
