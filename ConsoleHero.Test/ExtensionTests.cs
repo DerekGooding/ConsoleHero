@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero.Test;
 
 [TestClass]
-internal class ExtensionTests
+public class ExtensionTests
 {
     private readonly Action<string> _dummyEffect = _ => { };
     private readonly Func<string, bool> _dummyCondition = s => s.Length > 0;

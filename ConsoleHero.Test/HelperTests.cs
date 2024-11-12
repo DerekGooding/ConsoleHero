@@ -14,7 +14,7 @@ public class HelperTests
     public void TearDown()
     {
         Console.SetOut(Console.Out);
-        _consoleOutput?.Dispose();
+        _consoleOutput.Dispose();
     }
 
     [TestMethod]
@@ -25,7 +25,7 @@ public class HelperTests
         ColorHelper.SetTextColor(color);
 
         const string expectedOutput = "\u001b[38;2;255;0;0m";
-        Assert.AreEqual(expectedOutput, _consoleOutput?.ToString());
+        Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
     }
 
     [DataTestMethod]
@@ -54,7 +54,7 @@ public class HelperTests
         ColorHelper.SetTextColor(consoleColor);
 
         string expectedOutput = $"\u001b[38;2;{expectedR};{expectedG};{expectedB}m";
-        Assert.AreEqual(expectedOutput, _consoleOutput?.ToString());
+        Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
     }
 
     [TestMethod]
@@ -75,6 +75,6 @@ public class HelperTests
         ColorHelper.SetToDefault();
 
         const string expectedOutput = "\u001b[38;2;0;255;255m";
-        Assert.AreEqual(expectedOutput, _consoleOutput?.ToString());
+        Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
     }
 }
