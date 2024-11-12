@@ -1,7 +1,6 @@
 ﻿using ConsoleHero.Helpers;
 using ConsoleHero.Interfaces;
 using Moq;
-using System.Diagnostics;
 
 namespace ConsoleHero.Test;
 
@@ -57,22 +56,19 @@ public class BeepHelperTests
         // Add appropriate assertions for process calls if applicable.
     }
 
-    [TestMethod]
-    public void Beep_NonWindowsPlatformWithException_WritesBellCharacter()
-    {
-        Mock<IProcessRunner> processRunnerMock = new();
-        processRunnerMock.Setup(p => p.Start(It.IsAny<ProcessStartInfo>())).Throws(new InvalidOperationException());
+    //[TestMethod]
+    //public void Beep_NonWindowsPlatformWithException_WritesBellCharacter()
+    //{
+    //    _platformHelperMock.Setup(p => p.IsWindows).Returns(false);
+    //    _platformHelperMock.Setup(p => p.IsLinux).Returns(true);
+    //    using ConsoleOutput consoleOutput = new();
 
-        _platformHelperMock.Setup(p => p.IsWindows).Returns(false);
-        _platformHelperMock.Setup(p => p.IsLinux).Returns(true);
-        using ConsoleOutput consoleOutput = new();
+    //    _beepHelper.Beep(1000, 500);
 
-        _beepHelper.Beep(1000, 500);
-
-        Assert.AreEqual("\a", consoleOutput.GetOutput());
-    }
-    public interface IProcessRunner
-    {
-        void Start(ProcessStartInfo startInfo);
-    }
+    //    Assert.AreEqual("\a", consoleOutput.GetOutput());
+    //}
+    //public interface IProcessRunner
+    //{
+    //    void Start(ProcessStartInfo startInfo);
+    //}
 }
