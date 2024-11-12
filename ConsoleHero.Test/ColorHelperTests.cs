@@ -3,7 +3,7 @@
 namespace ConsoleHero.Test;
 
 [TestClass]
-public class HelperTests
+public class ColorHelperTests
 {
     private readonly StringWriter _consoleOutput = new();
 

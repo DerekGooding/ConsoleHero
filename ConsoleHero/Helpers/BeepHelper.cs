@@ -1,18 +1,21 @@
-﻿using System.Runtime.InteropServices;
+﻿using ConsoleHero.Interfaces;
 
 namespace ConsoleHero.Helpers;
 
-internal static class BeepHelper
+internal class BeepHelper(IPlatformHelper plateformHelper)
 {
+    private readonly IPlatformHelper _platformHelper = plateformHelper;
+
     internal static void Beep() => Write("\a");
 
-    internal static void Beep(int frequency, int duration)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Ensured by _platformHelper")]
+    internal void Beep(int frequency, int duration)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (_platformHelper.IsWindows)
         {
             Console.Beep(frequency, duration);
         }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        else if (_platformHelper.IsLinux || _platformHelper.IsOSX)
         {
             try
             {

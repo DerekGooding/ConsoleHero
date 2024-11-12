@@ -1,4 +1,5 @@
 ﻿using ConsoleHero.Helpers;
+using ConsoleHero.Interfaces;
 
 namespace ConsoleHero;
 
@@ -9,6 +10,7 @@ namespace ConsoleHero;
 /// </summary>
 public record Tune : INode
 {
+    internal BeepHelper _beepHelper = new(new PlatformHelper());
     internal Tune() { }
     internal List<Note> Notes { get; set; } = [];
     internal bool Wait { get; set; } = true;
@@ -28,7 +30,7 @@ public record Tune : INode
 
         foreach (Note item in Notes)
         {
-            BeepHelper.Beep(item.NoteTone, item.NoteDuration);
+            _beepHelper.Beep(item.NoteTone, item.NoteDuration);
         }
     }
 
