@@ -5,14 +5,10 @@ namespace ConsoleHero.Test;
 [TestClass]
 public class HelperTests
 {
-    private StringWriter? _consoleOutput;
+    private readonly StringWriter _consoleOutput = new();
 
     [TestInitialize]
-    public void SetUp()
-    {
-        _consoleOutput = new StringWriter();
-        Console.SetOut(_consoleOutput);
-    }
+    public void SetUp() => Console.SetOut(_consoleOutput);
 
     [TestCleanup]
     public void TearDown()

@@ -102,7 +102,6 @@ internal static class ListExtensions
         lines.Print();
     }
 
-    //TODO - clean up
     internal static void Print(this IList<ParagraphLine> list, string input = "")
     {
         foreach (ParagraphLine line in list)
