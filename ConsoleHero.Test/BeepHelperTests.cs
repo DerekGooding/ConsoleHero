@@ -1,6 +1,7 @@
 ﻿using ConsoleHero.Helpers;
 using ConsoleHero.Interfaces;
 using Moq;
+using System.Diagnostics;
 
 namespace ConsoleHero.Test;
 
@@ -59,14 +60,19 @@ public class BeepHelperTests
     [TestMethod]
     public void Beep_NonWindowsPlatformWithException_WritesBellCharacter()
     {
+        Mock<IProcessRunner> processRunnerMock = new();
+        processRunnerMock.Setup(p => p.Start(It.IsAny<ProcessStartInfo>())).Throws(new InvalidOperationException());
+
         _platformHelperMock.Setup(p => p.IsWindows).Returns(false);
         _platformHelperMock.Setup(p => p.IsLinux).Returns(true);
         using ConsoleOutput consoleOutput = new();
 
-        // Act
         _beepHelper.Beep(1000, 500);
 
-        // Assert
         Assert.AreEqual("\a", consoleOutput.GetOutput());
+    }
+    public interface IProcessRunner
+    {
+        void Start(ProcessStartInfo startInfo);
     }
 }
