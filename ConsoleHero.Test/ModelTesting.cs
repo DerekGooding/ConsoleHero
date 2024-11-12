@@ -1,7 +1,7 @@
 ﻿namespace ConsoleHero.Test;
 
 [TestClass]
-internal class ModelTesting
+public class ModelTesting
 {
     static string ExpectedModifier(string s) => s.ToUpper();
 
@@ -35,7 +35,7 @@ internal class ModelTesting
     [TestMethod]
     public void InputPlaceholder_ShouldUseDefaultColor()
     {
-        ILineComponent inputPlaceholder = new InputPlaceholder();
+        ILineComponent inputPlaceholder = new InputPlaceholder(null);
 
         Assert.AreEqual(GlobalSettings.DefaultTextColor, inputPlaceholder.Color);
     }
