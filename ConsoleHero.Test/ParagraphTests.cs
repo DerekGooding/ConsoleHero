@@ -1,4 +1,5 @@
-﻿using static ConsoleHero.ParagraphBuilder;
+﻿using Moq;
+using static ConsoleHero.ParagraphBuilder;
 
 namespace ConsoleHero.Test;
 
@@ -44,5 +45,29 @@ public class ParagraphTests
 
         Assert.IsNotNull(paragraph.Arguments);
         Assert.AreEqual(expected.Length, paragraph.Arguments.Length);
+    }
+
+    [TestMethod]
+    public void Misc_Default()
+    {
+        Paragraph paragraph = new();
+
+        Assert.IsTrue(paragraph.PressToContinue);
+        Assert.IsFalse(paragraph.ClearOnCall);
+        Assert.AreEqual(new TimeSpan(), paragraph.Delay);
+    }
+
+    [TestMethod]
+    public void ShouldInvoke_WhenCall()
+    {
+        Mock<Action> mockService = new();
+        Action myClass = new(mockService.Object);
+        Action action = new(() => { });
+
+        Paragraph paragraph = Line("").GoTo(myClass).DelayInSeconds(0);
+
+        paragraph.Call();
+
+        mockService.Verify(service => service.Invoke(), Times.Once);
     }
 }
