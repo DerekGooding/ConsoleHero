@@ -10,7 +10,7 @@ namespace ConsoleHero;
 /// </summary>
 public record Tune : INode
 {
-    internal BeepHelper _beepHelper = new(new PlatformHelper());
+    internal IBeepHelper _beepHelper = new BeepHelper(new PlatformHelper());
     internal Tune() { }
     internal List<Note> Notes { get; set; } = [];
     internal bool Wait { get; set; } = true;
@@ -26,7 +26,7 @@ public record Tune : INode
     internal void Play()
     {
         if (Notes.Count == 0)
-            BeepHelper.Beep();
+            _beepHelper.Beep();
 
         foreach (Note item in Notes)
         {

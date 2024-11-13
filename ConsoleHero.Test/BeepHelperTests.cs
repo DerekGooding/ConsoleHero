@@ -9,7 +9,7 @@ public class BeepHelperTests
 {
 #pragma warning disable CS8618 //Allow nullable. TestInitialize ensures.
     private Mock<IPlatformHelper> _platformHelperMock;
-    private BeepHelper _beepHelper;
+    private IBeepHelper _beepHelper;
 #pragma warning restore CS8618
 
     [TestInitialize]
@@ -24,7 +24,7 @@ public class BeepHelperTests
     {
         using ConsoleOutput consoleOutput = new();
 
-        BeepHelper.Beep();
+        _beepHelper.Beep();
 
         // Assert
         Assert.AreEqual("\a", consoleOutput.GetOutput());

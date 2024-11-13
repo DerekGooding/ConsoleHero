@@ -2,18 +2,19 @@
 
 namespace ConsoleHero.Helpers;
 
-internal class BeepHelper(IPlatformHelper plateformHelper)
+internal class BeepHelper(IPlatformHelper plateformHelper) : IBeepHelper
 {
     private readonly IPlatformHelper _platformHelper = plateformHelper;
 
-    internal static void Beep() => Write("\a");
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Required for unit testing")]
+    void IBeepHelper.Beep() => Write("\a");
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Ensured by _platformHelper")]
-    internal void Beep(int frequency, int duration)
+    void IBeepHelper.Beep(int frequency, int duration)
     {
         if (_platformHelper.IsWindows)
         {
-            Console.Beep(frequency, duration);
+            Beep(frequency, duration);
         }
         else if (_platformHelper.IsLinux || _platformHelper.IsOSX)
         {
