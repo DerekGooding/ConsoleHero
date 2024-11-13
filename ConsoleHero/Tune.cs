@@ -19,8 +19,8 @@ public record Tune : INode
 
     internal readonly struct Note(int frequency, int time)
     {
-        public int NoteTone { get; } = frequency;
-        public int NoteDuration { get; } = time;
+        public int Tone { get; } = frequency;
+        public int Duration { get; } = time;
     }
 
     internal void Play()
@@ -30,7 +30,7 @@ public record Tune : INode
 
         foreach (Note item in Notes)
         {
-            _beepHelper.Beep(item.NoteTone, item.NoteDuration);
+            _beepHelper.Beep(item.Tone, item.Duration);
         }
     }
 

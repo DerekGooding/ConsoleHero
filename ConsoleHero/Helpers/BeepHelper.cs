@@ -6,7 +6,6 @@ internal class BeepHelper(IPlatformHelper plateformHelper) : IBeepHelper
 {
     private readonly IPlatformHelper _platformHelper = plateformHelper;
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Required for unit testing")]
     void IBeepHelper.Beep() => Write("\a");
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Ensured by _platformHelper")]

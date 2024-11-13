@@ -4,7 +4,20 @@ namespace ConsoleHero.Interfaces;
 
 internal class PlatformHelper : IPlatformHelper
 {
-    bool IPlatformHelper.IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-    bool IPlatformHelper.IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-    bool IPlatformHelper.IsOSX => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+    internal PlatformHelper()
+    {
+        IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+        IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+    }
+
+    internal bool IsWindows { get; }
+    internal bool IsLinux { get; }
+    internal bool IsOSX { get; }
+
+    bool IPlatformHelper.IsWindows => IsWindows;
+
+    bool IPlatformHelper.IsLinux => IsLinux;
+
+    bool IPlatformHelper.IsOSX => IsOSX;
 }
