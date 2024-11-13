@@ -1,12 +1,12 @@
 # ConsoleHero
-<img src="https://github.com/DerekGooding/ConsoleHero/blob/master/ConsoleHero/assets/icon.png" width=15%>
+<img src="https://github.com/DerekGooding/ConsoleHero/blob/main/ConsoleHero/assets/icon.png" width=15%>
 
 [![NuGet](https://img.shields.io/nuget/v/ConsoleHero.svg)](https://www.nuget.org/packages/ConsoleHero/) 
-[![GitHub license](https://img.shields.io/github/license/DerekGooding/ConsoleHero?color=blue)](https://github.com/DerekGooding/ConsoleHero/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/DerekGooding/ConsoleHero?color=blue)](https://github.com/DerekGooding/ConsoleHero/blob/main/LICENSE)
 <!---[![GitHub stars](https://img.shields.io/github/stars/DerekGooding/ConsoleHero?logo=github&style=flat)](https://github.com/modernuo/ModernUO/stargazers)-->
 [![GitHub issues](https://img.shields.io/github/issues/DerekGooding/ConsoleHero?logo=github)](https://github.com/DerekGooding/ConsoleHero/issues)
-[![GitHub build](https://img.shields.io/github/actions/workflow/status/DerekGooding/ConsoleHero/build-test.yml?branch=master&logo=github)](https://github.com/DerekGooding/ConsoleHero/actions)
-[![Coverage Status](https://coveralls.io/repos/github/DerekGooding/ConsoleHero/badge.svg)](https://coveralls.io/github/DerekGooding/ConsoleHero)
+[![GitHub build](https://img.shields.io/github/actions/workflow/status/DerekGooding/ConsoleHero/build-test.yml?branch=main&logo=github)](https://github.com/DerekGooding/ConsoleHero/actions)
+[![Coverage Status](https://coveralls.io/repos/github/DerekGooding/ConsoleHero/badge.svg?branch=main)](https://coveralls.io/github/DerekGooding/ConsoleHero)
 
 A light-weight library to help quickly and fluently develop Console application UI. Recommended for tool development or text-based games. 
 
@@ -15,11 +15,11 @@ Fully Tested.
 Easy to use!
 
 # Turn
-![Before](https://github.com/DerekGooding/ConsoleHero/blob/master/ReadmeImages/Before.png)
+![Before](https://github.com/DerekGooding/ConsoleHero/blob/main/ReadmeImages/Before.png)
 
 # Into
 
-![After](https://github.com/DerekGooding/ConsoleHero/blob/master/ReadmeImages/After.png)
+![After](https://github.com/DerekGooding/ConsoleHero/blob/main/ReadmeImages/After.png)
 
 # Types of Nodes
 ## Menu
