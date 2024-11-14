@@ -288,7 +288,7 @@ public static class TuneBuilder
         public Tune ContinueWhilePlaying();
     }
 
-    private class Builder() : ISetNotes, ISetConfirm
+    private class Builder : ISetNotes, ISetConfirm
     {
         readonly Tune _item = new();
 

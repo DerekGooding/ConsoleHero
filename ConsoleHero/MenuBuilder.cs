@@ -176,7 +176,7 @@ public static class MenuBuilder
         public IAddOptions GoTo(INode node);
     }
 
-    private class Builder() : ISetTitle, IAddOptions, IOptionDescription, IOptionEffect
+    private class Builder : ISetTitle, IAddOptions, IOptionDescription, IOptionEffect
     {
         readonly Menu _item = new();
         MenuOption _menuOption = new();

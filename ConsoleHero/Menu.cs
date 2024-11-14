@@ -7,7 +7,7 @@ public record Menu : INode
 {
     internal Menu() { }
 
-    internal List<MenuOption> Options { get; } = [];
+    internal List<MenuOption> Options { get; } = new();
 
     internal int Count => Options.Count;
     internal ColorText Title { get; set; } = new(string.Empty);

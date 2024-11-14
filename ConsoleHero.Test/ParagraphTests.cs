@@ -41,10 +41,10 @@ public class ParagraphTests
     public void Arguments_Default()
     {
         Paragraph paragraph = new();
-        object[] expected = [];
+        //object[] expected = [];
 
-        Assert.IsNotNull(paragraph.Arguments);
-        Assert.AreEqual(expected.Length, paragraph.Arguments.Length);
+        Assert.IsNull(paragraph.Arguments);
+        //Assert.AreEqual(expected.Length, paragraph.Arguments.Length);
     }
 
     [TestMethod]

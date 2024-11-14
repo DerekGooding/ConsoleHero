@@ -1,6 +1,9 @@
 ﻿namespace ConsoleHero.Model;
 
-internal readonly struct InputPlaceholder(Color? color = null) : ILineComponent
+internal readonly struct InputPlaceholder : ILineComponent
 {
-    Color ILineComponent.Color { get; } = color ?? GlobalSettings.DefaultTextColor;
+    Color ILineComponent.Color => _color;
+    private readonly Color _color;
+
+    public InputPlaceholder(Color? color = null) => _color = color ?? GlobalSettings.DefaultTextColor;
 }

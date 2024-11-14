@@ -35,7 +35,7 @@ public readonly record struct ColorText : ILineComponent
     {
         ParagraphLine paragraphLine = new();
         paragraphLine.Components.Add(this);
-        List<ParagraphLine> list = [paragraphLine];
+        List<ParagraphLine> list = new() { paragraphLine };
         list.Print();
     }
 }

@@ -12,15 +12,21 @@ public record Tune : INode
 {
     internal IBeepHelper _beepHelper = new BeepHelper(new PlatformHelper());
     internal Tune() { }
-    internal List<Note> Notes { get; set; } = [];
+    internal List<Note> Notes { get; set; } = new();
     internal bool Wait { get; set; } = true;
 
     internal Action Effect { get; set; } = () => { };
 
-    internal readonly struct Note(int frequency, int time)
+    internal readonly struct Note
     {
-        public int Tone { get; } = frequency;
-        public int Duration { get; } = time;
+        public int Tone { get; }
+        public int Duration { get; }
+
+        public Note(int frequency, int time)
+        {
+            Tone = frequency;
+            Duration = time;
+        }
     }
 
     internal void Play()

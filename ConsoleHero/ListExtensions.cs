@@ -16,7 +16,7 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
     {
-        List<MenuOption> options = [];
+        List<MenuOption> options = new();
         foreach (ColorText x in list)
         {
             Color color = ((ILineComponent)x).Color;
@@ -32,7 +32,7 @@ internal static class ListExtensions
             }
             options.Add(menuOption);
         }
-        return [.. options];
+        return options.ToArray();
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ internal static class ListExtensions
 
     internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption
     {
-        List<MenuOption> options = [];
+        List<MenuOption> options = new();
         foreach (IMenuOption x in list)
         {
             ColorText colorText = x.Print();
@@ -87,12 +87,12 @@ internal static class ListExtensions
             }
             options.Add(menuOption);
         }
-        return [.. options];
+        return options.ToArray();
     }
 
     internal static void Print(this IEnumerable<MenuOption> list, string seperator)
     {
-        List<ParagraphLine> lines = [];
+        List<ParagraphLine> lines = new();
         foreach (ColorText item in list.Select(x => $"{x.Key} {seperator} {x.Description}".DefaultColor()))
         {
             ParagraphLine paragraphLine = new();

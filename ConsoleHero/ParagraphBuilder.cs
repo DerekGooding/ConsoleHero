@@ -108,7 +108,7 @@ public static class ParagraphBuilder
         /// </summary>
         public Paragraph PressToContinue();
     }
-    private class Builder() : ISetLines, ISetConfirm
+    private class Builder : ISetLines, ISetConfirm
     {
         readonly Paragraph _item = new();
 

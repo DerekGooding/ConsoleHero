@@ -6,8 +6,8 @@ public record Paragraph : INode
 {
     internal Paragraph() { }
 
-    internal List<ParagraphLine> Outputs { get; set; } = [];
-    internal object[] Arguments { get; set; } = [];
+    internal List<ParagraphLine> Outputs { get; set; } = new();
+    internal object[]? Arguments { get; set; }
     internal bool PressToContinue { get; set; } = true;
     internal bool ClearOnCall { get; set; }
     internal TimeSpan Delay { get; set; }

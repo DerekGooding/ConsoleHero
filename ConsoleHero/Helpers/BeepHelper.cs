@@ -2,9 +2,11 @@
 
 namespace ConsoleHero.Helpers;
 
-internal class BeepHelper(IPlatformHelper plateformHelper) : IBeepHelper
+internal class BeepHelper : IBeepHelper
 {
-    private readonly IPlatformHelper _platformHelper = plateformHelper;
+    private readonly IPlatformHelper _platformHelper;
+
+    public BeepHelper(IPlatformHelper plateformHelper) => _platformHelper = plateformHelper;
 
     void IBeepHelper.Beep() => Write("\a");
 
