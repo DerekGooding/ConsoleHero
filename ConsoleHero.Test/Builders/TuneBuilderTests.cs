@@ -18,6 +18,12 @@ public class TuneBuilderTests
         return (_tune.Notes[0].Tone, _tune.Notes[0].Duration);
     }
 
+    private (int tone, int duration) GetSecondNote()
+    {
+        Assert.IsTrue(_tune.Notes.Count > 1, "No notes were added to the tune.");
+        return (_tune.Notes[1].Tone, _tune.Notes[1].Duration);
+    }
+
     [TestMethod]
     public void Note_WithToneAndDuration_AddsCorrectNote()
     {
@@ -49,23 +55,121 @@ public class TuneBuilderTests
     }
 
     [TestMethod]
-    public void Quarter_WithTone_AddsNoteWithQuarterDuration()
+    [DataRow(Tone.A, Duration.SIXTEENTH, 220, 100)]
+    [DataRow(Tone.B, Duration.EIGHTH, 247, 200)]
+    [DataRow(Tone.C, Duration.QUARTER, 262, 400)]
+    [DataRow(Tone.D, Duration.HALF, 294, 800)]
+    [DataRow(Tone.E, Duration.WHOLE, 330, 1600)]
+    public void Note_WithTone(Tone t, Duration d, int expectedFrequency, int expectedDuration)
     {
-        _tune = Quarter(Tone.G).Beep();
+        _tune = Note(t, d).Note(t, d).Beep();
 
         (int tone, int duration) = GetFirstNote();
-        Assert.AreEqual(392, tone);
-        Assert.AreEqual(400, duration);
+        Assert.AreEqual(expectedFrequency, tone);
+        Assert.AreEqual(expectedDuration, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(expectedDuration, duration2);
     }
 
     [TestMethod]
-    public void Whole_WithTone_AddsNoteWithWholeDuration()
+    [DataRow(Tone.A, 220)]
+    [DataRow(Tone.B, 247)]
+    [DataRow(Tone.C, 262)]
+    [DataRow(Tone.D, 294)]
+    [DataRow(Tone.E, 330)]
+    [DataRow(Tone.F, 349)]
+    [DataRow(Tone.G, 392)]
+    public void Sixteenth_WithTone_AddsNoteWithQuarterDuration(Tone t, int expectedFrequency)
     {
-        _tune = Whole(Tone.C).Beep();
+        _tune = Sixteeth(t).Sixteeth(t).Beep();
 
         (int tone, int duration) = GetFirstNote();
-        Assert.AreEqual(262, tone);
+        Assert.AreEqual(expectedFrequency, tone);
+        Assert.AreEqual(100, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(100, duration2);
+    }
+
+    [TestMethod]
+    [DataRow(Tone.A, 220)]
+    [DataRow(Tone.B, 247)]
+    [DataRow(Tone.C, 262)]
+    [DataRow(Tone.D, 294)]
+    [DataRow(Tone.E, 330)]
+    [DataRow(Tone.F, 349)]
+    [DataRow(Tone.G, 392)]
+    public void Eighth_WithTone_AddsNoteWithQuarterDuration(Tone t, int expectedFrequency)
+    {
+        _tune = Eighth(t).Eighth(t).Beep();
+
+        (int tone, int duration) = GetFirstNote();
+        Assert.AreEqual(expectedFrequency, tone);
+        Assert.AreEqual(200, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(200, duration2);
+    }
+
+    [TestMethod]
+    [DataRow(Tone.A, 220)]
+    [DataRow(Tone.B, 247)]
+    [DataRow(Tone.C, 262)]
+    [DataRow(Tone.D, 294)]
+    [DataRow(Tone.E, 330)]
+    [DataRow(Tone.F, 349)]
+    [DataRow(Tone.G, 392)]
+    public void Quarter_WithTone_AddsNoteWithQuarterDuration(Tone t, int expectedFrequency)
+    {
+        _tune = Quarter(t).Quarter(t).Beep();
+
+        (int tone, int duration) = GetFirstNote();
+        Assert.AreEqual(expectedFrequency, tone);
+        Assert.AreEqual(400, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(400, duration2);
+    }
+
+    [TestMethod]
+    [DataRow(Tone.A, 220)]
+    [DataRow(Tone.B, 247)]
+    [DataRow(Tone.C, 262)]
+    [DataRow(Tone.D, 294)]
+    [DataRow(Tone.E, 330)]
+    [DataRow(Tone.F, 349)]
+    [DataRow(Tone.G, 392)]
+    public void Half_WithTone_AddsNoteWithWholeDuration(Tone t, int expectedFrequency)
+    {
+        _tune = Half(t).Half(t).Beep();
+
+        (int tone, int duration) = GetFirstNote();
+        Assert.AreEqual(expectedFrequency, tone);
+        Assert.AreEqual(800, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(800, duration2);
+    }
+
+    [TestMethod]
+    [DataRow(Tone.A, 220)]
+    [DataRow(Tone.B, 247)]
+    [DataRow(Tone.C, 262)]
+    [DataRow(Tone.D, 294)]
+    [DataRow(Tone.E, 330)]
+    [DataRow(Tone.F, 349)]
+    [DataRow(Tone.G, 392)]
+    public void Whole_WithTone_AddsNoteWithWholeDuration(Tone t, int expectedFrequency)
+    {
+        _tune = Whole(t).Whole(t).Beep();
+
+        (int tone, int duration) = GetFirstNote();
+        Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(1600, duration);
+        (int tone2, int duration2) = GetSecondNote();
+        Assert.AreEqual(expectedFrequency, tone2);
+        Assert.AreEqual(1600, duration2);
     }
 
     [TestMethod]

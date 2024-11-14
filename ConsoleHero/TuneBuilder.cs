@@ -294,21 +294,9 @@ public static class TuneBuilder
 
         public Tune Beep() => _item;
 
-        public ISetNotes Note(Tone tone, Duration duration)
-        {
-            _item.Notes.Add(new((int)tone, (int)duration));
-            return this;
-        }
-        public ISetNotes Note(int tone, Duration duration)
-        {
-            _item.Notes.Add(new(tone, (int)duration));
-            return this;
-        }
-        public ISetNotes Note(Tone tone, int duration)
-        {
-            _item.Notes.Add(new((int)tone, duration));
-            return this;
-        }
+        public ISetNotes Note(Tone tone, Duration duration) => Note((int)tone, (int)duration);
+        public ISetNotes Note(int tone, Duration duration) => Note(tone, (int)duration);
+        public ISetNotes Note(Tone tone, int duration) => Note((int)tone, duration);
         public ISetNotes Note(int tone, int duration)
         {
             _item.Notes.Add(new(tone, duration));
@@ -321,56 +309,16 @@ public static class TuneBuilder
             return _item;
         }
 
-        public ISetNotes Quarter(Tone tone)
-        {
-            _item.Notes.Add(new((int)tone, (int)Duration.QUARTER));
-            return this;
-        }
-        public ISetNotes Quarter(int tone)
-        {
-            _item.Notes.Add(new(tone, (int)Duration.QUARTER));
-            return this;
-        }
-        public ISetNotes Whole(Tone tone)
-        {
-            _item.Notes.Add(new((int)tone, (int)Duration.WHOLE));
-            return this;
-        }
-        public ISetNotes Whole(int tone)
-        {
-            _item.Notes.Add(new(tone, (int)Duration.WHOLE));
-            return this;
-        }
-        public ISetNotes Half(Tone tone)
-        {
-            _item.Notes.Add(new((int)tone, (int)Duration.HALF));
-            return this;
-        }
-        public ISetNotes Half(int tone)
-        {
-            _item.Notes.Add(new(tone, (int)Duration.HALF));
-            return this;
-        }
-        public ISetNotes Eighth(Tone tone)
-        {
-            _item.Notes.Add(new((int)tone, (int)Duration.EIGHTH));
-            return this;
-        }
-        public ISetNotes Eighth(int tone)
-        {
-            _item.Notes.Add(new(tone, (int)Duration.EIGHTH));
-            return this;
-        }
-        public ISetNotes Sixteeth(Tone tone)
-        {
-            _item.Notes.Add(new((int)tone, (int)Duration.SIXTEENTH));
-            return this;
-        }
-        public ISetNotes Sixteeth(int tone)
-        {
-            _item.Notes.Add(new(tone, (int)Duration.SIXTEENTH));
-            return this;
-        }
+        public ISetNotes Quarter(Tone tone) => Note((int)tone, (int)Duration.QUARTER);
+        public ISetNotes Quarter(int tone) => Note(tone, (int)Duration.QUARTER);
+        public ISetNotes Whole(Tone tone) => Note((int)tone, (int)Duration.WHOLE);
+        public ISetNotes Whole(int tone) => Note(tone, (int)Duration.WHOLE);
+        public ISetNotes Half(Tone tone) => Note((int)tone, (int)Duration.HALF);
+        public ISetNotes Half(int tone) => Note(tone, (int)Duration.HALF);
+        public ISetNotes Eighth(Tone tone) => Note((int)tone, (int)Duration.EIGHTH);
+        public ISetNotes Eighth(int tone) => Note(tone, (int)Duration.EIGHTH);
+        public ISetNotes Sixteeth(Tone tone) => Note((int)tone, (int)Duration.SIXTEENTH);
+        public ISetNotes Sixteeth(int tone) => Note(tone, (int)Duration.SIXTEENTH);
 
         public ISetConfirm GoTo(Action action)
         {

@@ -97,8 +97,7 @@ public class ParagraphBuilderTests
         ILineComponent input = _paragraph.Outputs[0].Components[1];
 
         Assert.IsNotNull(input, "Input should be of type InputModifier.");
-
-        Assert.IsTrue(input is InputModifier modifier && "test".ToUpper() == modifier.Modifier("test"));
+        Assert.IsTrue(input is InputModifier modifier && modifier.Modifier("test") == "TEST");
     }
     [TestMethod]
     public void GoTo_WithAction_SetsEffectAction()
