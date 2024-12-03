@@ -1,4 +1,5 @@
-﻿using ConsoleHero.Helpers;
+﻿using ConsoleHero.Interfaces;
+using ConsoleHero.Services;
 
 namespace ConsoleHero.Test;
 
@@ -20,9 +21,10 @@ public class ColorHelperTests
     [TestMethod]
     public void SetTextColor_WithColor_WritesExpectedAnsiCode()
     {
+        IColorService colorService = new ColorService();
         Color color = Color.FromArgb(255, 0, 0);
 
-        ColorHelper.SetTextColor(color);
+        colorService.SetTextColor(color);
 
         const string expectedOutput = "\u001b[38;2;255;0;0m";
         Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
@@ -51,7 +53,9 @@ public class ColorHelperTests
         int expectedG,
         int expectedB)
     {
-        ColorHelper.SetTextColor(consoleColor);
+        IColorService colorService = new ColorService();
+
+        colorService.SetTextColor(consoleColor);
 
         string expectedOutput = $"\u001b[38;2;{expectedR};{expectedG};{expectedB}m";
         Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
@@ -62,7 +66,7 @@ public class ColorHelperTests
     {
         const ConsoleColor consoleColor = ConsoleColor.Green;
 
-        Color color = ColorHelper.ConsoleColorToDrawingColor(consoleColor);
+        Color color = IColorService.ConsoleColorToDrawingColor(consoleColor);
 
         Assert.AreEqual(Color.Green, color);
     }
@@ -70,9 +74,10 @@ public class ColorHelperTests
     [TestMethod]
     public void SetToDefault_SetsGlobalDefaultTextColor()
     {
+        IColorService colorService = new ColorService();
         GlobalSettings.DefaultTextColor = Color.FromArgb(0, 255, 255);
 
-        ColorHelper.SetToDefault();
+        colorService.SetToDefault();
 
         const string expectedOutput = "\u001b[38;2;0;255;255m";
         Assert.AreEqual(expectedOutput, _consoleOutput.ToString());

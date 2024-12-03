@@ -1,12 +1,8 @@
-﻿namespace ConsoleHero.Helpers;
+﻿namespace ConsoleHero.Interfaces;
 
-internal static class ColorHelper
+public interface IColorService
 {
-    internal static void SetTextColor(Color color) => SetRgbTextColor(color.R, color.G, color.B);
-
-    internal static void SetTextColor(ConsoleColor consoleColor) => SetTextColor(ConsoleColorToDrawingColor(consoleColor));
-
-    internal static Color ConsoleColorToDrawingColor(ConsoleColor consoleColor) => consoleColor switch
+    public static Color ConsoleColorToDrawingColor(ConsoleColor consoleColor) => consoleColor switch
     {
         ConsoleColor.Black => Color.Black,
         ConsoleColor.DarkBlue => Color.FromArgb(0, 0, 139),
@@ -27,9 +23,11 @@ internal static class ColorHelper
         _ => Color.Black,
     };
 
-    private static void SetRgbTextColor(byte r, byte g, byte b) => GlobalSettings.Service.Write($"\u001b[38;2;{r};{g};{b}m");
+    public abstract void SetTextColor(Color color);
 
-    //internal static void ResetColor() => Write("\u001b[0m");
+    public abstract void SetTextColor(ConsoleColor consoleColor);
 
-    internal static void SetToDefault() => SetTextColor(GlobalSettings.DefaultTextColor);
+    public abstract void SetTextColor(byte r, byte g, byte b);
+
+    public abstract void SetToDefault();
 }

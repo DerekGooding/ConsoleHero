@@ -1,4 +1,4 @@
-﻿using ConsoleHero.Helpers;
+﻿using ConsoleHero.Services;
 
 namespace ConsoleHero;
 
@@ -108,7 +108,7 @@ internal static class ListExtensions
         {
             foreach (ILineComponent component in line.Components)
             {
-                ColorHelper.SetTextColor(component.Color);
+                GlobalSettings.ColorService.SetTextColor(component.Color);
                 if (component is ColorText c)
                     GlobalSettings.Service.Write(c.Text);
                 else if (component is InputPlaceholder)
@@ -121,6 +121,6 @@ internal static class ListExtensions
         for (int i = 0; i < GlobalSettings.Spacing; i++)
             GlobalSettings.Service.WriteLine();
 
-        ColorHelper.SetToDefault();
+        GlobalSettings.ColorService.SetToDefault();
     }
 }

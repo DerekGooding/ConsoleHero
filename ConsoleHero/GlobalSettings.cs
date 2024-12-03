@@ -1,5 +1,5 @@
-﻿using ConsoleHero.Helpers;
-using ConsoleHero.Interfaces;
+﻿using ConsoleHero.Interfaces;
+using ConsoleHero.Services;
 
 namespace ConsoleHero;
 
@@ -11,7 +11,7 @@ public static class GlobalSettings
     /// <summary>
     /// This is the default color all text will be. If unset, will be White.
     /// </summary>
-    public static Color DefaultTextColor { get; set; } = ColorHelper.ConsoleColorToDrawingColor(ConsoleColor.White);
+    public static Color DefaultTextColor { get; set; } = IColorService.ConsoleColorToDrawingColor(ConsoleColor.White);
 
     /// <summary>
     /// How many line breaks between menues or paragraphs. Set to 1 by default.
@@ -32,5 +32,16 @@ public static class GlobalSettings
         set => _service = value;
     }
 
+    public static IColorService ColorService
+    {
+        get
+        {
+            _colorService ??= new ColorService();
+            return _colorService;
+        }
+        set => _colorService = value;
+    }
+
     private static IConsoleService? _service;
+    private static IColorService? _colorService;
 }

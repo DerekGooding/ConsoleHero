@@ -1,4 +1,4 @@
-using ConsoleHero.Helpers;
+using ConsoleHero.Interfaces;
 
 namespace ConsoleHero;
 
@@ -24,7 +24,7 @@ public readonly record struct ColorText : ILineComponent
     internal ColorText(string text, ConsoleColor color)
     {
         Text = text;
-        _color = ColorHelper.ConsoleColorToDrawingColor(color);
+        _color = IColorService.ConsoleColorToDrawingColor(color);
     }
 
     internal string Text { get; } = string.Empty;
