@@ -26,13 +26,13 @@ public record Request : INode
     public void Call(string input = "")
     {
         if (ClearOnCall)
-            Clear();
+            GlobalSettings.Service.Clear();
 
-        WriteLine(StartingMessage);
+        GlobalSettings.Service.WriteLine(StartingMessage);
         string? result;
-        while (string.IsNullOrEmpty(result = ReadLine()))
+        while (string.IsNullOrEmpty(result = GlobalSettings.Service.ReadLine()))
         {
-            WriteLine(FailMessage);
+            GlobalSettings.Service.WriteLine(FailMessage);
         }
 
         Apply.Invoke(result);

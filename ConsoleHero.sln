@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHero", "ConsoleHero\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHero.Test", "ConsoleHero.Test\ConsoleHero.Test.csproj", "{C450F83F-7827-402D-8F20-D84C0406C87A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.Web", "ConsoleHero.Web\ConsoleHero.Web.csproj", "{3C987FA4-6121-48AA-873D-C092EB514205}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C450F83F-7827-402D-8F20-D84C0406C87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C450F83F-7827-402D-8F20-D84C0406C87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C450F83F-7827-402D-8F20-D84C0406C87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C987FA4-6121-48AA-873D-C092EB514205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C987FA4-6121-48AA-873D-C092EB514205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C987FA4-6121-48AA-873D-C092EB514205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C987FA4-6121-48AA-873D-C092EB514205}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

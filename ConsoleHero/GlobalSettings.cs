@@ -1,4 +1,5 @@
 ﻿using ConsoleHero.Helpers;
+using ConsoleHero.Interfaces;
 
 namespace ConsoleHero;
 
@@ -16,4 +17,20 @@ public static class GlobalSettings
     /// How many line breaks between menues or paragraphs. Set to 1 by default.
     /// </summary>
     public static int Spacing { get; set; } = 1;
+
+    /// <summary>
+    /// By default will use the standard Console. If you want to adapt this to other output sources, 
+    /// create a new <see cref="IConsoleService"/> and set this GlobalSetting.
+    /// </summary>
+    public static IConsoleService Service
+    {
+        get
+        {
+            _service ??= new ConsoleService();
+            return _service;
+        }
+        set => _service = value;
+    }
+
+    private static IConsoleService? _service;
 }

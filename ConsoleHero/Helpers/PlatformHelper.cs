@@ -1,6 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using ConsoleHero.Interfaces;
+using System.Runtime.InteropServices;
 
-namespace ConsoleHero.Interfaces;
+namespace ConsoleHero.Helpers;
 
 internal class PlatformHelper : IPlatformHelper
 {

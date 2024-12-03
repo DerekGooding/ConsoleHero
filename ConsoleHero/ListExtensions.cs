@@ -110,16 +110,16 @@ internal static class ListExtensions
             {
                 ColorHelper.SetTextColor(component.Color);
                 if (component is ColorText c)
-                    Write(c.Text);
+                    GlobalSettings.Service.Write(c.Text);
                 else if (component is InputPlaceholder)
-                    Write(input);
+                    GlobalSettings.Service.Write(input);
                 else if (component is InputModifier modifier)
-                    Write(modifier.Modifier.Invoke(input));
+                    GlobalSettings.Service.Write(modifier.Modifier.Invoke(input));
             }
-            WriteLine();
+            GlobalSettings.Service.WriteLine();
         }
         for (int i = 0; i < GlobalSettings.Spacing; i++)
-            WriteLine();
+            GlobalSettings.Service.WriteLine();
 
         ColorHelper.SetToDefault();
     }

@@ -19,7 +19,7 @@ public record Paragraph : INode
     public void Call(string input = "")
     {
         if (ClearOnCall)
-            Clear();
+            GlobalSettings.Service.Clear();
         Outputs.Print(input);
 
         FinalizeMessage();
@@ -29,7 +29,7 @@ public record Paragraph : INode
     {
         if (PressToContinue)
         {
-            ReadKey();
+            GlobalSettings.Service.ReadKey();
         }
         else
         {

@@ -8,14 +8,14 @@ internal class BeepHelper : IBeepHelper
 
     public BeepHelper(IPlatformHelper plateformHelper) => _platformHelper = plateformHelper;
 
-    void IBeepHelper.Beep() => Write("\a");
+    void IBeepHelper.Beep() => GlobalSettings.Service.Write("\a");
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Ensured by _platformHelper")]
     void IBeepHelper.Beep(int frequency, int duration)
     {
         if (_platformHelper.IsWindows)
         {
-            Beep(frequency, duration);
+            GlobalSettings.Service.Beep(frequency, duration);
         }
         else if (_platformHelper.IsLinux || _platformHelper.IsOSX)
         {
@@ -34,7 +34,7 @@ internal class BeepHelper : IBeepHelper
             }
             catch
             {
-                Write("\a");
+                GlobalSettings.Service.Write("\a");
             }
         }
     }

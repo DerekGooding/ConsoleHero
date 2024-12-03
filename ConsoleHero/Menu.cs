@@ -25,7 +25,7 @@ public record Menu : INode
         AutoIncrimentKeys();
 
         if (ClearOnCall)
-            Clear();
+            GlobalSettings.Service.Clear();
 
         if (Title.Text != string.Empty)
         {
@@ -38,18 +38,18 @@ public record Menu : INode
 
         while (choice == null)
         {
-            string? line = ReadLine();
+            string? line = GlobalSettings.Service.ReadLine();
             choice = FindFirst(x => x.IsCaseSensitive
                 ? string.Equals(x.Key, line)
                 : string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
             if (choice == null)
             {
-                WriteLine("Not a valid choice" + Environment.NewLine);
+                GlobalSettings.Service.WriteLine("Not a valid choice" + Environment.NewLine);
             }
             else
             {
                 for (int i = 0; i < GlobalSettings.Spacing; i++)
-                    WriteLine();
+                    GlobalSettings.Service.WriteLine();
                 choice.Invoke();
             }
         }

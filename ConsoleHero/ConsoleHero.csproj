@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net7.0;</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0;net7.0;</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  
 	 <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <Authors>Derek Gooding</Authors>
     <Description>A library for making quick menus in a console application.</Description>
 	<PackageTags>Console;FluentAPI;Menu;CLI;ConsoleApp;CSharp;UserInterface;MenuNavigation;Scalable;ConsoleMenu;Fluent;</PackageTags>
