@@ -29,4 +29,4 @@ Easy to use!
 ## Request
   The obvious input requirement. Menus only get you so far. Eventually you need to request a string from the user like their name or a date. Or how many iterations to loop. This is where requests come in. Quickly create an intuitive user end-point with a few lines of fluent code. 
 ## Tune
-  Who doesn't like a beep or audio queue in their menues? Uses enums and a builder to make note generation intuitive. You can still include custom frequencies but more often then not, you're using a quick Quarter B note or a Half D. 
+  Who doesn't like a beep or audio queue in their menus? Uses enums and a builder to make note generation intuitive. You can still include custom frequencies but more often then not, you're using a quick Quarter B note or a Half D. 
