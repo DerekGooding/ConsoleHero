@@ -1,4 +1,5 @@
-﻿using ConsoleHero.Services;
+﻿using ConsoleHero.Interfaces;
+using ConsoleHero.Services;
 
 namespace ConsoleHero;
 

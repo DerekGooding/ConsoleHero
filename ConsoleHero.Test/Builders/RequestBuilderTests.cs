@@ -1,4 +1,5 @@
-﻿using static ConsoleHero.RequestBuilder;
+﻿using ConsoleHero.Interfaces;
+using static ConsoleHero.RequestBuilder;
 
 namespace ConsoleHero.Test.Builders;
 

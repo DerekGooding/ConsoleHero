@@ -1,9 +1,11 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Interfaces;
+
+namespace ConsoleHero;
 
 /// <summary>
 /// Start making a new Menu with either <see cref="MenuBuilder.Title(string, Color?)"/> or <see cref="MenuBuilder.NoTitle"/>.
 /// </summary>
-public record Menu : INode
+public record Menu : INode, IListeningNode
 {
     internal Menu() { }
 
@@ -34,24 +36,23 @@ public record Menu : INode
 
         OuputOptions.Print(Seperator);
 
-        MenuOption? choice = null;
+        GlobalSettings.Service.SetListener(this);
+    }
 
-        while (choice == null)
+    void IListeningNode.ProcessResult(string response)
+    {
+        MenuOption? choice = FindFirst(x => x.IsCaseSensitive
+            ? string.Equals(x.Key, response)
+            : string.Equals(x.Key, response, StringComparison.OrdinalIgnoreCase));
+        if (choice == null)
         {
-            string? line = GlobalSettings.Service.ReadLine();
-            choice = FindFirst(x => x.IsCaseSensitive
-                ? string.Equals(x.Key, line)
-                : string.Equals(x.Key, line, StringComparison.OrdinalIgnoreCase));
-            if (choice == null)
-            {
-                GlobalSettings.Service.WriteLine("Not a valid choice" + Environment.NewLine);
-            }
-            else
-            {
-                for (int i = 0; i < GlobalSettings.Spacing; i++)
-                    GlobalSettings.Service.WriteLine();
-                choice.Invoke();
-            }
+            GlobalSettings.Service.WriteLine("Not a valid choice" + Environment.NewLine);
+        }
+        else
+        {
+            for (int i = 0; i < GlobalSettings.Spacing; i++)
+                GlobalSettings.Service.WriteLine();
+            choice.Invoke();
         }
     }
 

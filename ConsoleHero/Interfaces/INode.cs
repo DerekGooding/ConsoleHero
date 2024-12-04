@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero;
+﻿namespace ConsoleHero.Interfaces;
 
 /// <summary>
 /// The base node for ConsoleHero.

@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero.Test;
+﻿using ConsoleHero.Interfaces;
+
+namespace ConsoleHero.Test;
 
 [TestClass]
 public class ExtensionTests

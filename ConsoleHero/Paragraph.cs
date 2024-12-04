@@ -1,8 +1,10 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Interfaces;
+
+namespace ConsoleHero;
 /// <summary>
 /// Start making a new paragraph with <see cref="ParagraphBuilder.Line(string)"/> or <see cref="ParagraphBuilder.ClearOnCall"/>.
 /// </summary>
-public record Paragraph : INode
+public record Paragraph : INode, IListeningNode
 {
     internal Paragraph() { }
 
@@ -29,12 +31,15 @@ public record Paragraph : INode
     {
         if (PressToContinue)
         {
-            GlobalSettings.Service.ReadKey();
+            GlobalSettings.Service.SetListener(this);
         }
         else
         {
             Thread.Sleep(Delay);
+            Effect.Invoke();
         }
-        Effect.Invoke();
+
     }
+
+    void IListeningNode.ProcessResult(string response) => Effect.Invoke();
 }

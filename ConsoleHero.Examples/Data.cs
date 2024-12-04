@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ConsoleHero.Interfaces;
+using System.Drawing;
 
 namespace ConsoleHero.Examples;
 public static class Data

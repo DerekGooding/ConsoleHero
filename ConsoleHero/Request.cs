@@ -1,8 +1,10 @@
-﻿namespace ConsoleHero;
+﻿using ConsoleHero.Interfaces;
+
+namespace ConsoleHero;
 /// <summary>
 /// Start making a new request with <see cref="RequestBuilder.Ask(string)"/> or <see cref="RequestBuilder.NoMessage"/>.
 /// </summary>
-public record Request : INode
+public record Request : INode, IListeningNode
 {
     internal Request() => FailMessage = $"This is not a valid {DataType}.";
 
@@ -29,13 +31,21 @@ public record Request : INode
             GlobalSettings.Service.Clear();
 
         GlobalSettings.Service.WriteLine(StartingMessage);
-        string? result;
-        while (string.IsNullOrEmpty(result = GlobalSettings.Service.ReadLine()))
+        GlobalSettings.Service.SetListener(this);
+    }
+
+    void IListeningNode.ProcessResult(string response)
+    {
+        if(string.IsNullOrWhiteSpace(response))
         {
             GlobalSettings.Service.WriteLine(FailMessage);
+            GlobalSettings.Service.SetListener(this);
         }
-
-        Apply.Invoke(result);
-        Effect.Invoke(result);
+        else
+        {
+            Apply.Invoke(response);
+            Effect.Invoke(response);
+        }
     }
+
 }

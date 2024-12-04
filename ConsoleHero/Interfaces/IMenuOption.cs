@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero;
+﻿namespace ConsoleHero.Interfaces;
 
 /// <summary>
 /// Inherit this interface to make any custom class compatable with <see cref="MenuBuilder.IAddOptions.OptionsFromList{T}(IEnumerable{T}, Action{T}, Func{string, bool}?)"/>

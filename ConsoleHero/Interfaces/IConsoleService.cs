@@ -9,9 +9,11 @@ public interface IConsoleService
 
     public abstract void Clear();
 
-    public abstract string? ReadLine();
+    public abstract void ReadLine();
 
-    public abstract ConsoleKeyInfo ReadKey();
+    public abstract void ReadKey();
 
     public abstract void Beep(int frequency, int duration);
+
+    public abstract void SetListener(IListeningNode listener);
 }
