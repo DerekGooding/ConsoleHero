@@ -5,15 +5,15 @@ namespace ConsoleHero.Services;
 
 internal class ConsoleService : IConsoleService
 {
-    private IListeningNode? CurrentListener;
+    private readonly List<IListeningNode> ListenerQueue = new();
 
     void IConsoleService.SetListener(IListeningNode listener)
     {
-        CurrentListener = listener;
+        ListenerQueue.Add(listener);
         if (listener is Paragraph)
-            CurrentListener?.ProcessResult(Console.ReadKey().Key.ToString());
+            ListenerQueue[^1].ProcessResult(Console.ReadKey().Key.ToString());
         else
-            CurrentListener?.ProcessResult(Console.ReadLine() ?? string.Empty);
+            ListenerQueue[^1].ProcessResult(Console.ReadLine() ?? string.Empty);
     }
 
     void IConsoleService.Clear() => Console.Clear();
@@ -26,4 +26,7 @@ internal class ConsoleService : IConsoleService
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             Console.Beep(frequency, duration);
     }
+
+    void IConsoleService.Cancel() => ListenerQueue.RemoveAt(ListenerQueue.Count - 1);
+    void IConsoleService.Exit() => Environment.Exit(0);
 }

@@ -94,7 +94,7 @@ internal static class ListExtensions
     internal static void Print(this IEnumerable<MenuOption> list, string seperator)
     {
         List<ParagraphLine> lines = new();
-        foreach (ColorText item in list.Select(x => $"{x.Key} {seperator} {x.Description}".DefaultColor()))
+        foreach (ColorText item in list.Select(x => $"{x.Key} {seperator} {x.Description}".Color(x.Color)))
         {
             ParagraphLine paragraphLine = new();
             paragraphLine.Components.Add(item);

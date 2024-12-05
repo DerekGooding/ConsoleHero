@@ -12,4 +12,7 @@ public interface IConsoleService
     public abstract void Beep(int frequency, int duration);
 
     public abstract void SetListener(IListeningNode listener);
+
+    public abstract void Cancel();
+    public abstract void Exit();
 }

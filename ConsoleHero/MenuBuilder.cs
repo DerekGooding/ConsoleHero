@@ -300,7 +300,7 @@ public static class MenuBuilder
         public Menu Cancel(char key) => Cancel(key.ToString());
         public Menu Cancel(string key)
         {
-            _item.Add(new MenuOption() { Key = key, UsesAutoKey = false, Description = "Cancel", Effect = () => { } });
+            _item.Add(new MenuOption() { Key = key, UsesAutoKey = false, Description = "Cancel", Effect = GlobalSettings.Service.Cancel });
             return _item;
         }
 
@@ -308,7 +308,7 @@ public static class MenuBuilder
         public Menu Exit(char key) => Exit(key.ToString());
         public Menu Exit(string key)
         {
-            _item.Add(new MenuOption() { Key = key, UsesAutoKey = false, Description = "Exit", Effect = () => Environment.Exit(0) });
+            _item.Add(new MenuOption() { Key = key, UsesAutoKey = false, Description = "Exit", Effect = GlobalSettings.Service.Exit });
             return _item;
         }
 
