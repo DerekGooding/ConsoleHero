@@ -2,5 +2,5 @@
 
 public interface IListeningNode
 {
-    internal abstract void ProcessResult(string response);
+    public abstract void ProcessResult(string response);
 }
