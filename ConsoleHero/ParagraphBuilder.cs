@@ -110,6 +110,10 @@ public static class ParagraphBuilder
         /// </summary>
         public Paragraph DelayInSeconds(double seconds);
         /// <summary>
+        /// After displaying this paragraph, will immediately continue without delay or prompt.
+        /// </summary>
+        public Paragraph Immediate();
+        /// <summary>
         /// After displaying this paragraph, will wait for the user to press a key to continue.
         /// </summary>
         public Paragraph PressToContinue();
