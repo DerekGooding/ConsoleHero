@@ -11,21 +11,15 @@ internal class ConsoleService : IConsoleService
     {
         CurrentListener = listener;
         if (listener is Paragraph)
-            ((IConsoleService)this).ReadKey();
+            CurrentListener?.ProcessResult(Console.ReadKey().Key.ToString());
         else
-            ((IConsoleService)this).ReadLine();
+            CurrentListener?.ProcessResult(Console.ReadLine() ?? string.Empty);
     }
 
     void IConsoleService.Clear() => Console.Clear();
-    void IConsoleService.ReadLine() => CurrentListener?.ProcessResult(Console.ReadLine() ?? string.Empty);
     void IConsoleService.Write(string? value) => Console.Write(value);
     void IConsoleService.WriteLine(string? value) => Console.WriteLine(value);
     void IConsoleService.WriteLine() => Console.WriteLine();
-    void IConsoleService.ReadKey()
-    {
-        Console.ReadKey();
-        CurrentListener?.ProcessResult("");
-    }
 
     void IConsoleService.Beep(int frequency, int duration)
     {
