@@ -10,7 +10,7 @@ internal sealed class Host
     internal interface ILoadSingletons
     {
         public ILoadSingletons Singleton<T>();
-        public Host End();
+        public Host Build();
     }
 
     internal static ILoadSingletons Singleton<T>()
@@ -26,7 +26,7 @@ internal sealed class Host
             return this;
         }
 
-        public Host End()
+        public Host Build()
         {
             _host.Initialize();
             return _host;
@@ -48,8 +48,7 @@ internal sealed class Host
             }
         }
 
-        int count = -1;
-        while (count != map.Count)
+        while (toProcess.Count != 0)
         {
             for (int i = 0; i < toProcess.Count; i++)
             {
@@ -63,7 +62,6 @@ internal sealed class Host
                     i--;
                 }
             }
-            count = map.Count;
         }
 
         if (toProcess.Count != 0)
