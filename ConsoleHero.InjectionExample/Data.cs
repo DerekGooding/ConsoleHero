@@ -2,6 +2,7 @@
 using System.Drawing;
 
 namespace ConsoleHero.InjectionExample;
+[Singleton]
 public class Data
 {
     public string Name { get; set; } = "Person";

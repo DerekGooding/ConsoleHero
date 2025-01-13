@@ -1,6 +1,12 @@
 ﻿namespace ConsoleHero.Injection;
 public class Host
 {
+    internal Host(List<Singleton> list)
+    {
+        singletons = list;
+        Initialize();
+    }
+
     internal Host() { }
 
     private readonly List<Singleton> singletons = new();
@@ -35,7 +41,7 @@ public class Host
 
     private void Initialize()
     {
-        List<Singleton> toProcess = new(singletons);
+        List<Singleton> toProcess = singletons.ToList();
         for (int i = 0; i < toProcess.Count; i++)
         {
             Singleton singleton = toProcess[i];

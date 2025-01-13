@@ -2,6 +2,7 @@
 using static ConsoleHero.ParagraphBuilder;
 
 namespace ConsoleHero.InjectionExample;
+[Singleton]
 public class Paragraphs(Data data)
 {
     private readonly Data _data = data;

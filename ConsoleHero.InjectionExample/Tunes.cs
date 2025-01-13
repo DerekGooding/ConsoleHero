@@ -1,6 +1,7 @@
 ﻿using static ConsoleHero.TuneBuilder;
 
 namespace ConsoleHero.InjectionExample;
+[Singleton]
 public class Tunes
 {
     public Tune Mary =>

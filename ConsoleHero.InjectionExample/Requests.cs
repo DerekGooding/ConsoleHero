@@ -1,7 +1,7 @@
 ﻿using static ConsoleHero.RequestBuilder;
 
 namespace ConsoleHero.InjectionExample;
-
+[Singleton]
 public class Requests(Paragraphs paragraphs, Data data)
 {
     private readonly Paragraphs _paragraphs = paragraphs;

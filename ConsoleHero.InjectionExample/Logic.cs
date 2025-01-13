@@ -1,5 +1,6 @@
 ﻿namespace ConsoleHero.InjectionExample;
 
+[Singleton]
 public class Logic
 {
     public void ReviewPlayer(Player player)

@@ -2,6 +2,7 @@
 using static ConsoleHero.MenuBuilder;
 
 namespace ConsoleHero.InjectionExample;
+[Singleton]
 public class Menus(Paragraphs paragraphs, Requests requests, Tunes tunes, Data data, Logic logic)
 {
     private readonly Paragraphs _paragraphs = paragraphs;

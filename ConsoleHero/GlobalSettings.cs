@@ -1,6 +1,7 @@
 ﻿using ConsoleHero.Injection;
 using ConsoleHero.Interfaces;
 using ConsoleHero.Services;
+using System.Reflection;
 
 namespace ConsoleHero;
 
@@ -46,7 +47,17 @@ public static class GlobalSettings
     private static IConsoleService? _service;
     private static IColorService? _colorService;
 
-    public static Host Content { get; set; } = new Host();
+    public static Host Content { get; set; } = InitializeContent();
+
+    private static Host InitializeContent()
+    {
+        Host host = new Host(AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x=>x.GetTypes())
+                           .Where(t => t.GetCustomAttributes(typeof(SingletonAttribute), false).Length != 0)
+                           .Select(x => new Singleton(x))
+                           .ToList());
+        return host.map.Count == 0 ? new Host() : host;
+    }
 
     public static T Get<T>() where T : class
         => Content.map.ContainsKey(typeof(T)) ? Content.Get<T>()
