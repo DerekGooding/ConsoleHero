@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using static ConsoleHero.MenuBuilder;
 
-namespace ConsoleHero.Examples;
+namespace ConsoleHero.StaticExample;
 public static class Menus
 {
     public static Menu MainMenu =>

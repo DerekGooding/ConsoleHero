@@ -1,12 +1,12 @@
 ﻿using ConsoleHero.Interfaces;
 using System.Drawing;
 
-namespace ConsoleHero.Examples;
-public static class Data
+namespace ConsoleHero.InjectionExample;
+public class Data
 {
-    public static string Name { get; set; } = "Person";
+    public string Name { get; set; } = "Person";
 
-    public readonly static List<string> Fruit =
+    public readonly List<string> Fruit =
     [
         "Apple",
         "Banana",
@@ -14,7 +14,7 @@ public static class Data
         "Artichoke",
     ];
 
-    public readonly static List<ColorText> ColoredFruit =
+    public readonly List<ColorText> ColoredFruit =
     [
         "Apple".             Color(Color.Red),
         "Banana".            Color(Color.Yellow),
@@ -23,7 +23,7 @@ public static class Data
         "Artichoke".         Color(Color.Green),
     ];
 
-    public readonly static List<int> Numbers =
+    public readonly List<int> Numbers =
     [
         7000,
         8888,
@@ -31,7 +31,7 @@ public static class Data
         55,
     ];
 
-    public readonly static List<Player> Players =
+    public readonly List<Player> Players =
     [
         new ("Cathy"),
         new ("Jim"),

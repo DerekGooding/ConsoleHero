@@ -1,4 +1,5 @@
-﻿using ConsoleHero.Interfaces;
+﻿using ConsoleHero.Injection;
+using ConsoleHero.Interfaces;
 using ConsoleHero.Services;
 
 namespace ConsoleHero;
@@ -44,4 +45,10 @@ public static class GlobalSettings
 
     private static IConsoleService? _service;
     private static IColorService? _colorService;
+
+    public static Host Content { get; set; } = new Host();
+
+    public static T Get<T>() where T : class
+        => Content.map.ContainsKey(typeof(T)) ? Content.Get<T>()
+        : throw new Exception("Content of this type isn't initialized");
 }

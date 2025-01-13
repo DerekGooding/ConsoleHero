@@ -1,6 +1,6 @@
 ﻿using static ConsoleHero.TuneBuilder;
 
-namespace ConsoleHero.Examples;
+namespace ConsoleHero.StaticExample;
 public static class Tunes
 {
     public static Tune Mary =>

@@ -1,19 +1,19 @@
 ﻿namespace ConsoleHero.Injection;
-internal sealed class Host
+public class Host
 {
-    private Host() { }
+    internal Host() { }
 
     private readonly List<Singleton> singletons = new();
 
-    private readonly Dictionary<Type, object> map = new();
+    internal readonly Dictionary<Type, object> map = new();
 
-    internal interface ILoadSingletons
+    public interface ILoadSingletons
     {
         public ILoadSingletons Singleton<T>();
         public Host Build();
     }
 
-    internal static ILoadSingletons Singleton<T>()
+    public static ILoadSingletons Singleton<T>()
         => new Builder().Singleton<T>();
 
     internal class Builder : ILoadSingletons

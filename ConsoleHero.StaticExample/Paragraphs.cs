@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using static ConsoleHero.ParagraphBuilder;
 
-namespace ConsoleHero.Examples;
+namespace ConsoleHero.StaticExample;
 public static class Paragraphs
 {
     public static Paragraph Eat =>

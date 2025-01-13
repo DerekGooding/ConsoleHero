@@ -1,4 +1,4 @@
-﻿namespace ConsoleHero.Examples;
+﻿namespace ConsoleHero.StaticExample;
 
 public static class Logic
 {

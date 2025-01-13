@@ -1,6 +1,6 @@
 ﻿using static ConsoleHero.RequestBuilder;
 
-namespace ConsoleHero.Examples;
+namespace ConsoleHero.StaticExample;
 public static class Requests
 {
     public static Request AskForName =>

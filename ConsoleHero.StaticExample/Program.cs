@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace ConsoleHero.Examples;
+namespace ConsoleHero.StaticExample;
 public static class Program
 {
     private static void Main()
