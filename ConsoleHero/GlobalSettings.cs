@@ -1,7 +1,6 @@
 ﻿using ConsoleHero.Injection;
 using ConsoleHero.Interfaces;
 using ConsoleHero.Services;
-using System.Reflection;
 
 namespace ConsoleHero;
 
