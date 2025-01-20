@@ -40,7 +40,7 @@ jobs:
             echo "No new version detected"
             echo "run_publish=false" >> $GITHUB_ENV
           fi
-            ls ./nupkg/analyzers/dotnet/cs/
+            
 
       - name: Restore dependencies
         run: dotnet restore
@@ -61,7 +61,7 @@ jobs:
             echo "Source Generator DLL not found! Exiting."
             exit 1
           fi
-
+            ls ./nupkg/analyzers/dotnet/cs/
 
       - name: Unzip the NuGet package for inspection
         run: |
