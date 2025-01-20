@@ -61,6 +61,17 @@ jobs:
             exit 1
           fi
 
+      - name: Unzip the NuGet package for inspection
+        run: |
+          mkdir -p ./package-inspection
+          unzip ./nupkg/*.nupkg -d ./package-inspection/
+          ls -R ./package-inspection
+          if [ -f ./package-inspection/analyzers/dotnet/cs/EnumSourceGenerator.dll ]; then
+            echo "Source Generator DLL is correctly packed!"
+          else
+            echo "Source Generator DLL is missing from the package!" && exit 1
+          fi
+
       - name: Publish to NuGet
         if: env.run_publish == 'true'
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
