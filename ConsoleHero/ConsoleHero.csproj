@@ -31,8 +31,10 @@
     <None Remove="ReadmeImages\**" />
 	<None Include="README.md" Pack="true" PackagePath="\" />
 	<Resource Include="icon.png" Pack="true" PackagePath="icon.png" />
-	<None Include="../../EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll" 
-			Pack="true" PackagePath="analyzers/dotnet/cs/" />
+	<None Include="$(MSBuildThisFileDirectory)../EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll"
+		  Pack="true"
+		  PackagePath="analyzers/dotnet/cs/"
+		  Condition="Exists('$(MSBuildThisFileDirectory)../EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll')" />
   </ItemGroup>
 
 </Project>
