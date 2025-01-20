@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConsoleHero\ConsoleHero.csproj" />
+	<ProjectReference Include="..\EnumSourceGenerator\EnumSourceGenerator.csproj"
+						OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

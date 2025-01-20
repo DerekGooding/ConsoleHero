@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.InjectionExampl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.StaticExample", "ConsoleHero.StaticExample\ConsoleHero.StaticExample.csproj", "{961C15EE-2744-4A15-B577-F2F3B096A856}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumSourceGenerator", "EnumSourceGenerator\EnumSourceGenerator.csproj", "{72C81B79-4DD8-4897-A032-8EDA8C952B63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{961C15EE-2744-4A15-B577-F2F3B096A856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{961C15EE-2744-4A15-B577-F2F3B096A856}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{961C15EE-2744-4A15-B577-F2F3B096A856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

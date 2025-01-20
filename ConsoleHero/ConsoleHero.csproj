@@ -8,11 +8,10 @@
 	  
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
-    <Version>0.3.10</Version>
+    <Version>0.4.1</Version>
     <Authors>Derek Gooding</Authors>
     <Description>A library for making quick menus in a console application.</Description>
 	<PackageTags>Console CLI Menu Navigation FluentAPI UserInterface CommandLine Framework CSharp Tools</PackageTags>
-
 
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -32,6 +31,8 @@
     <None Remove="ReadmeImages\**" />
 	<None Include="README.md" Pack="true" PackagePath="\" />
 	<Resource Include="icon.png" Pack="true" PackagePath="icon.png" />
+	<ProjectReference Include="..\EnumSourceGenerator\EnumSourceGenerator.csproj"
+				      OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
