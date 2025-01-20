@@ -51,6 +51,7 @@ jobs:
 
       - name: Pack the NuGet package
         run: |
+          dotnet pack ConsoleHero/ConsoleHero.csproj --configuration Release --no-build --output ./nupkg
           mkdir -p ./nupkg/analyzers/dotnet/cs/
           if [ -f EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll ]; then
           echo "Source Generator DLL found, copying..."
@@ -59,7 +60,7 @@ jobs:
             echo "Source Generator DLL not found! Exiting."
             exit 1
           fi
-          dotnet pack ConsoleHero/ConsoleHero.csproj --configuration Release --no-build --output ./nupkg
+
 
       - name: Unzip the NuGet package for inspection
         run: |
