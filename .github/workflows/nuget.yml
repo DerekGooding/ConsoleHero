@@ -52,6 +52,7 @@ jobs:
       - name: Pack the NuGet package
         run: |
           dotnet pack ConsoleHero/ConsoleHero.csproj --configuration Release --no-build --output ./nupkg
+          mkdir -p ./nupkg/analyzers/dotnet/cs/
           cp EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll ./nupkg/analyzers/dotnet/cs/
 
       - name: Publish to NuGet
