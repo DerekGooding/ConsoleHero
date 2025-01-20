@@ -44,11 +44,15 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build the project
-        run: dotnet build --configuration Release --no-restore
+      - name: Build the project and source generator
+        run: |
+          dotnet build ConsoleHero/ConsoleHero.csproj --configuration Release --no-restore
+          dotnet build EnumSourceGenerator/EnumSourceGenerator.csproj --configuration Release --no-restore
 
       - name: Pack the NuGet package
-        run: dotnet pack --configuration Release --no-build --output ./nupkg
+        run: |
+          dotnet pack ConsoleHero/ConsoleHero.csproj --configuration Release --no-build --output ./nupkg
+          cp EnumSourceGenerator/bin/Release/netstandard2.0/EnumSourceGenerator.dll ./nupkg/analyzers/dotnet/cs/
 
       - name: Publish to NuGet
         if: env.run_publish == 'true'
