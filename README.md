@@ -20,16 +20,16 @@ Fully Documented.
 Fully Tested. 
 Easy to use!
 
-## Start with OfX
-To install the OfX package, use the following NuGet command:
+## Start with ConsoleHero
+To install the ConsoleHero package, use the following NuGet command:
 
 ```bash
-dotnet add package OfX
+dotnet add package ConsoleHero
 ```
 Or via the NuGet Package Manager:
 
 ```bash
-Install-Package OfX
+Install-Package ConsoleHero
 ```
 
 ## What it does
