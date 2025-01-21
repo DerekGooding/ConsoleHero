@@ -10,7 +10,7 @@ public static class Program
         GlobalSettings.DefaultTextColor = Color.LightBlue;
 
         //Source Generation example. Try renaming editing the Creatures data. 
-        Creature goblin = GlobalSettings.Get<Creatures>().Get(ContentEnums.CreaturesType.Goblin);
+        Creature goblin = GlobalSettings.Get<Creatures>()[ContentEnums.CreaturesType.Goblin];
         GlobalSettings.Service.Write($"A Goblin has {goblin.Health} health");
         Console.ReadKey();
 

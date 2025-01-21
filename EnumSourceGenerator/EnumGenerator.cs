@@ -216,6 +216,7 @@ namespace {fullNamespace}
     public partial class {className}
     {{
         public {typeArgument} Get({className}Type type) => All[(int)type];
+        public {typeArgument} this[{className}Type type] => All[(int)type];
         public {typeArgument} GetById(int id) => All[id]; 
     }}
 }}";
