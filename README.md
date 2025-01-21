@@ -20,6 +20,20 @@ Fully Documented.
 Fully Tested. 
 Easy to use!
 
+## Start with ConsoleHero
+To install the ConsoleHero package, use the following NuGet command:
+
+```bash
+dotnet add package ConsoleHero
+```
+Or via the NuGet Package Manager:
+
+```bash
+Install-Package ConsoleHero
+```
+
+## What it does
+
 # Turn
 ![Before](https://github.com/DerekGooding/ConsoleHero/blob/main/ReadmeImages/Before.png)
 
