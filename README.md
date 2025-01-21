@@ -20,6 +20,20 @@ Fully Documented.
 Fully Tested. 
 Easy to use!
 
+## Start with OfX
+To install the OfX package, use the following NuGet command:
+
+```bash
+dotnet add package OfX
+```
+Or via the NuGet Package Manager:
+
+```bash
+Install-Package OfX
+```
+
+## What it does
+
 # Turn
 ![Before](https://github.com/DerekGooding/ConsoleHero/blob/main/ReadmeImages/Before.png)
 
