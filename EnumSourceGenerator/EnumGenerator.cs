@@ -37,7 +37,7 @@ public class EnumGenerator : IIncrementalGenerator
 
                 string helper = GeneratePartialHelper(classSymbol.Name,
                                                       classSymbol.ContainingNamespace.ToDisplayString(),
-                                                      typeArgument.ToDisplayString());
+                                                      typeArgument.ToDisplayString(), enumMembers);
                 ctx.AddSource($"{classSymbol.Name}Helper.g.cs", SourceText.From(helper, Encoding.UTF8));
             }
         });
@@ -140,14 +140,14 @@ public class EnumGenerator : IIncrementalGenerator
                 {
                     ArgumentSyntax? firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
                     if (firstArgument?.Expression is LiteralExpressionSyntax literal)
-                        yield return ProcessEnumName(literal.Token.ValueText);
+                        yield return SanitizeEnumName(literal.Token.ValueText);
                 }
                 // Handle shorthand object initializers like `new("...")`
                 else if (objectExpression.Expression is ImplicitObjectCreationExpressionSyntax implicitCreation)
                 {
                     ArgumentSyntax? firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
                     if (firstArgument?.Expression is LiteralExpressionSyntax literal)
-                        yield return ProcessEnumName(literal.Token.ValueText);
+                        yield return SanitizeEnumName(literal.Token.ValueText);
                 }
             }
         }
@@ -172,26 +172,16 @@ public class EnumGenerator : IIncrementalGenerator
             {
                 ArgumentSyntax? firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
                 if (firstArgument?.Expression is LiteralExpressionSyntax literal)
-                    yield return ProcessEnumName(literal.Token.ValueText);
+                    yield return SanitizeEnumName(literal.Token.ValueText);
             }
             // Handle shorthand object initializers like `new("...")`
             else if (expression is ImplicitObjectCreationExpressionSyntax implicitCreation)
             {
                 ArgumentSyntax? firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
                 if (firstArgument?.Expression is LiteralExpressionSyntax literal)
-                    yield return ProcessEnumName(literal.Token.ValueText);
+                    yield return SanitizeEnumName(literal.Token.ValueText);
             }
         }
-    }
-
-    // Process and sanitize enum names
-    private static string ProcessEnumName(string valueText)
-    {
-        string enumName = SanitizeEnumName(valueText);
-        //ctx.ReportDiagnostic(Diagnostic.Create(new DiagnosticDescriptor("GEN003",
-        //    "Enum Member Found", $"Enum member extracted: {enumName}", "Generator",
-        //    DiagnosticSeverity.Info, true), Location.None));
-        return enumName;
     }
 
     private static string GenerateEnumSource(string className, ImmutableArray<string> enumMembers)
@@ -207,8 +197,10 @@ namespace ContentEnums
 }}";
     }
 
-    private static string GeneratePartialHelper(string className, string fullNamespace, string typeArgument)
-        => $@"// Auto-generated code
+    private static string GeneratePartialHelper(string className, string fullNamespace, string typeArgument, ImmutableArray<string> enumMembers)
+    {
+        string membersSource = string.Join(";\n", enumMembers.Select((m, i) => $"        public {typeArgument} {m} => All[{i}]"));
+        return $@"// Auto-generated code
 using ContentEnums;
 
 namespace {fullNamespace}
@@ -218,8 +210,10 @@ namespace {fullNamespace}
         public {typeArgument} Get({className}Type type) => All[(int)type];
         public {typeArgument} this[{className}Type type] => All[(int)type];
         public {typeArgument} GetById(int id) => All[id]; 
+{membersSource};
     }}
 }}";
+    }
 
     private static string SanitizeEnumName(string name)
     {

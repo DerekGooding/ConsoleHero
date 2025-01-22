@@ -59,6 +59,6 @@ public static class GlobalSettings
     }
 
     public static T Get<T>() where T : class
-        => Content.map.ContainsKey(typeof(T)) ? Content.Get<T>()
+        => Content.map.TryGetValue(typeof(T), out object? value) ? (T)value
         : throw new Exception("Content of this type isn't initialized");
 }
