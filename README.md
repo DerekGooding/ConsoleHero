@@ -13,11 +13,11 @@
 <!---[![GitHub stars](https://img.shields.io/github/stars/DerekGooding/ConsoleHero?logo=github&style=flat)](https://github.com/modernuo/ModernUO/stargazers)-->
 
 
-### Major Updates
+# Major Updates
 
 This project started as a lightweight Menu organizer. It's turned into a static data, architecture engine. It still makes menus easily but it also allows you to quickly spin up and mock architecture for any project. 
 
-# DI and Source Gen
+## DI and Source Gen
 
 You get basic DI without any additonal lines of Code. Label a class with the [Singleton] attribute and it becomes a single, globally seen object. Any other [Singleton] class can accept a Singleton in it's constructor and everything fits together. 
 [Injection Example Project](https://github.com/DerekGooding/ConsoleHero/tree/main/ConsoleHero.InjectionExample)
