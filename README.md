@@ -27,7 +27,7 @@ Additionally, using the new IContent<T> interface along it's companion INamed in
 
 Allowing you to do something like this from anywhere in your code: 
 ```
-Creature goblin = GlobalSettings.Get<Creatures>()[ContentEnums.CreaturesType.Goblin];
+Creature goblin = GlobalSettings.Get<Creatures>().Goblin;
 ```
 Ideally you'd use the DI feature to pass the Creatures Singleton to other Singletons at runtime, but GlobalSettings.Get works as a less performant alternative that won't crash with circular dependancies. 
 
