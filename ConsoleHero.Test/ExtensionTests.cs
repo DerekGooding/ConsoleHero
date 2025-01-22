@@ -5,7 +5,7 @@ namespace ConsoleHero.Test;
 [TestClass]
 public class ExtensionTests
 {
-    private readonly Action<string> _dummyEffect = _ => { };
+    private readonly Action _dummyEffect = () => { };
     private readonly Func<string, bool> _dummyCondition = s => s.Length > 0;
 
     [TestMethod]
@@ -49,7 +49,7 @@ public class ExtensionTests
             new ColorText("Option1", Color.Red),
             new ColorText("Option2", Color.Blue)
         ];
-        DummyNode node = new();
+        MockNode node = new();
 
         MenuOption[] options = colorTexts.ToOptions(node, _dummyCondition);
 
@@ -107,12 +107,6 @@ public class ExtensionTests
         paragraphLines.Print(); // Expect output as separate lines for each ParagraphLine component
     }
 
-    // Dummy helper classes for testing (implement or mock these as needed)
-    private class DummyNode : INode
-    {
-        public void Call(string input) { }
-    }
-
     private class DummyMenuOption(string description) : IMenuOption
     {
         private readonly string _description = description;
@@ -161,5 +155,11 @@ public class ExtensionTests
         IEnumerable<string> result = objects.ListToString();
 
         Assert.AreEqual(0, result.Count());
+    }
+
+    // Test class for Goto(INode)
+    private class MockNode : INode
+    {
+        public void Call() { }
     }
 }

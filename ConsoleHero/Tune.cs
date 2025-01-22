@@ -43,7 +43,7 @@ public record Tune : INode
     /// <summary>
     /// Plays the tune using beeps. If it was set to wait, will pause the thread. Otherwise, runs asynconously.
     /// </summary>
-    public void Call(string input = "")
+    public void Call()
     {
         if (Wait)
             Play();

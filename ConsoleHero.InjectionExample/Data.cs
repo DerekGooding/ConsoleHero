@@ -1,35 +1,47 @@
 ﻿using ConsoleHero.Interfaces;
 using System.Drawing;
-
 namespace ConsoleHero.InjectionExample;
+public record struct Fruit(string Name) : IMenuOption
+{
+    public ColorText Print() => Name.DefaultColor();
+}
+public record struct ColorFruit(string Name, Color Color) : IMenuOption
+{
+    public ColorText Print() => Name.Color(Color);
+}
+public record struct Number(int Value) : IMenuOption
+{
+    public ColorText Print() => Value.ToString().DefaultColor();
+}
+
 [Singleton]
 public class Data
 {
     public string Name { get; set; } = "Person";
 
-    public readonly List<string> Fruit =
+    public readonly List<Fruit> Fruit =
     [
-        "Apple",
-        "Banana",
-        "Cantaloupe",
-        "Artichoke",
+        new("Apple"),
+        new("Banana"),
+        new("Cantaloupe"),
+        new("Artichoke"),
     ];
 
-    public readonly List<ColorText> ColoredFruit =
+    public readonly List<ColorFruit> ColoredFruit =
     [
-        "Apple".             Color(Color.Red),
-        "Banana".            Color(Color.Yellow),
-        "Cantaloupe".        DefaultColor(),
-        "Another Cantaloupe".Color(Color.White),
-        "Artichoke".         Color(Color.Green),
+        new("Apple",Color.Red),
+        new("Banana",Color.Yellow),
+        new("Cantaloupe", GlobalSettings.DefaultTextColor),
+        new("Another Cantaloupe", Color.White),
+        new("Artichoke", Color.Green),
     ];
 
-    public readonly List<int> Numbers =
+    public readonly List<Number> Numbers =
     [
-        7000,
-        8888,
-        9001,
-        55,
+        new(7000),
+        new(8888),
+        new(9001),
+        new(55),
     ];
 
     public readonly List<Player> Players =

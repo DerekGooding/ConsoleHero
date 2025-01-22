@@ -190,7 +190,7 @@ public static class RequestBuilder
         }
         public ISetUse Goto(INode node)
         {
-            _item.Effect = node.Call;
+            _item.Effect = (_) => node.Call();
             return this;
         }
 

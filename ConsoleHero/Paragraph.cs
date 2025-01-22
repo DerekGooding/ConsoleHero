@@ -18,11 +18,11 @@ public record Paragraph : INode, IListeningNode
     /// <summary>
     /// Displays a block of text and then either waits for a key to be pressed or delays a number of seconds.
     /// </summary>
-    public void Call(string input = "")
+    public void Call()
     {
         if (ClearOnCall)
             GlobalSettings.Service.Clear();
-        Outputs.Print(input);
+        Outputs.Print();
 
         FinalizeMessage();
     }
@@ -38,7 +38,6 @@ public record Paragraph : INode, IListeningNode
             Thread.Sleep(Delay);
             Effect.Invoke();
         }
-
     }
 
     void IListeningNode.ProcessResult(string response) => Effect.Invoke();

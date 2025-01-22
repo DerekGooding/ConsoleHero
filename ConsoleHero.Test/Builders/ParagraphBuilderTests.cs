@@ -12,7 +12,7 @@ public class ParagraphBuilderTests
     [TestInitialize]
     public void SetUp() => _paragraph = ClearOnCall().PressToContinue();
 
-    private ILineComponent GetFirstLineTextComponent()
+    private ColorText GetFirstLineTextComponent()
     {
         Assert.IsTrue(_paragraph.Outputs.Count > 0, "No lines were added to the paragraph.");
         return _paragraph.Outputs[0].Components[0];
@@ -27,7 +27,7 @@ public class ParagraphBuilderTests
     public void Line_AddsTextLineWithoutColor()
     {
         _paragraph = Line("Hello World").PressToContinue();
-        ILineComponent component = GetFirstLineTextComponent();
+        ColorText component = GetFirstLineTextComponent();
         if (component is ColorText colorText)
             Assert.AreEqual("Hello World", colorText.Text, "Text should match input.");
         else
@@ -40,7 +40,7 @@ public class ParagraphBuilderTests
     {
         Color expectedColor = Color.Green;
         _paragraph = Line("Hello Green World", expectedColor).PressToContinue();
-        ILineComponent component = GetFirstLineTextComponent();
+        ColorText component = GetFirstLineTextComponent();
 
         Assert.IsTrue(component is ColorText colorText && colorText.Text == "Hello Green World");
         Assert.AreEqual(expectedColor, component.Color, "Color should match the input color.");
@@ -81,25 +81,6 @@ public class ParagraphBuilderTests
         Assert.IsTrue(_paragraph.PressToContinue, "PressToContinue should be true.");
     }
     [TestMethod]
-    public void Input_AddsInputPlaceholderWithDefaultColor()
-    {
-        _paragraph = Line("Your name:").Input().PressToContinue();
-        ILineComponent input = _paragraph.Outputs[0].Components[1];
-
-        Assert.IsNotNull(input, "Input should be of type InputPlaceholder.");
-        Assert.AreEqual(GlobalSettings.DefaultTextColor, input.Color, "Input color should be default.");
-    }
-
-    [TestMethod]
-    public void ModifiedInput_WithModifierFunction_AddsInputModifier()
-    {
-        _paragraph = Line("Input (modified):").ModifiedInput(s => s.ToUpper()).PressToContinue();
-        ILineComponent input = _paragraph.Outputs[0].Components[1];
-
-        Assert.IsNotNull(input, "Input should be of type InputModifier.");
-        Assert.IsTrue(input is InputModifier modifier && modifier.Modifier("test") == "TEST");
-    }
-    [TestMethod]
     public void GoTo_WithAction_SetsEffectAction()
     {
         bool actionCalled = false;
@@ -109,17 +90,5 @@ public class ParagraphBuilderTests
 
         _paragraph.Effect?.Invoke();
         Assert.IsTrue(actionCalled, "Effect action should be called.");
-    }
-    [TestMethod]
-    public void MultipleLinesAndInputs_BuildsComplexParagraph()
-    {
-        _paragraph =
-            Line("Enter your name:").Input()
-            .Line("Confirm your input:").ModifiedInput(s => s.Trim())
-            .PressToContinue();
-
-        Assert.AreEqual(2, _paragraph.Outputs.Count, "Paragraph should contain two lines.");
-        Assert.IsInstanceOfType(_paragraph.Outputs[0].Components[1], typeof(InputPlaceholder), "First line should contain InputPlaceholder.");
-        Assert.IsInstanceOfType(_paragraph.Outputs[1].Components[1], typeof(InputModifier), "Second line should contain InputModifier.");
     }
 }

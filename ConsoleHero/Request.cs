@@ -25,7 +25,7 @@ public record Request : INode, IListeningNode
     /// <summary>
     /// Asks for a result and will give a failure message if not an appropriate response, asking again.
     /// </summary>
-    public void Call(string input = "")
+    public void Call()
     {
         if (ClearOnCall)
             GlobalSettings.Service.Clear();

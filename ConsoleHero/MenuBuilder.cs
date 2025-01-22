@@ -81,7 +81,7 @@ public static class MenuBuilder
         /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null);
         /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
@@ -89,7 +89,7 @@ public static class MenuBuilder
         /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
-        public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null);
+        public IAddOptions OptionsFromList(IEnumerable<string> list, Action effect, Func<string, bool>? condition = null);
         /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
@@ -263,7 +263,7 @@ public static class MenuBuilder
             }
             return this;
         }
-        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
+        public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
             {
@@ -279,7 +279,7 @@ public static class MenuBuilder
             }
             return this;
         }
-        public IAddOptions OptionsFromList(IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
+        public IAddOptions OptionsFromList(IEnumerable<string> list, Action effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
             {

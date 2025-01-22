@@ -21,7 +21,7 @@ public record Menu : INode, IListeningNode
     /// Display the menu Title and each unhidden option. Then wait for a user response.
     /// Failed responses will loop back and ask again.
     /// </summary>
-    public void Call(string input = "")
+    public void Call()
     {
         if (Count == 0) return;
         AutoIncrimentKeys();

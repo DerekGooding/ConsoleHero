@@ -25,8 +25,6 @@ public static class ParagraphBuilder
     /// Continue building with one of the following:
     /// <br><see cref="Line(string, Color)"/></br>
     /// <br><see cref="Text(string, Color)"/></br>
-    /// <br><see cref="Input()"/></br>
-    /// <br><see cref="ModifiedInput(Func{string, string})"/></br>
     /// <br><see cref="DelayInSeconds(double)"/></br>
     /// <br><see cref="Delay(TimeSpan)"/></br>
     /// </summary>
@@ -48,22 +46,6 @@ public static class ParagraphBuilder
         /// Add additional text to the end of this line. Custom color.
         /// </summary>
         public ISetLines Text(string text, Color color);
-        /// <summary>
-        /// Add the input variable to this line. Default Color.
-        /// </summary>
-        public ISetLines Input();
-        /// <summary>
-        /// Add the input variable to this line. Custom Color.
-        /// </summary>
-        public ISetLines Input(Color color);
-        /// <summary>
-        /// Add the input variable to this line but apply some modifier to it. Default Color.
-        /// </summary>
-        public ISetLines ModifiedInput(Func<string, string> modifier);
-        /// <summary>
-        /// Add the input variable to this line but apply some modifier to it. Custom Color.
-        /// </summary>
-        public ISetLines ModifiedInput(Func<string, string> modifier, Color color);
         /// <summary>
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
@@ -171,27 +153,6 @@ public static class ParagraphBuilder
             return _item;
         }
         public Paragraph PressToContinue() => _item;
-
-        public ISetLines Input()
-        {
-            _item.Outputs[^1].Components.Add(new InputPlaceholder(GlobalSettings.DefaultTextColor));
-            return this;
-        }
-        public ISetLines Input(Color color)
-        {
-            _item.Outputs[^1].Components.Add(new InputPlaceholder(color));
-            return this;
-        }
-        public ISetLines ModifiedInput(Func<string, string> modifier)
-        {
-            _item.Outputs[^1].Components.Add(new InputModifier(modifier));
-            return this;
-        }
-        public ISetLines ModifiedInput(Func<string, string> modifier, Color color)
-        {
-            _item.Outputs[^1].Components.Add(new InputModifier(modifier, color));
-            return this;
-        }
 
         public ISetConfirm GoTo(Action action)
         {

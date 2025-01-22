@@ -135,17 +135,4 @@ public class MenuBuilderTests
         Assert.AreEqual("X", option.Key);
         Assert.AreEqual("Exit", option.Description);
     }
-    [TestMethod]
-    public void OptionsFromList_AddsOptionsWithEffect()
-    {
-        List<string> optionsList = ["Option1", "Option2"];
-        string effectResult = string.Empty;
-
-        _menu = NoTitle().OptionsFromList(optionsList, (opt) => effectResult = opt).NoRefuse();
-
-        Assert.AreEqual(2, _menu.Count, "Menu should contain two options.");
-        MenuOption firstOption = _menu.Options[0];
-        firstOption.Effect?.Invoke();
-        Assert.AreEqual("Option1", effectResult, "Effect should be called with correct option value.");
-    }
 }

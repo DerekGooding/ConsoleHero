@@ -15,17 +15,17 @@ internal static class ListExtensions
     /// <param name="effect">The action to perform when a menu option is selected.</param>
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
-    internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action<string> effect, Func<string, bool>? condition = null)
+    internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null)
     {
         List<MenuOption> options = new();
         foreach (ColorText x in list)
         {
-            Color color = ((ILineComponent)x).Color;
+            Color color = x.Color;
             MenuOption menuOption = new()
             {
                 Description = x.Text,
                 Color = color,
-                Effect = () => effect(x.Text)
+                Effect = effect
             };
             if (condition != null)
             {
@@ -43,7 +43,7 @@ internal static class ListExtensions
     /// <param name="effect">The action to perform when a menu option is selected.</param>
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
-    internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action<string> effect, Func<string, bool>? condition = null)
+    internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action effect, Func<string, bool>? condition = null)
     {
         IEnumerable<ColorText> colorTextList = list.Select(x => new ColorText(x, GlobalSettings.DefaultTextColor));
         return colorTextList.ToOptions(effect, condition);
@@ -75,7 +75,7 @@ internal static class ListExtensions
         foreach (IMenuOption x in list)
         {
             ColorText colorText = x.Print();
-            Color color = ((ILineComponent)colorText).Color;
+            Color color = colorText.Color;
             MenuOption menuOption = new()
             {
                 Description = colorText.Text,
@@ -103,19 +103,15 @@ internal static class ListExtensions
         lines.Print();
     }
 
-    internal static void Print(this IList<ParagraphLine> list, string input = "")
+    internal static void Print(this IList<ParagraphLine> list)
     {
         foreach (ParagraphLine line in list)
         {
-            foreach (ILineComponent component in line.Components)
+            foreach (ColorText component in line.Components)
             {
                 GlobalSettings.ColorService.SetTextColor(component.Color);
-                if (component is ColorText c)
-                    GlobalSettings.Service.Write(c.Text);
-                else if (component is InputPlaceholder)
-                    GlobalSettings.Service.Write(input);
-                else if (component is InputModifier modifier)
-                    GlobalSettings.Service.Write(modifier.Modifier.Invoke(input));
+
+                GlobalSettings.Service.Write(component.Text);
             }
             GlobalSettings.Service.WriteLine();
         }

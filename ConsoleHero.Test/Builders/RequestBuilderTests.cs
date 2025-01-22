@@ -58,20 +58,10 @@ public class RequestBuilderTests
     [TestMethod]
     public void Goto_Action_ShouldSetEffect()
     {
-        Action<string> effect = s => { /* Effect Logic */ };
+        Action<string> effect = (x) => { /* Effect Logic */ };
         Request request = Ask("Test").Goto(effect).Use(_ => { });
 
         Assert.AreEqual(effect, request.Effect);
-    }
-
-    // Test that Goto(INode) sets the Effect in the Request
-    [TestMethod]
-    public void Goto_Node_ShouldSetEffectToNodeCall()
-    {
-        MockNode mockNode = new();
-        Request request = Ask("Test").Goto(mockNode).Use(s => { });
-
-        Assert.AreEqual(mockNode.Call, request.Effect);
     }
 
     // Test that Use(Action<string>) sets the Apply function correctly
@@ -100,6 +90,6 @@ public class RequestBuilderTests
     // Test class for Goto(INode)
     private class MockNode : INode
     {
-        public void Call(string input = "") { }
+        public void Call() { }
     }
 }

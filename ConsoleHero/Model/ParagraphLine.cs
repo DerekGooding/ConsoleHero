@@ -2,7 +2,7 @@
 
 internal readonly struct ParagraphLine
 {
-    internal List<ILineComponent> Components { get; } = new();
+    internal List<ColorText> Components { get; } = new();
 
     public ParagraphLine() { }
 }
