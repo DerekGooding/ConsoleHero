@@ -12,8 +12,7 @@ public static class GlobalSettings
     /// <summary>
     /// This is the default color all text will be. If unset, will be White.
     /// </summary>
-    public static Color DefaultTextColor { get; set; } = IColorService.ConsoleColorToDrawingColor(ConsoleColor.White);
-
+    public static Color DefaultTextColor { get => defaultTextColor; set => defaultTextColor = value; }
     /// <summary>
     /// How many line breaks between menues or paragraphs. Set to 1 by default.
     /// </summary>
@@ -45,6 +44,7 @@ public static class GlobalSettings
 
     private static IConsoleService? _service;
     private static IColorService? _colorService;
+    private static Color defaultTextColor = IColorService.ConsoleColorToDrawingColor(ConsoleColor.White);
 
     public static Host Content { get; set; } = InitializeContent();
 
