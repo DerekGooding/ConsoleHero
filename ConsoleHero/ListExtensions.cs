@@ -69,18 +69,40 @@ internal static class ListExtensions
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
         => list.ToOptions(node.Call, condition);
 
-    internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption
+    internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null)
     {
         List<MenuOption> options = new();
-        foreach (IMenuOption x in list)
+        foreach (T x in list)
         {
-            ColorText colorText = x.Print();
+            ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
             Color color = colorText.Color;
             MenuOption menuOption = new()
             {
                 Description = colorText.Text,
                 Color = color,
-                Effect = () => effect((T)x)
+                Effect = () => effect(x)
+            };
+            if (condition != null)
+            {
+                menuOption.Check = () => condition(colorText.Text);
+            }
+            options.Add(menuOption);
+        }
+        return options.ToArray();
+    }
+
+    internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null)
+    {
+        List<MenuOption> options = new();
+        foreach (T x in list)
+        {
+            ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
+            Color color = colorText.Color;
+            MenuOption menuOption = new()
+            {
+                Description = colorText.Text,
+                Color = color,
+                Effect = () => effect(x).Call()
             };
             if (condition != null)
             {

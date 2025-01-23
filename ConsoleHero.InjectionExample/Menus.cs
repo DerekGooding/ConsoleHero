@@ -34,22 +34,22 @@ public class Menus(Paragraphs paragraphs, Requests requests, Tunes tunes, Data d
 
     public Menu FruitMenu =>
     Title("|---- Fruit ----|", Color.Green).
-    OptionsFromList(_data.Fruit, (x) => _paragraphs.Eat(x).Call()).
+    OptionsFromList(_data.Fruit, _paragraphs.Eat).
     Cancel();
 
     public Menu FruitMenuColored =>
     Title("|---- Fruit ----|", Color.Green).
-    OptionsFromList(_data.ColoredFruit, (x) => _paragraphs.Eat(x).Call()).
+    OptionsFromList(_data.ColoredFruit, _paragraphs.Eat).
     Cancel();
 
     public Menu FruitMenuWithA =>
     Title("|---- Fruit ----|", Color.Green).
-    OptionsFromList(_data.Fruit, (x) => _paragraphs.Eat(x).Call(), x => x.StartsWith('A')).
+    OptionsFromList(_data.Fruit, _paragraphs.Eat, x => x.StartsWith('A')).
     Cancel();
 
     public Menu NumberMenu =>
     NoTitle().
-    OptionsFromList(_data.Numbers, (x) => _paragraphs.ReadNumbers(x).Call()).
+    OptionsFromList(_data.Numbers, _paragraphs.ReadNumbers).
     Cancel();
 
     public Menu ReviewPlayers =>

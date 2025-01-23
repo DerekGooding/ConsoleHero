@@ -4,21 +4,21 @@ using static ConsoleHero.ParagraphBuilder;
 namespace ConsoleHero.StaticExample;
 public static class Paragraphs
 {
-    public static Paragraph Eat(ColorFruit fruit) =>
-        Line("You just ate a ").Text(fruit.Name, fruit.Color).Text($", {Data.Name}.").
+    public static Paragraph Eat(ColorText fruit) =>
+        Line("You just ate a ").Text(fruit).Text($", {Data.Name}.").
         PressToContinue();
 
-    public static Paragraph Eat(Fruit fruit) =>
-        Line($"You just ate a {fruit.Name}, {Data.Name}.").
+    public static Paragraph Eat(string fruit) =>
+        Line($"You just ate a {fruit}, {Data.Name}.").
         PressToContinue();
 
     public static Paragraph Crying =>
         Line("You cry and cry!", Color.DarkBlue).
         PressToContinue();
 
-    public static Paragraph ReadNumbers(Number n) =>
-        Line($"You read the number {n.Value}.").
-        Line($"Twice that number is {n.Value * 2}").Text(".").
+    public static Paragraph ReadNumbers(int n) =>
+        Line($"You read the number {n}.").
+        Line($"Twice that number is {n * 2}").Text(".").
         Line("This is ").Text("red", Color.Red).Text(" Text.").
         PressToContinue();
 

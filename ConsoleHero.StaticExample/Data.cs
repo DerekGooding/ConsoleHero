@@ -2,45 +2,33 @@
 using System.Drawing;
 
 namespace ConsoleHero.StaticExample;
-public record struct Fruit(string Name) : IMenuOption
-{
-    public ColorText Print() => Name.DefaultColor();
-}
-public record struct ColorFruit(string Name, Color Color) : IMenuOption
-{
-    public ColorText Print() => Name.Color(Color);
-}
-public record struct Number(int Value) : IMenuOption
-{
-    public ColorText Print() => Value.ToString().DefaultColor();
-}
 public static class Data
 {
     public static string Name { get; set; } = "Person";
 
-    public static readonly List<Fruit> Fruit =
+    public static readonly List<string> Fruit =
     [
-        new("Apple"),
-        new("Banana"),
-        new("Cantaloupe"),
-        new("Artichoke"),
+        "Apple",
+        "Banana",
+        "Cantaloupe",
+        "Artichoke",
     ];
 
-    public static readonly List<ColorFruit> ColoredFruit =
+    public static readonly List<ColorText> ColoredFruit =
     [
-        new("Apple",Color.Red),
-        new("Banana",Color.Yellow),
-        new("Cantaloupe", GlobalSettings.DefaultTextColor),
-        new("Another Cantaloupe", Color.White),
-        new("Artichoke", Color.Green),
+        "Apple".Color(Color.Red),
+        "Banana".Color(Color.Yellow),
+        "Cantaloupe".DefaultColor(),
+        "Another Cantaloupe".Color(Color.White),
+        "Artichoke".Color(Color.Green),
     ];
 
-    public static readonly List<Number> Numbers =
+    public static readonly List<int> Numbers =
     [
-        new(7000),
-        new(8888),
-        new(9001),
-        new(55),
+        7000,
+        8888,
+        9001,
+        55,
     ];
 
     public static readonly List<Player> Players =

@@ -1,4 +1,5 @@
 ﻿using ConsoleHero.Interfaces;
+using System.Drawing;
 
 namespace ConsoleHero;
 /// <summary>
@@ -46,6 +47,10 @@ public static class ParagraphBuilder
         /// Add additional text to the end of this line. Custom color.
         /// </summary>
         public ISetLines Text(string text, Color color);
+        /// <summary>
+        /// Add additional text to the end of this line. Custom color.
+        /// </summary>
+        public ISetLines Text(ColorText colorText);
         /// <summary>
         /// After displaying this paragraph, will wait before continuing without input.
         /// </summary>
@@ -110,28 +115,21 @@ public static class ParagraphBuilder
             return this;
         }
 
-        public ISetLines Line(string text)
+        public ISetLines Line(string text) => Line(new ColorText(text));
+        public ISetLines Line(string text, Color color) => Line(new ColorText(text, color));
+        public ISetLines Line(ColorText colorText)
         {
             ParagraphLine line = new();
-            line.Components.Add(new ColorText(text));
+            line.Components.Add(colorText);
             _item.Outputs.Add(line);
             return this;
         }
-        public ISetLines Line(string text, Color color)
+
+        public ISetLines Text(string text) => Text(new ColorText(text));
+        public ISetLines Text(string text, Color color) => Text(new ColorText(text, color));
+        public ISetLines Text(ColorText colorText)
         {
-            ParagraphLine line = new();
-            line.Components.Add(new ColorText(text, color));
-            _item.Outputs.Add(line);
-            return this;
-        }
-        public ISetLines Text(string text)
-        {
-            _item.Outputs[^1].Components.Add(new ColorText(text));
-            return this;
-        }
-        public ISetLines Text(string text, Color color)
-        {
-            _item.Outputs[^1].Components.Add(new ColorText(text, color));
+            _item.Outputs[^1].Components.Add(colorText);
             return this;
         }
         public Paragraph Delay(TimeSpan delay)

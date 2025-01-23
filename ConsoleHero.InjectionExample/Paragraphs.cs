@@ -7,21 +7,21 @@ public class Paragraphs(Data data)
 {
     private readonly Data _data = data;
 
-    public Paragraph Eat(ColorFruit fruit) =>
-        Line("You just ate a ").Text(fruit.Name, fruit.Color).Text($", {_data.Name}.").
+    public Paragraph Eat(ColorText fruit) =>
+        Line("You just ate a ").Text(fruit).Text($", {_data.Name}.").
         PressToContinue();
 
-    public Paragraph Eat(Fruit fruit) =>
-        Line($"You just ate a {fruit.Name}, {_data.Name}.").
+    public Paragraph Eat(string fruit) =>
+        Line($"You just ate a {fruit}, {_data.Name}.").
         PressToContinue();
 
     public Paragraph Crying =>
         Line("You cry and cry!", Color.DarkBlue).
         PressToContinue();
 
-    public Paragraph ReadNumbers(Number n) =>
-        Line($"You read the number {n.Value}.").
-        Line($"Twice that number is {n.Value * 2}").Text(".").
+    public Paragraph ReadNumbers(int n) =>
+        Line($"You read the number {n}").
+        Line($"Twice that number is {n * 2}").Text(".").
         Line("This is ").Text("red", Color.Red).Text(" Text.").
         PressToContinue();
 

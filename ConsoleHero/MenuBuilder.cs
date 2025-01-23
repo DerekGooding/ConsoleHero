@@ -78,6 +78,12 @@ public static class MenuBuilder
         /// Creates a set of <see cref="MenuOption"/> base off IMenuOptions. Only works with custom GoTo logic.
         /// </summary>
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption;
+
+        /// <summary>
+        /// Creates a set of <see cref="MenuOption"/> base off IMenuOptions. Only works with custom GoTo logic that requires T as an input.
+        /// </summary>
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null);
+
         /// <summary>
         /// Creates a set of <see cref="MenuOption"/> based of a list.
         /// </summary>
@@ -249,13 +255,21 @@ public static class MenuBuilder
 
         public IAddOptions GoTo(INode node)
         {
-            _menuOption.Effect = () => node.Call();
+            _menuOption.Effect = node.Call;
             _item.Add(_menuOption);
             _menuOption = new();
             return this;
         }
 
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption
+        {
+            foreach (MenuOption option in list.ToOptions(effect, condition))
+            {
+                _item.Add(option);
+            }
+            return this;
+        }
+        public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null)
         {
             foreach (MenuOption option in list.ToOptions(effect, condition))
             {
