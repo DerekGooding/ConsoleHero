@@ -1,4 +1,6 @@
-﻿namespace ConsoleHero.Generator;
+﻿using ConsoleHero.Injection;
+
+namespace ConsoleHero.Generator;
 /// <summary>
 /// Using the IContent interface allows the source generator to pick up this content and
 /// automatically generate enums based on the names of each object and

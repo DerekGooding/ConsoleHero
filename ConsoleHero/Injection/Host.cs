@@ -1,17 +1,27 @@
 ﻿namespace ConsoleHero.Injection;
-public class Host
+
+/// <summary>
+/// Represents a container that holds and manages singleton instances. It provides functionality to register
+/// singletons, resolve dependencies, and retrieve singleton instances.
+/// </summary>
+/// <remarks>
+/// This class is responsible for initializing and managing singletons, ensuring that each singleton is 
+/// only instantiated once and that its dependencies are resolved before initialization. It uses a builder pattern
+/// for constructing the host with a series of singleton registrations.
+/// </remarks>
+public sealed class Host
 {
-    internal Host(List<Singleton> list)
+    private Host(List<Singleton> list)
     {
         singletons = list;
         Initialize();
     }
 
-    internal Host() { }
+    private Host() { }
 
     private readonly List<Singleton> singletons = new();
 
-    internal readonly Dictionary<Type, object> map = new();
+    private readonly Dictionary<Type, object> _map = new();
 
     public interface ILoadSingletons
     {
@@ -48,7 +58,7 @@ public class Host
             if (singleton.Dependancies.Count == 0)
             {
                 singleton.Initialize();
-                map.Add(singleton.Type, singleton.Instance);
+                _map.Add(singleton.Type, singleton.Instance);
                 toProcess.RemoveAt(i);
                 i--;
             }
@@ -59,11 +69,11 @@ public class Host
             for (int i = 0; i < toProcess.Count; i++)
             {
                 Singleton singleton = toProcess[i];
-                if (singleton.Dependancies.All(map.ContainsKey))
+                if (singleton.Dependancies.All(_map.ContainsKey))
                 {
-                    IEnumerable<object> dependancies = singleton.Dependancies.Select(x => map[x]);
+                    IEnumerable<object> dependancies = singleton.Dependancies.Select(x => _map[x]);
                     singleton.Initialize(dependancies.ToArray());
-                    map.Add(singleton.Type, singleton.Instance);
+                    _map.Add(singleton.Type, singleton.Instance);
                     toProcess.RemoveAt(i);
                     i--;
                 }
@@ -74,6 +84,32 @@ public class Host
             throw new Exception("Missing singletons or circular dependancies issue.");
     }
 
-    internal T Get<T>() where T : class
-        => map.Count == 0 ? throw new Exception("Host must be initialized") : (T)map[typeof(T)];
+    /// <summary>
+    /// Initializes a new <see cref="Host"/> instance by scanning the current domain for types that are marked
+    /// with the <see cref="SingletonAttribute"/>. These types are then registered as singletons within the host.
+    /// </summary>
+    /// <returns>A new <see cref="Host"/> instance populated with singletons based on the types found in the current domain.</returns>
+    /// <remarks>
+    /// This method scans all loaded assemblies in the current application domain for types that are decorated
+    /// with the <see cref="SingletonAttribute"/>. It then creates a new host and registers these types as singletons.
+    /// If no types with the <see cref="SingletonAttribute"/> are found, an empty host is returned.
+    /// </remarks>
+    public static Host InitializeUsingAttribute()
+    {
+        Host host = new Host(AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes())
+                           .Where(t => t.GetCustomAttributes(typeof(SingletonAttribute), false).Length != 0)
+                           .Select(x => new Singleton(x))
+                           .ToList());
+        return host._map.Count == 0 ? new Host() : host;
+    }
+
+    /// <summary>
+    /// Retrieves the instance of a registered singleton of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the singleton to retrieve. Must be a class that has been registered with the host.</typeparam>
+    /// <returns>The instance of the singleton registered for the specified type <typeparamref name="T"/>.</returns>
+    /// <exception cref="Exception">Thrown if the host has not been initialized or if the requested singleton is not found.</exception>
+    public T Get<T>() where T : class
+        => _map.Count == 0 ? throw new Exception("Host must be initialized") : (T)_map[typeof(T)];
 }

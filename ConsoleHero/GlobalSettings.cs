@@ -46,19 +46,7 @@ public static class GlobalSettings
     private static IColorService? _colorService;
     private static Color defaultTextColor = IColorService.ConsoleColorToDrawingColor(ConsoleColor.White);
 
-    public static Host Content { get; set; } = InitializeContent();
+    public static Host Content { get; set; } = Host.InitializeUsingAttribute();
 
-    private static Host InitializeContent()
-    {
-        Host host = new Host(AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(x=>x.GetTypes())
-                           .Where(t => t.GetCustomAttributes(typeof(SingletonAttribute), false).Length != 0)
-                           .Select(x => new Singleton(x))
-                           .ToList());
-        return host.map.Count == 0 ? new Host() : host;
-    }
-
-    public static T Get<T>() where T : class
-        => Content.map.TryGetValue(typeof(T), out object? value) ? (T)value
-        : throw new Exception("Content of this type isn't initialized");
+    public static T Get<T>() where T : class => Content.Get<T>();
 }
