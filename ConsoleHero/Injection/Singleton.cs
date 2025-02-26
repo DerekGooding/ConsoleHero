@@ -15,7 +15,7 @@ internal class Singleton
         set => _instance = value;
     }
 
-    internal List<Type> Dependancies => Type.GetConstructors()
+    internal List<Type> Dependencies => Type.GetConstructors()
                 .SelectMany(c => c.GetParameters())
                 .Select(p => p.ParameterType)
                 .ToList();

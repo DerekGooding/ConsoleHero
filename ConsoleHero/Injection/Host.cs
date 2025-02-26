@@ -55,7 +55,7 @@ public sealed class Host
         for (int i = 0; i < toProcess.Count; i++)
         {
             Singleton singleton = toProcess[i];
-            if (singleton.Dependancies.Count == 0)
+            if (singleton.Dependencies.Count == 0)
             {
                 singleton.Initialize();
                 _map.Add(singleton.Type, singleton.Instance);
@@ -64,15 +64,17 @@ public sealed class Host
             }
         }
 
-        while (toProcess.Count != 0)
+        int lastTry = int.MaxValue;
+        while (toProcess.Count != 0 && lastTry != toProcess.Count)
         {
+            lastTry = toProcess.Count;
             for (int i = 0; i < toProcess.Count; i++)
             {
                 Singleton singleton = toProcess[i];
-                if (singleton.Dependancies.All(_map.ContainsKey))
+                if (singleton.Dependencies.All(_map.ContainsKey))
                 {
-                    IEnumerable<object> dependancies = singleton.Dependancies.Select(x => _map[x]);
-                    singleton.Initialize(dependancies.ToArray());
+                    IEnumerable<object> dependencies = singleton.Dependencies.Select(x => _map[x]);
+                    singleton.Initialize(dependencies.ToArray());
                     _map.Add(singleton.Type, singleton.Instance);
                     toProcess.RemoveAt(i);
                     i--;
@@ -81,7 +83,7 @@ public sealed class Host
         }
 
         if (toProcess.Count != 0)
-            throw new Exception("Missing singletons or circular dependancies issue.");
+            throw new Exception("Missing singletons or circular dependencies issue.");
     }
 
     /// <summary>
