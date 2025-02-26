@@ -51,7 +51,7 @@ public sealed class Host
 
     private void Initialize()
     {
-        List<Singleton> toProcess = singletons.ToList();
+        List<Singleton> toProcess = new(singletons);
         for (int i = 0; i < toProcess.Count; i++)
         {
             Singleton singleton = toProcess[i];

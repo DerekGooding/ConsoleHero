@@ -5,6 +5,9 @@
     <TargetFrameworks>net9.0;net8.0;net7.0;</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	<PublishAot>true</PublishAot>
+	<OptimizationPreference>Speed</OptimizationPreference>
 	  
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
