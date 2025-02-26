@@ -1,5 +1,4 @@
 ﻿using ConsoleHero.Interfaces;
-using System.Drawing;
 
 namespace ConsoleHero;
 /// <summary>
