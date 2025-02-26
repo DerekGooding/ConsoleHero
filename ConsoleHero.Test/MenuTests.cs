@@ -104,7 +104,7 @@ public class MenuTests
     {
         Menu menu = new();
 
-        string actual = menu.Seperator;
+        string actual = menu.Separator;
 
         const string expected = " => ";
 

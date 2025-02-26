@@ -14,7 +14,7 @@ public record Menu : INode, IListeningNode
     internal int Count => Options.Count;
     internal ColorText Title { get; set; } = new(string.Empty);
     internal bool ClearOnCall { get; set; }
-    internal string Seperator { get; set; } = " => ";
+    internal string Separator { get; set; } = " => ";
     internal void Add(MenuOption option) => Options.Add(option);
 
     /// <summary>
@@ -34,7 +34,7 @@ public record Menu : INode, IListeningNode
             Title.Print();
         }
 
-        OuputOptions.Print(Seperator);
+        OuputOptions.Print(Separator);
 
         GlobalSettings.Service.SetListener(this);
     }

@@ -46,7 +46,7 @@ public class MenuBuilderTests
     public void CustomSeperator_SetsSeperatorCorrectly()
     {
         _menu = NoTitle().CustomSeperator("--").NoRefuse();
-        Assert.AreEqual("--", _menu.Seperator, "Custom separator should be set correctly.");
+        Assert.AreEqual("--", _menu.Separator, "Custom separator should be set correctly.");
     }
 
     [TestMethod]

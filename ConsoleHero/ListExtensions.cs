@@ -17,14 +17,14 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null)
     {
-        List<MenuOption> options = new();
+        int capacity = list is ICollection<ColorText> collection ? collection.Count : 4;
+        List<MenuOption> options = new(capacity);
         foreach (ColorText x in list)
         {
-            Color color = x.Color;
             MenuOption menuOption = new()
             {
                 Description = x.Text,
-                Color = color,
+                Color = x.Color,
                 Effect = effect
             };
             if (condition != null)
@@ -45,8 +45,28 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action effect, Func<string, bool>? condition = null)
     {
-        IEnumerable<ColorText> colorTextList = list.Select(x => new ColorText(x, GlobalSettings.DefaultTextColor));
-        return colorTextList.ToOptions(effect, condition);
+        int capacity = list is ICollection<string> collection ? collection.Count : 4;
+        List<MenuOption> options = new(capacity);
+        Color defaultColor = GlobalSettings.DefaultTextColor;
+
+        foreach (string text in list)
+        {
+            MenuOption menuOption = new()
+            {
+                Description = text,
+                Color = defaultColor,
+                Effect = effect
+            };
+
+            if (condition != null)
+            {
+                menuOption.Check = () => condition(text);
+            }
+
+            options.Add(menuOption);
+        }
+
+        return options.ToArray();
     }
 
     /// <summary>
@@ -57,7 +77,10 @@ internal static class ListExtensions
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null)
-    => list.ToOptions(node.Call, condition);
+    {
+        Action nodeAction = node.Call;
+        return list.ToOptions(nodeAction, condition);
+    }
 
     /// <summary>
     /// Converts an IEnumerable of strings to an array of MenuOption objects, linking the effect to an INode object. Each string is wrapped in a ColorLine using a default color.
@@ -67,41 +90,50 @@ internal static class ListExtensions
     /// <param name="condition">Optional condition that must be met to enable the option.</param>
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
-        => list.ToOptions(node.Call, condition);
+    {
+        Action nodeAction = node.Call;
+        return list.ToOptions(nodeAction, condition);
+    }
 
     internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null)
     {
-        List<MenuOption> options = new();
+        int capacity = list is ICollection<T> collection ? collection.Count : 4;
+        List<MenuOption> options = new(capacity);
+
         foreach (T x in list)
         {
             ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
-            Color color = colorText.Color;
+
             MenuOption menuOption = new()
             {
                 Description = colorText.Text,
-                Color = color,
+                Color = colorText.Color,
                 Effect = () => effect(x)
             };
             if (condition != null)
             {
                 menuOption.Check = () => condition(colorText.Text);
             }
+
             options.Add(menuOption);
         }
+
         return options.ToArray();
     }
 
     internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null)
     {
-        List<MenuOption> options = new();
+        int capacity = list is ICollection<T> collection ? collection.Count : 4;
+        List<MenuOption> options = new(capacity);
+
         foreach (T x in list)
         {
             ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
-            Color color = colorText.Color;
+
             MenuOption menuOption = new()
             {
                 Description = colorText.Text,
-                Color = color,
+                Color = colorText.Color,
                 Effect = () => effect(x).Call()
             };
             if (condition != null)
@@ -113,33 +145,42 @@ internal static class ListExtensions
         return options.ToArray();
     }
 
-    internal static void Print(this IEnumerable<MenuOption> list, string seperator)
+    internal static void Print(this IEnumerable<MenuOption> list, string separator)
     {
-        List<ParagraphLine> lines = new();
-        foreach (ColorText item in list.Select(x => $"{x.Key} {seperator} {x.Description}".Color(x.Color)))
+        var service = GlobalSettings.Service;
+        var colorService = GlobalSettings.ColorService;
+
+        foreach (MenuOption option in list)
         {
-            ParagraphLine paragraphLine = new();
-            paragraphLine.Components.Add(item);
-            lines.Add(paragraphLine);
+            string text = $"{option.Key} {separator} {option.Description}";
+            colorService.SetTextColor(option.Color);
+            service.WriteLine(text);
         }
-        lines.Print();
+
+        for (int i = 0; i < GlobalSettings.Spacing; i++)
+            service.WriteLine();
+
+        colorService.SetToDefault();
     }
 
     internal static void Print(this IList<ParagraphLine> list)
     {
+        var service = GlobalSettings.Service;
+        var colorService = GlobalSettings.ColorService;
+
         foreach (ParagraphLine line in list)
         {
             foreach (ColorText component in line.Components)
             {
-                GlobalSettings.ColorService.SetTextColor(component.Color);
+                colorService.SetTextColor(component.Color);
 
-                GlobalSettings.Service.Write(component.Text);
+                service.Write(component.Text);
             }
-            GlobalSettings.Service.WriteLine();
+            service.WriteLine();
         }
         for (int i = 0; i < GlobalSettings.Spacing; i++)
-            GlobalSettings.Service.WriteLine();
+            service.WriteLine();
 
-        GlobalSettings.ColorService.SetToDefault();
+        colorService.SetToDefault();
     }
 }

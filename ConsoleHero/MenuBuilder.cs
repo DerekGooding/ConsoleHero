@@ -203,7 +203,7 @@ public static class MenuBuilder
 
         public IAddOptions CustomSeperator(string seperator)
         {
-            _item.Seperator = seperator;
+            _item.Separator = seperator;
             return this;
         }
 
