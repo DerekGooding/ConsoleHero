@@ -2,10 +2,6 @@
 
 public interface IConsoleService
 {
-    public abstract ValueTask WriteLineAsync(string? value);
-    public abstract ValueTask WriteLineAsync();
-    public abstract ValueTask WriteAsync(string? value);
-
     public abstract void WriteLine(string? value);
     public abstract void WriteLine();
 
