@@ -2,7 +2,7 @@
 
 namespace ConsoleHero.InjectionExample;
 
-public record struct Creature(string Name, int Health) : INamed;
+public readonly record struct Creature(string Name, int Health) : INamed;
 
 [Singleton]
 public partial class Creatures : IContent<Creature>
