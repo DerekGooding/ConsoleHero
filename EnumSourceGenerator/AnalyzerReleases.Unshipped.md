@@ -6,3 +6,4 @@
 Rule ID | Category | Severity | Notes
 --------|----------|----------|-------
 NC001 | Usage | Warning | NamedComparerAnalyzer
+TND001 | Usage | Warning | ToDictionaryAnalyzer

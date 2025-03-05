@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace ConsoleHero.Injection;
+﻿namespace ConsoleHero.Injection;
 internal class Singleton
 {
     public Singleton(Type type) => Type = type;

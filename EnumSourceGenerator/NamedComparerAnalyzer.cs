@@ -11,7 +11,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "NC001";
 
-    private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
+    private static readonly DiagnosticDescriptor Rule = new(
         DiagnosticId,
         "Dictionary<TKey, TValue> must use NamedComparer<T> for INamed keys",
         "Dictionary<{0}, {1}> should specify NamedComparer<{0}> as a comparer",
@@ -19,7 +19,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [Rule];
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
     public override void Initialize(AnalysisContext context)
     {
@@ -41,7 +41,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
                 return;
 
             // Check if key type implements INamed
-            var namedInterface = context.Compilation.GetTypeByMetadataName("YourNamespace.INamed");
+            var namedInterface = context.Compilation.GetTypeByMetadataName("ConsoleHero.Generator.INamed");
             if (namedInterface == null || !keyType.AllInterfaces.Contains(namedInterface))
                 return;
 

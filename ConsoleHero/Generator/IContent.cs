@@ -7,7 +7,6 @@ namespace ConsoleHero.Generator;
 /// Get methods to grab the static data either by index number or the generated Enums.
 /// <br>It's recommended to use the [Singleton] <see cref="SingletonAttribute"/>.</br>
 /// </summary>
-/// <typeparam name="T"></typeparam>
 public interface IContent<T> where T : INamed
 {
     /// <summary>
