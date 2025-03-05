@@ -13,7 +13,7 @@ public class ToDictionaryAnalyzer : DiagnosticAnalyzer
     public const string DiagnosticId = "TND001";
     private static readonly LocalizableString Title = "Use ToNamedDictionary for INamed keys";
     private static readonly LocalizableString MessageFormat = "Replace 'ToDictionary' with 'ToNamedDictionary' when using INamed keys";
-    private static readonly LocalizableString Description = "INamed keys should use ToNamedDictionary to ensure correct equality comparison.";
+    private static readonly LocalizableString Description = "INamed keys should use ToNamedDictionary to improve lookup performance.";
     private const string Category = "Usage";
 
     private static readonly DiagnosticDescriptor Rule = new(
