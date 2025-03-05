@@ -27,7 +27,7 @@ public class ParagraphBuilderTests
     public void Line_AddsTextLineWithoutColor()
     {
         _paragraph = Line("Hello World").PressToContinue();
-        ColorText component = GetFirstLineTextComponent();
+        var component = GetFirstLineTextComponent();
         if (component is ColorText colorText)
             Assert.AreEqual("Hello World", colorText.Text, "Text should match input.");
         else
@@ -38,9 +38,9 @@ public class ParagraphBuilderTests
     [TestMethod]
     public void Line_WithColor_AddsColoredTextLine()
     {
-        Color expectedColor = Color.Green;
+        var expectedColor = Color.Green;
         _paragraph = Line("Hello Green World", expectedColor).PressToContinue();
-        ColorText component = GetFirstLineTextComponent();
+        var component = GetFirstLineTextComponent();
 
         Assert.IsTrue(component is ColorText colorText && colorText.Text == "Hello Green World");
         Assert.AreEqual(expectedColor, component.Color, "Color should match the input color.");
@@ -51,7 +51,7 @@ public class ParagraphBuilderTests
         const string firstPart = "First Part";
         const string secondPart = " Second Part";
         _paragraph = Line(firstPart).Text(secondPart).PressToContinue();
-        ParagraphLine paragraphLine = _paragraph.Outputs[0];
+        var paragraphLine = _paragraph.Outputs[0];
 
         Assert.AreEqual(2, paragraphLine.Components.Count);
         Assert.IsTrue(paragraphLine.Components[0] is ColorText colorText && colorText.Text == firstPart);
@@ -60,7 +60,7 @@ public class ParagraphBuilderTests
     [TestMethod]
     public void Delay_SetsDelayCorrectly()
     {
-        TimeSpan delay = TimeSpan.FromMilliseconds(500);
+        var delay = TimeSpan.FromMilliseconds(500);
         _paragraph = ClearOnCall().Delay(delay);
 
         Assert.AreEqual(delay, _paragraph.Delay, "Delay should match the input timespan.");
@@ -83,7 +83,7 @@ public class ParagraphBuilderTests
     [TestMethod]
     public void GoTo_WithAction_SetsEffectAction()
     {
-        bool actionCalled = false;
+        var actionCalled = false;
         Action testAction = () => actionCalled = true;
 
         _paragraph = Line("Click to proceed").GoTo(testAction).PressToContinue();

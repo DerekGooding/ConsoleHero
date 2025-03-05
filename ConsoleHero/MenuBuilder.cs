@@ -263,7 +263,7 @@ public static class MenuBuilder
 
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null) where T : IMenuOption
         {
-            foreach (MenuOption option in list.ToOptions(effect, condition))
+            foreach (var option in list.ToOptions(effect, condition))
             {
                 _item.Add(option);
             }
@@ -271,7 +271,7 @@ public static class MenuBuilder
         }
         public IAddOptions OptionsFromList<T>(IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null)
         {
-            foreach (MenuOption option in list.ToOptions(effect, condition))
+            foreach (var option in list.ToOptions(effect, condition))
             {
                 _item.Add(option);
             }
@@ -279,7 +279,7 @@ public static class MenuBuilder
         }
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null)
         {
-            foreach (MenuOption option in list.ToOptions(effect, condition))
+            foreach (var option in list.ToOptions(effect, condition))
             {
                 _item.Add(option);
             }
@@ -287,7 +287,7 @@ public static class MenuBuilder
         }
         public IAddOptions OptionsFromList(IEnumerable<ColorText> list, INode node, Func<string, bool>? condition = null)
         {
-            foreach (MenuOption option in list.ToOptions(node, condition))
+            foreach (var option in list.ToOptions(node, condition))
             {
                 _item.Add(option);
             }
@@ -295,7 +295,7 @@ public static class MenuBuilder
         }
         public IAddOptions OptionsFromList(IEnumerable<string> list, Action effect, Func<string, bool>? condition = null)
         {
-            foreach (MenuOption option in list.ToOptions(effect, condition))
+            foreach (var option in list.ToOptions(effect, condition))
             {
                 _item.Add(option);
             }
@@ -303,7 +303,7 @@ public static class MenuBuilder
         }
         public IAddOptions OptionsFromList(IEnumerable<string> list, INode node, Func<string, bool>? condition = null)
         {
-            foreach (MenuOption option in list.ToOptions(node, condition))
+            foreach (var option in list.ToOptions(node, condition))
             {
                 _item.Add(option);
             }

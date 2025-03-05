@@ -34,7 +34,7 @@ public record Tune : INode
         if (Notes.Count == 0)
             _beepHelper.Beep();
 
-        foreach (Note item in Notes)
+        foreach (var item in Notes)
         {
             _beepHelper.Beep(item.Tone, item.Duration);
         }

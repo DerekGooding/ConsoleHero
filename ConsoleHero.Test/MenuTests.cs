@@ -50,7 +50,7 @@ public class MenuTests
         menu.Add(menuOption);
         menu.Add(menuOption2);
 
-        IEnumerable<MenuOption> actual = menu.OuputOptions;
+        var actual = menu.OuputOptions;
         Assert.AreEqual(2, menu.Count);
         Assert.AreEqual(expected.Count(), actual.Count());
         Assert.AreEqual(expected.First(), actual.First());
@@ -75,7 +75,7 @@ public class MenuTests
         menu.Add(menuOption);
         menu.Add(menuOption2);
 
-        IEnumerable<MenuOption> actual = menu.OuputOptions;
+        var actual = menu.OuputOptions;
         Assert.AreEqual(expected.Count(), actual.Count());
         Assert.AreEqual(expected.First(), actual.First());
     }
@@ -104,7 +104,7 @@ public class MenuTests
     {
         Menu menu = new();
 
-        string actual = menu.Separator;
+        var actual = menu.Separator;
 
         const string expected = " => ";
 
@@ -114,7 +114,7 @@ public class MenuTests
     [TestMethod]
     public void NoTitle()
     {
-        Menu menu = MenuBuilder.NoTitle().Cancel();
+        var menu = MenuBuilder.NoTitle().Cancel();
 
         ColorText expected = new(string.Empty);
 
@@ -124,7 +124,7 @@ public class MenuTests
     [TestMethod]
     public void Title_Set()
     {
-        Menu menu = MenuBuilder.Title("Main", Color.Red).Cancel();
+        var menu = MenuBuilder.Title("Main", Color.Red).Cancel();
 
         ColorText expected = new("Main", ConsoleColor.Red);
 
@@ -135,7 +135,7 @@ public class MenuTests
     [TestMethod]
     public void ClearOnCall_Default()
     {
-        Menu menu = MenuBuilder.NoTitle().Cancel();
+        var menu = MenuBuilder.NoTitle().Cancel();
 
         Assert.AreEqual(false, menu.ClearOnCall);
     }
@@ -143,7 +143,7 @@ public class MenuTests
     [TestMethod]
     public void ClearOnCall_Set()
     {
-        Menu menu = MenuBuilder.NoTitle().ClearOnCall().Cancel();
+        var menu = MenuBuilder.NoTitle().ClearOnCall().Cancel();
 
         Assert.AreEqual(true, menu.ClearOnCall);
     }

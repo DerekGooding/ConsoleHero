@@ -52,9 +52,9 @@ public sealed class Host
     private void Initialize()
     {
         List<Singleton> toProcess = new(singletons);
-        for (int i = 0; i < toProcess.Count; i++)
+        for (var i = 0; i < toProcess.Count; i++)
         {
-            Singleton singleton = toProcess[i];
+            var singleton = toProcess[i];
             if (singleton.Dependencies.Count == 0)
             {
                 singleton.Initialize();
@@ -64,16 +64,16 @@ public sealed class Host
             }
         }
 
-        int lastTry = int.MaxValue;
+        var lastTry = int.MaxValue;
         while (toProcess.Count != 0 && lastTry != toProcess.Count)
         {
             lastTry = toProcess.Count;
-            for (int i = 0; i < toProcess.Count; i++)
+            for (var i = 0; i < toProcess.Count; i++)
             {
-                Singleton singleton = toProcess[i];
+                var singleton = toProcess[i];
                 if (singleton.Dependencies.All(_map.ContainsKey))
                 {
-                    IEnumerable<object> dependencies = singleton.Dependencies.Select(x => _map[x]);
+                    var dependencies = singleton.Dependencies.Select(x => _map[x]);
                     singleton.Initialize(dependencies.ToArray());
                     _map.Add(singleton.Type, singleton.Instance);
                     toProcess.RemoveAt(i);
@@ -98,7 +98,7 @@ public sealed class Host
     /// </remarks>
     public static Host InitializeUsingAttribute()
     {
-        Host host = new Host(AppDomain.CurrentDomain.GetAssemblies()
+        var host = new Host(AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(x => x.GetTypes())
                            .Where(t => t.GetCustomAttributes(typeof(SingletonAttribute), false).Length != 0)
                            .Select(x => new Singleton(x))

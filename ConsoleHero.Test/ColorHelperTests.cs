@@ -22,7 +22,7 @@ public class ColorHelperTests
     public void SetTextColor_WithColor_WritesExpectedAnsiCode()
     {
         IColorService colorService = new ColorService();
-        Color color = Color.FromArgb(255, 0, 0);
+        var color = Color.FromArgb(255, 0, 0);
 
         colorService.SetTextColor(color);
 
@@ -57,7 +57,7 @@ public class ColorHelperTests
 
         colorService.SetTextColor(consoleColor);
 
-        string expectedOutput = $"\u001b[38;2;{expectedR};{expectedG};{expectedB}m";
+        var expectedOutput = $"\u001b[38;2;{expectedR};{expectedG};{expectedB}m";
         Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
     }
 
@@ -66,7 +66,7 @@ public class ColorHelperTests
     {
         const ConsoleColor consoleColor = ConsoleColor.Green;
 
-        Color color = IColorService.ConsoleColorToDrawingColor(consoleColor);
+        var color = IColorService.ConsoleColorToDrawingColor(consoleColor);
 
         Assert.AreEqual(Color.Green, color);
     }

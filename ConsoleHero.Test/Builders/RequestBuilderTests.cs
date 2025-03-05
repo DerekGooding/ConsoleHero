@@ -10,7 +10,7 @@ public class RequestBuilderTests
     [TestMethod]
     public void Ask_ShouldSetStartingMessage()
     {
-        Request request = Ask("Test Message").Use(_ => { });
+        var request = Ask("Test Message").Use(_ => { });
 
         Assert.AreEqual("Test Message", request.StartingMessage);
     }
@@ -19,7 +19,7 @@ public class RequestBuilderTests
     [TestMethod]
     public void NoMessage_ShouldNotSetStartingMessage()
     {
-        Request request = NoMessage().Use(_ => { });
+        var request = NoMessage().Use(_ => { });
 
         Assert.AreEqual(string.Empty, request.StartingMessage);
     }
@@ -28,7 +28,7 @@ public class RequestBuilderTests
     [TestMethod]
     public void ClearOnCall_ShouldSetClearOnCallFlag()
     {
-        Request request = Ask("Test").ClearOnCall().Use(_ => { });
+        var request = Ask("Test").ClearOnCall().Use(_ => { });
 
         Assert.IsTrue(request.ClearOnCall);
     }
@@ -37,7 +37,7 @@ public class RequestBuilderTests
     [TestMethod]
     public void FailMessage_ShouldSetFailMessage()
     {
-        Request request = Ask("Test").FailMessage("Failure message").Use(_ => { });
+        var request = Ask("Test").FailMessage("Failure message").Use(_ => { });
 
         Assert.AreEqual("Failure message", request.FailMessage);
     }
@@ -49,7 +49,7 @@ public class RequestBuilderTests
     [DataRow(DataType.Double)]
     public void For_ShouldSetDataType(RequestBuilder.DataType dataType)
     {
-        Request request = Ask("Test").For(dataType).Use(_ => { });
+        var request = Ask("Test").For(dataType).Use(_ => { });
 
         Assert.AreEqual(dataType, request.DataType);
     }
@@ -59,7 +59,7 @@ public class RequestBuilderTests
     public void Goto_Action_ShouldSetEffect()
     {
         Action<string> effect = (x) => { /* Effect Logic */ };
-        Request request = Ask("Test").Goto(effect).Use(_ => { });
+        var request = Ask("Test").Goto(effect).Use(_ => { });
 
         Assert.AreEqual(effect, request.Effect);
     }
@@ -69,7 +69,7 @@ public class RequestBuilderTests
     public void Use_Action_ShouldSetApply()
     {
         Action<string> applyAction = _ => { /* Apply Logic */ };
-        Request request = Ask("Test").Use(applyAction);
+        var request = Ask("Test").Use(applyAction);
 
         Assert.AreEqual(applyAction, request.Apply);
     }
@@ -78,9 +78,9 @@ public class RequestBuilderTests
     [TestMethod]
     public void Use_GenericAction_ShouldSetApplyWithCorrectType()
     {
-        int result = 0;
+        var result = 0;
         Action<string> applyAction = i => result = int.Parse(i) * 2;
-        Request request = Ask("Test").Use(applyAction);
+        var request = Ask("Test").Use(applyAction);
 
         Assert.IsNotNull(request.Apply);
         request.Apply("123");

@@ -48,7 +48,7 @@ public class TuneTests
     [TestMethod]
     public void Call_WhenWaitIsTrue_CallsPlaySynchronously()
     {
-        bool playCalled = false;
+        var playCalled = false;
         _tune = new Tune
         {
             Wait = true,

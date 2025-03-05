@@ -14,22 +14,22 @@ public class ReadonlyStructGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Find all record structs
-        IncrementalValuesProvider<INamedTypeSymbol?> recordStructs = context.SyntaxProvider
+        var recordStructs = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: static (node, _) => IsRecordStruct(node),
                 transform: static (context, _) => GetSemanticTargetForGeneration(context))
             .Where(static symbol => symbol is not null);
 
         // Combine all record structs into a single collection
-        IncrementalValueProvider<(Compilation Left, System.Collections.Immutable.ImmutableArray<INamedTypeSymbol?> Right)> compilationAndStructs = context.CompilationProvider
+        var compilationAndStructs = context.CompilationProvider
             .Combine(recordStructs.Collect());
 
         // Generate source code
         context.RegisterSourceOutput(compilationAndStructs, static (context, source) =>
         {
-            (Compilation compilation, System.Collections.Immutable.ImmutableArray<INamedTypeSymbol> structs) = source;
+            (var compilation, var structs) = source;
 
-            foreach (INamedTypeSymbol? recordStruct in structs.Distinct())
+            foreach (var recordStruct in structs.Distinct())
             {
                 if (recordStruct is not INamedTypeSymbol symbol) continue;
 
@@ -37,14 +37,14 @@ public class ReadonlyStructGenerator : IIncrementalGenerator
                 if (!symbol.Interfaces.Any(i => i.Name == "INamed")) continue;
 
                 // Generate the readonly struct
-                string namespaceName = symbol.ContainingNamespace.ToDisplayString();
-                string structName = $"G{symbol.Name}";
-                IEnumerable<(string, string Name)> properties = symbol
+                var namespaceName = symbol.ContainingNamespace.ToDisplayString();
+                var structName = $"G{symbol.Name}";
+                var properties = symbol
                     .GetMembers()
                     .OfType<IPropertySymbol>()
                     .Select(p => (p.Type.ToDisplayString(), p.Name));
 
-                string sourceCode = GenerateReadonlyStructCode(namespaceName, structName, properties);
+                var sourceCode = GenerateReadonlyStructCode(namespaceName, structName, properties);
 
                 // Add the generated source
                 context.AddSource($"{structName}.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
@@ -61,8 +61,8 @@ public class ReadonlyStructGenerator : IIncrementalGenerator
         if (context.Node is not RecordDeclarationSyntax recordDecl) return null;
 
         // Get the declared symbol and ensure it's a record struct
-        SemanticModel model = context.SemanticModel;
-        INamedTypeSymbol? symbol = model.GetDeclaredSymbol(recordDecl);
+        var model = context.SemanticModel;
+        var symbol = model.GetDeclaredSymbol(recordDecl);
 
         return symbol is INamedTypeSymbol namedSymbol && namedSymbol.IsValueType ? namedSymbol : null;
     }
@@ -72,13 +72,13 @@ public class ReadonlyStructGenerator : IIncrementalGenerator
         string structName,
         IEnumerable<(string Type, string Name)> properties)
     {
-        string propertyDeclarations = string.Join("\n        ", properties.Select(p =>
+        var propertyDeclarations = string.Join("\n        ", properties.Select(p =>
             $"public {p.Type} {p.Name} {{ get; }}"));
 
-        string constructorParameters = string.Join(", ", properties.Select(p =>
+        var constructorParameters = string.Join(", ", properties.Select(p =>
             $"{p.Type} {char.ToLower(p.Name[0])}{p.Name.Substring(1)}"));
 
-        string constructorAssignments = string.Join("\n            ", properties.Select(p =>
+        var constructorAssignments = string.Join("\n            ", properties.Select(p =>
             $"{p.Name} = {char.ToLower(p.Name[0])}{p.Name.Substring(1)};"));
 
         const string equalityLogic = "Name";

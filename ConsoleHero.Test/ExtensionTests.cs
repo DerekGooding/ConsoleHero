@@ -17,7 +17,7 @@ public class ExtensionTests
             new("Option2", Color.Blue)
         ];
 
-        MenuOption[] options = colorTexts.ToOptions(_dummyEffect, _dummyCondition);
+        var options = colorTexts.ToOptions(_dummyEffect, _dummyCondition);
 
         Assert.AreEqual(2, options.Length);
         Assert.AreEqual("Option1", options[0].Description);
@@ -32,7 +32,7 @@ public class ExtensionTests
     {
         List<string> strings = ["Option1", "Option2"];
 
-        MenuOption[] options = strings.ToOptions(_dummyEffect, _dummyCondition);
+        var options = strings.ToOptions(_dummyEffect, _dummyCondition);
 
         Assert.AreEqual(2, options.Length);
         Assert.AreEqual("Option1", options[0].Description);
@@ -51,7 +51,7 @@ public class ExtensionTests
         ];
         MockNode node = new();
 
-        MenuOption[] options = colorTexts.ToOptions(node, _dummyCondition);
+        var options = colorTexts.ToOptions(node, _dummyCondition);
 
         Assert.AreEqual(2, options.Length);
         Assert.AreEqual("Option1", options[0].Description);
@@ -69,7 +69,7 @@ public class ExtensionTests
             new DummyMenuOption("Option2")
         ];
 
-        MenuOption[] options = menuOptions.ToOptions((_) => { }, _dummyCondition);
+        var options = menuOptions.ToOptions((_) => { }, _dummyCondition);
 
         Assert.AreEqual(2, options.Length);
         Assert.AreEqual("Option1", options[0].Description);
@@ -118,9 +118,9 @@ public class ExtensionTests
     public void Color_WithValidStringAndColor_ReturnsCorrectColorText()
     {
         const string text = "Test";
-        Color color = Color.Red;
+        var color = Color.Red;
 
-        ColorText result = text.Color(color);
+        var result = text.Color(color);
 
         Assert.AreEqual(text, result.Text);
         Assert.AreEqual(color, result._color);
@@ -131,7 +131,7 @@ public class ExtensionTests
     {
         const string text = "DefaultColorTest";
 
-        ColorText result = text.DefaultColor();
+        var result = text.DefaultColor();
 
         Assert.AreEqual(text, result.Text);
         Assert.AreEqual(GlobalSettings.DefaultTextColor, result._color);
@@ -142,7 +142,7 @@ public class ExtensionTests
     {
         List<object> objects = [1, "string", null, 3.14];
 
-        IEnumerable<string> result = objects.ListToString();
+        var result = objects.ListToString();
 
         CollectionAssert.AreEqual(new List<string> { "1", "string", string.Empty, "3.14" }, result.ToList());
     }
@@ -152,7 +152,7 @@ public class ExtensionTests
     {
         List<object> objects = [];
 
-        IEnumerable<string> result = objects.ListToString();
+        var result = objects.ListToString();
 
         Assert.AreEqual(0, result.Count());
     }

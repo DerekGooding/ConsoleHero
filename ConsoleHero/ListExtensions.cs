@@ -16,9 +16,9 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided ColorLine collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<ColorText> list, Action effect, Func<string, bool>? condition = null)
     {
-        int capacity = list is ICollection<ColorText> collection ? collection.Count : 4;
+        var capacity = list is ICollection<ColorText> collection ? collection.Count : 4;
         List<MenuOption> options = new(capacity);
-        foreach (ColorText x in list)
+        foreach (var x in list)
         {
             MenuOption menuOption = new()
             {
@@ -44,11 +44,11 @@ internal static class ListExtensions
     /// <returns>An array of MenuOption objects based on the provided string collection.</returns>
     internal static MenuOption[] ToOptions(this IEnumerable<string> list, Action effect, Func<string, bool>? condition = null)
     {
-        int capacity = list is ICollection<string> collection ? collection.Count : 4;
+        var capacity = list is ICollection<string> collection ? collection.Count : 4;
         List<MenuOption> options = new(capacity);
-        Color defaultColor = GlobalSettings.DefaultTextColor;
+        var defaultColor = GlobalSettings.DefaultTextColor;
 
-        foreach (string text in list)
+        foreach (var text in list)
         {
             MenuOption menuOption = new()
             {
@@ -96,12 +96,12 @@ internal static class ListExtensions
 
     internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Action<T> effect, Func<string, bool>? condition = null)
     {
-        int capacity = list is ICollection<T> collection ? collection.Count : 4;
+        var capacity = list is ICollection<T> collection ? collection.Count : 4;
         List<MenuOption> options = new(capacity);
 
-        foreach (T x in list)
+        foreach (var x in list)
         {
-            ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
+            var colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
 
             MenuOption menuOption = new()
             {
@@ -122,12 +122,12 @@ internal static class ListExtensions
 
     internal static MenuOption[] ToOptions<T>(this IEnumerable<T> list, Func<T, INode> effect, Func<string, bool>? condition = null)
     {
-        int capacity = list is ICollection<T> collection ? collection.Count : 4;
+        var capacity = list is ICollection<T> collection ? collection.Count : 4;
         List<MenuOption> options = new(capacity);
 
-        foreach (T x in list)
+        foreach (var x in list)
         {
-            ColorText colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
+            var colorText = x is IMenuOption iMenuOption ? iMenuOption.Print() : (x?.ToString() ?? string.Empty).DefaultColor();
 
             MenuOption menuOption = new()
             {
@@ -149,14 +149,14 @@ internal static class ListExtensions
         var service = GlobalSettings.Service;
         var colorService = GlobalSettings.ColorService;
 
-        foreach (MenuOption option in list)
+        foreach (var option in list)
         {
-            string text = $"{option.Key} {separator} {option.Description}";
+            var text = $"{option.Key} {separator} {option.Description}";
             colorService.SetTextColor(option.Color);
             service.WriteLine(text);
         }
 
-        for (int i = 0; i < GlobalSettings.Spacing; i++)
+        for (var i = 0; i < GlobalSettings.Spacing; i++)
             service.WriteLine();
 
         colorService.SetToDefault();
@@ -167,9 +167,9 @@ internal static class ListExtensions
         var service = GlobalSettings.Service;
         var colorService = GlobalSettings.ColorService;
 
-        foreach (ParagraphLine line in list)
+        foreach (var line in list)
         {
-            foreach (ColorText component in line.Components)
+            foreach (var component in line.Components)
             {
                 colorService.SetTextColor(component.Color);
 
@@ -177,7 +177,7 @@ internal static class ListExtensions
             }
             service.WriteLine();
         }
-        for (int i = 0; i < GlobalSettings.Spacing; i++)
+        for (var i = 0; i < GlobalSettings.Spacing; i++)
             service.WriteLine();
 
         colorService.SetToDefault();

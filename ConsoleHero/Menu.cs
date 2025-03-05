@@ -41,7 +41,7 @@ public record Menu : INode, IListeningNode
 
     void IListeningNode.ProcessResult(string response)
     {
-        MenuOption? choice = FindFirst(x => x.IsCaseSensitive
+        var choice = FindFirst(x => x.IsCaseSensitive
             ? string.Equals(x.Key, response)
             : string.Equals(x.Key, response, StringComparison.OrdinalIgnoreCase));
         if (choice == null)
@@ -50,7 +50,7 @@ public record Menu : INode, IListeningNode
         }
         else
         {
-            for (int i = 0; i < GlobalSettings.Spacing; i++)
+            for (var i = 0; i < GlobalSettings.Spacing; i++)
                 GlobalSettings.Service.WriteLine();
             choice.Invoke();
         }
@@ -62,8 +62,8 @@ public record Menu : INode, IListeningNode
     private MenuOption? FindFirst(Predicate<MenuOption> match) => CheckedOptions.FirstOrDefault(x => match(x));
     private void AutoIncrimentKeys()
     {
-        int x = 1;
-        foreach (MenuOption option in CheckedOptions.Where(option => option.UsesAutoKey))
+        var x = 1;
+        foreach (var option in CheckedOptions.Where(option => option.UsesAutoKey))
         {
             option.Key = $"{x++}";
         }

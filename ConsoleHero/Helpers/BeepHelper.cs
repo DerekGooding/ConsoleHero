@@ -29,7 +29,7 @@ internal class BeepHelper : IBeepHelper
                     UseShellExecute = false,
                     CreateNoWindow = true
                 };
-                System.Diagnostics.Process? process = System.Diagnostics.Process.Start(psi);
+                var process = System.Diagnostics.Process.Start(psi);
                 process?.WaitForExit();
             }
             catch

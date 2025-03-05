@@ -13,7 +13,7 @@ public class EnumGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        IncrementalValueProvider<ImmutableArray<INamedTypeSymbol>> classDeclarations = context.SyntaxProvider
+        var classDeclarations = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: static (node, _) => node is ClassDeclarationSyntax { BaseList: not null },
                 transform: static (context, _) => GetClassSymbol(context))
@@ -23,19 +23,19 @@ public class EnumGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(classDeclarations, (ctx, classes) =>
         {
-            foreach (INamedTypeSymbol? classSymbol in classes)
+            foreach (var classSymbol in classes)
             {
                 // Find the IContent<T> implementation
-                INamedTypeSymbol? iContentInterface = classSymbol.AllInterfaces.FirstOrDefault(i => i.Name == "IContent");
+                var iContentInterface = classSymbol.AllInterfaces.FirstOrDefault(i => i.Name == "IContent");
                 if (iContentInterface?.TypeArguments.FirstOrDefault() is not INamedTypeSymbol typeArgument) continue;
 
                 // Extract enum member names from the All property of the class
-                ImmutableArray<string> enumMembers = ExtractEnumMembers(ctx, classSymbol).ToImmutableArray();
+                var enumMembers = ExtractEnumMembers(ctx, classSymbol).ToImmutableArray();
 
-                string source = GenerateEnumSource(classSymbol.Name, enumMembers);
+                var source = GenerateEnumSource(classSymbol.Name, enumMembers);
                 ctx.AddSource($"{classSymbol.Name}TypeEnum.g.cs", SourceText.From(source, Encoding.UTF8));
 
-                string helper = GeneratePartialHelper(classSymbol.Name,
+                var helper = GeneratePartialHelper(classSymbol.Name,
                                                       classSymbol.ContainingNamespace.ToDisplayString(),
                                                       typeArgument.ToDisplayString(), enumMembers);
                 ctx.AddSource($"{classSymbol.Name}Helper.g.cs", SourceText.From(helper, Encoding.UTF8));
@@ -52,7 +52,7 @@ public class EnumGenerator : IIncrementalGenerator
         SourceProductionContext ctx,
         INamedTypeSymbol classSymbol)
     {
-        IPropertySymbol? allProperty = classSymbol
+        var allProperty = classSymbol
             .GetMembers()
             .OfType<IPropertySymbol>()
             .FirstOrDefault(p => p.Name == "All");
@@ -75,12 +75,12 @@ public class EnumGenerator : IIncrementalGenerator
         }
 
         // Get the initializer expression value
-        ExpressionSyntax initializer = allPropertySyntax.Initializer.Value;
+        var initializer = allPropertySyntax.Initializer.Value;
 
         // Handle explicit array creation (e.g., `new Material[] { ... }`)
         if (initializer is ArrayCreationExpressionSyntax arrayCreation)
         {
-            foreach (string enumName in ExtractFromArrayInitializer(ctx, arrayCreation.Initializer))
+            foreach (var enumName in ExtractFromArrayInitializer(ctx, arrayCreation.Initializer))
             {
                 yield return enumName;
             }
@@ -88,7 +88,7 @@ public class EnumGenerator : IIncrementalGenerator
         // Handle implicit array creation with `{}` or `[]` (e.g., `Material[] All = [ ... ];`)
         else if (initializer is ImplicitArrayCreationExpressionSyntax implicitArrayCreation)
         {
-            foreach (string enumName in ExtractFromArrayInitializer(ctx, implicitArrayCreation.Initializer))
+            foreach (var enumName in ExtractFromArrayInitializer(ctx, implicitArrayCreation.Initializer))
             {
                 yield return enumName;
             }
@@ -96,7 +96,7 @@ public class EnumGenerator : IIncrementalGenerator
         // Handle collection expressions `[]` directly
         else if (initializer is InitializerExpressionSyntax initializerExpression)
         {
-            foreach (string enumName in ExtractFromArrayInitializer(ctx, initializerExpression))
+            foreach (var enumName in ExtractFromArrayInitializer(ctx, initializerExpression))
             {
                 yield return enumName;
             }
@@ -104,7 +104,7 @@ public class EnumGenerator : IIncrementalGenerator
         // Handle collection expressions `[]` directly
         else if (initializer is CollectionExpressionSyntax collection)
         {
-            foreach (string enumName in ExtractFromCollection(ctx, collection))
+            foreach (var enumName in ExtractFromCollection(ctx, collection))
             {
                 yield return enumName;
             }
@@ -131,21 +131,21 @@ public class EnumGenerator : IIncrementalGenerator
             yield break;
         }
 
-        foreach (CollectionElementSyntax element in collection.Elements)
+        foreach (var element in collection.Elements)
         {
             if (element is ExpressionElementSyntax objectExpression )
             {
                 // Handle object initializers like `new("...")`
                 if (objectExpression.Expression is ObjectCreationExpressionSyntax objectCreation)
                 {
-                    ArgumentSyntax? firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
+                    var firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
                     if (firstArgument?.Expression is LiteralExpressionSyntax literal)
                         yield return SanitizeEnumName(literal.Token.ValueText);
                 }
                 // Handle shorthand object initializers like `new("...")`
                 else if (objectExpression.Expression is ImplicitObjectCreationExpressionSyntax implicitCreation)
                 {
-                    ArgumentSyntax? firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
+                    var firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
                     if (firstArgument?.Expression is LiteralExpressionSyntax literal)
                         yield return SanitizeEnumName(literal.Token.ValueText);
                 }
@@ -165,19 +165,19 @@ public class EnumGenerator : IIncrementalGenerator
             yield break;
         }
 
-        foreach (ExpressionSyntax expression in initializer.Expressions)
+        foreach (var expression in initializer.Expressions)
         {
             // Handle object initializers like `new("...")`
             if (expression is ObjectCreationExpressionSyntax objectCreation)
             {
-                ArgumentSyntax? firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
+                var firstArgument = objectCreation.ArgumentList?.Arguments.FirstOrDefault();
                 if (firstArgument?.Expression is LiteralExpressionSyntax literal)
                     yield return SanitizeEnumName(literal.Token.ValueText);
             }
             // Handle shorthand object initializers like `new("...")`
             else if (expression is ImplicitObjectCreationExpressionSyntax implicitCreation)
             {
-                ArgumentSyntax? firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
+                var firstArgument = implicitCreation.ArgumentList?.Arguments.FirstOrDefault();
                 if (firstArgument?.Expression is LiteralExpressionSyntax literal)
                     yield return SanitizeEnumName(literal.Token.ValueText);
             }
@@ -186,7 +186,7 @@ public class EnumGenerator : IIncrementalGenerator
 
     private static string GenerateEnumSource(string className, ImmutableArray<string> enumMembers)
     {
-        string membersSource = string.Join(",\n", enumMembers.Select(m => $"        {m}"));
+        var membersSource = string.Join(",\n", enumMembers.Select(m => $"        {m}"));
         return $@"// Auto-generated code
 namespace ContentEnums
 {{
@@ -199,7 +199,7 @@ namespace ContentEnums
 
     private static string GeneratePartialHelper(string className, string fullNamespace, string typeArgument, ImmutableArray<string> enumMembers)
     {
-        string membersSource = string.Join(";\n", enumMembers.Select((m, i) => $"        public {typeArgument} {m} => All[{i}]"));
+        var membersSource = string.Join(";\n", enumMembers.Select((m, i) => $"        public {typeArgument} {m} => All[{i}]"));
         return $@"// Auto-generated code
 using ContentEnums;
 
@@ -219,7 +219,7 @@ namespace {fullNamespace}
     {
         // Remove invalid characters and replace spaces with underscores
         StringBuilder builder = new();
-        foreach (char ch in name)
+        foreach (var ch in name)
         {
             if (char.IsLetterOrDigit(ch) || ch == '_')
                 builder.Append(ch);

@@ -29,7 +29,7 @@ public class TuneBuilderTests
     {
         _tune = Note(Tone.A, Duration.QUARTER).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(220, tone);
         Assert.AreEqual(400, duration);
     }
@@ -39,7 +39,7 @@ public class TuneBuilderTests
     {
         _tune = Note(440, Duration.WHOLE).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(440, tone);
         Assert.AreEqual(1600, duration);
     }
@@ -49,7 +49,7 @@ public class TuneBuilderTests
     {
         _tune = Note(Tone.B, 500).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(247, tone);
         Assert.AreEqual(500, duration);
     }
@@ -64,10 +64,10 @@ public class TuneBuilderTests
     {
         _tune = Note(t, d).Note(t, d).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(expectedDuration, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(expectedDuration, duration2);
     }
@@ -84,10 +84,10 @@ public class TuneBuilderTests
     {
         _tune = Sixteeth(t).Sixteeth(t).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(100, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(100, duration2);
     }
@@ -104,10 +104,10 @@ public class TuneBuilderTests
     {
         _tune = Eighth(t).Eighth(t).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(200, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(200, duration2);
     }
@@ -124,10 +124,10 @@ public class TuneBuilderTests
     {
         _tune = Quarter(t).Quarter(t).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(400, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(400, duration2);
     }
@@ -144,10 +144,10 @@ public class TuneBuilderTests
     {
         _tune = Half(t).Half(t).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(800, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(800, duration2);
     }
@@ -164,10 +164,10 @@ public class TuneBuilderTests
     {
         _tune = Whole(t).Whole(t).Beep();
 
-        (int tone, int duration) = GetFirstNote();
+        (var tone, var duration) = GetFirstNote();
         Assert.AreEqual(expectedFrequency, tone);
         Assert.AreEqual(1600, duration);
-        (int tone2, int duration2) = GetSecondNote();
+        (var tone2, var duration2) = GetSecondNote();
         Assert.AreEqual(expectedFrequency, tone2);
         Assert.AreEqual(1600, duration2);
     }
@@ -175,10 +175,10 @@ public class TuneBuilderTests
     [TestMethod]
     public void GoTo_WithAction_SetsEffectOnTune()
     {
-        bool effectCalled = false;
+        var effectCalled = false;
         Action action = () => effectCalled = true;
 
-        Tune tune = Note(Tone.A, Duration.QUARTER).GoTo(action).WaitToPlay();
+        var tune = Note(Tone.A, Duration.QUARTER).GoTo(action).WaitToPlay();
         Assert.IsNotNull(tune.Effect);
 
         tune.Effect?.Invoke();
@@ -209,9 +209,9 @@ public class TuneBuilderTests
 
         Assert.AreEqual(3, _tune.Notes.Count, "Tune should contain three notes.");
 
-        Tune.Note firstNote = _tune.Notes[0];
-        Tune.Note secondNote = _tune.Notes[1];
-        Tune.Note thirdNote = _tune.Notes[2];
+        var firstNote = _tune.Notes[0];
+        var secondNote = _tune.Notes[1];
+        var thirdNote = _tune.Notes[2];
 
         Assert.AreEqual(220, firstNote.Tone);
         Assert.AreEqual(800, firstNote.Duration);

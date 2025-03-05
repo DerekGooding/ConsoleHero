@@ -28,7 +28,7 @@ public class MenuBuilderTests
     [TestMethod]
     public void Title_WithTextAndColor_SetsTitleCorrectly()
     {
-        Color expectedColor = Color.Red;
+        var expectedColor = Color.Red;
         _menu = Title("Main Menu", expectedColor).NoRefuse();
 
         Assert.AreEqual("Main Menu", _menu.Title.Text);
@@ -54,7 +54,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Key("A").Description("Option A").GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.AreEqual("A", option.Key);
         Assert.AreEqual("Option A", option.Description);
     }
@@ -64,7 +64,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Key('B').Description("Option B").GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.AreEqual("B", option.Key);
         Assert.AreEqual("Option B", option.Description);
     }
@@ -74,7 +74,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Key("C").Description("Cancel Option").GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.AreEqual("Cancel Option", option.Description, "Description should match input.");
     }
     [TestMethod]
@@ -82,7 +82,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Key("A").IsCaseSensitive().Description("").GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.IsTrue(option.IsCaseSensitive, "Option should be case sensitive.");
     }
 
@@ -91,28 +91,28 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Key("B").IsHidden().GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.IsTrue(option.IsHidden, "Option should be hidden.");
     }
 
     [TestMethod]
     public void If_WithCondition_SetsOptionCondition()
     {
-        bool condition = true;
+        var condition = true;
         _menu = NoTitle().Key("D").Description("").If(() => condition).GoTo(() => { }).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.IsTrue(option.Check(), "Condition should return true.");
     }
     [TestMethod]
     public void GoTo_WithAction_SetsEffectCorrectly()
     {
-        bool actionCalled = false;
+        var actionCalled = false;
         Action testAction = () => actionCalled = true;
 
         _menu = NoTitle().Key("A").Description("Test Action").GoTo(testAction).NoRefuse();
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         option.Effect?.Invoke();
         Assert.IsTrue(actionCalled, "Action should be invoked when Effect is called.");
     }
@@ -121,7 +121,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Cancel('C');
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.AreEqual("C", option.Key);
         Assert.AreEqual("Cancel", option.Description);
     }
@@ -131,7 +131,7 @@ public class MenuBuilderTests
     {
         _menu = NoTitle().Exit('X');
 
-        MenuOption option = GetFirstOption();
+        var option = GetFirstOption();
         Assert.AreEqual("X", option.Key);
         Assert.AreEqual("Exit", option.Description);
     }

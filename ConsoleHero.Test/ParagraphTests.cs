@@ -28,7 +28,7 @@ public class ParagraphTests
     public void Outputs_Set()
     {
         const string anything = "Anything";
-        Paragraph paragraph = Line(anything).PressToContinue();
+        var paragraph = Line(anything).PressToContinue();
         ParagraphLine expected = new();
         expected.Components.Add(anything.DefaultColor());
 
@@ -64,7 +64,7 @@ public class ParagraphTests
         Action myClass = new(mockService.Object);
         Action action = new(() => { });
 
-        Paragraph paragraph = Line("").GoTo(myClass).DelayInSeconds(0);
+        var paragraph = Line("").GoTo(myClass).DelayInSeconds(0);
 
         paragraph.Call();
 

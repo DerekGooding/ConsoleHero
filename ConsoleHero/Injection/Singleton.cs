@@ -25,7 +25,7 @@ internal class Singleton
         if (_instance != null)
             throw new InvalidOperationException("Instance is already initialized.");
 
-        ConstructorInfo? constructor = Type.GetConstructors().FirstOrDefault()
+        var constructor = Type.GetConstructors().FirstOrDefault()
             ?? throw new InvalidOperationException("No public constructors found for the type.");
 
         _instance = constructor.Invoke(args);
