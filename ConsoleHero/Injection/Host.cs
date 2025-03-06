@@ -1,117 +1,254 @@
 ﻿namespace ConsoleHero.Injection;
 
 /// <summary>
-/// Represents a container that holds and manages singleton instances. It provides functionality to register
-/// singletons, resolve dependencies, and retrieve singleton instances.
+/// Represents a container that holds and manages service instances with different lifetimes (Singleton, Scoped, Transient).
+/// It provides functionality to register services, resolve dependencies, and retrieve service instances.
 /// </summary>
 /// <remarks>
-/// This class is responsible for initializing and managing singletons, ensuring that each singleton is 
-/// only instantiated once and that its dependencies are resolved before initialization. It uses a builder pattern
-/// for constructing the host with a series of singleton registrations.
+/// This class is responsible for initializing and managing services with different lifetimes, ensuring proper
+/// initialization and dependency resolution. It automatically discovers attributed classes and registers them
+/// with their appropriate lifetimes.
 /// </remarks>
 public sealed class Host
 {
-    private Host(List<Singleton> list)
-    {
-        singletons = list;
-        Initialize();
-    }
+    private readonly List<ServiceDescriptor> _serviceDescriptors = new();
+    private readonly Dictionary<Type, object> _singletonInstances = new();
+    private readonly Dictionary<Type, Func<Scope, object>> _factories = new();
+    private bool _initialized;
 
     private Host() { }
 
-    private readonly List<Singleton> singletons = new();
-
-    private readonly Dictionary<Type, object> _map = new();
-
-    public interface ILoadSingletons
+    /// <summary>
+    /// Initializes a new <see cref="Host"/> instance by scanning the current domain for types marked
+    /// with service lifetime attributes. These types are then registered as services within the host.
+    /// </summary>
+    /// <returns>A new <see cref="Host"/> instance populated with services based on the types found in the current domain.</returns>
+    /// <remarks>
+    /// This method scans all loaded assemblies in the current application domain for types decorated
+    /// with service lifetime attributes (<see cref="SingletonAttribute"/>, <see cref="ScopedAttribute"/>, 
+    /// <see cref="TransientAttribute"/>). It then creates a new host and registers these types with appropriate lifetimes.
+    /// </remarks>
+    internal static Host Initialize()
     {
-        public ILoadSingletons Singleton<T>();
-        public Host Build();
+        var host = new Host();
+        host.RegisterAttributedTypes();
+        host.InitializeUsingAttribute();
+        return host;
     }
 
-    public static ILoadSingletons Singleton<T>()
-        => new Builder().Singleton<T>();
-
-    internal class Builder : ILoadSingletons
+    /// <summary>
+    /// Registers all types in the current domain that are marked with lifetime attributes.
+    /// </summary>
+    private void RegisterAttributedTypes()
     {
-        private readonly Host _host = new();
-
-        public ILoadSingletons Singleton<T>()
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
-            _host.singletons.Add(new(typeof(T)));
-            return this;
-        }
-
-        public Host Build()
-        {
-            _host.Initialize();
-            return _host;
-        }
-    }
-
-    private void Initialize()
-    {
-        List<Singleton> toProcess = new(singletons);
-        for (var i = 0; i < toProcess.Count; i++)
-        {
-            var singleton = toProcess[i];
-            if (singleton.Dependencies.Count == 0)
+            foreach (var type in assembly.GetTypes())
             {
-                singleton.Initialize();
-                _map.Add(singleton.Type, singleton.Instance);
-                toProcess.RemoveAt(i);
+                if (type.GetCustomAttributes(typeof(SingletonAttribute), false).Length > 0)
+                {
+                    _serviceDescriptors.Add(new ServiceDescriptor(type, ServiceLifetime.Singleton));
+                }
+                else if (type.GetCustomAttributes(typeof(ScopedAttribute), false).Length > 0)
+                {
+                    _serviceDescriptors.Add(new ServiceDescriptor(type, ServiceLifetime.Scoped));
+                }
+                else if (type.GetCustomAttributes(typeof(TransientAttribute), false).Length > 0)
+                {
+                    _serviceDescriptors.Add(new ServiceDescriptor(type, ServiceLifetime.Transient));
+                }
+            }
+        }
+    }
+
+    private void InitializeUsingAttribute()
+    {
+        if (_initialized)
+            return;
+
+        BuildFactories();
+        _initialized = true;
+    }
+
+    private void BuildFactories()
+    {
+        // First, sort services to resolve dependencies in the correct order
+        var sortedServices = SortServicesByDependencies();
+
+        // Create factories for each service
+        foreach (var descriptor in sortedServices)
+        {
+            CreateFactory(descriptor);
+        }
+    }
+
+    private List<ServiceDescriptor> SortServicesByDependencies()
+    {
+        var result = new List<ServiceDescriptor>();
+        var remaining = new List<ServiceDescriptor>(_serviceDescriptors);
+
+        // Process services with no dependencies first
+        ProcessServicesWithNoDependencies(result, remaining);
+
+        // Process remaining services based on dependency order
+        ProcessRemainingServices(result, remaining);
+
+        return result;
+    }
+
+    private static void ProcessServicesWithNoDependencies(List<ServiceDescriptor> result, List<ServiceDescriptor> remaining)
+    {
+        for (var i = 0; i < remaining.Count; i++)
+        {
+            var descriptor = remaining[i];
+            if (descriptor.Dependencies.Count == 0)
+            {
+                result.Add(descriptor);
+                remaining.RemoveAt(i);
                 i--;
             }
         }
+    }
 
-        var lastTry = int.MaxValue;
-        while (toProcess.Count != 0 && lastTry != toProcess.Count)
+    private void ProcessRemainingServices(List<ServiceDescriptor> result, List<ServiceDescriptor> remaining)
+    {
+        var lastCount = int.MaxValue;
+        while (remaining.Count > 0 && lastCount != remaining.Count)
         {
-            lastTry = toProcess.Count;
-            for (var i = 0; i < toProcess.Count; i++)
+            lastCount = remaining.Count;
+
+            for (var i = 0; i < remaining.Count; i++)
             {
-                var singleton = toProcess[i];
-                if (singleton.Dependencies.All(_map.ContainsKey))
+                var descriptor = remaining[i];
+                var allDependenciesResolved = descriptor.Dependencies.All(dep =>
+                    _serviceDescriptors.Any(sd => sd.ServiceType == dep && result.Contains(sd)));
+
+                if (allDependenciesResolved)
                 {
-                    var dependencies = singleton.Dependencies.Select(x => _map[x]);
-                    singleton.Initialize(dependencies.ToArray());
-                    _map.Add(singleton.Type, singleton.Instance);
-                    toProcess.RemoveAt(i);
+                    result.Add(descriptor);
+                    remaining.RemoveAt(i);
                     i--;
                 }
             }
         }
 
-        if (toProcess.Count != 0)
-            throw new Exception("Missing singletons or circular dependencies issue.");
+        if (remaining.Count > 0)
+        {
+            throw new InvalidOperationException("Circular dependency detected or missing service registration.");
+        }
     }
 
-    /// <summary>
-    /// Initializes a new <see cref="Host"/> instance by scanning the current domain for types that are marked
-    /// with the <see cref="SingletonAttribute"/>. These types are then registered as singletons within the host.
-    /// </summary>
-    /// <returns>A new <see cref="Host"/> instance populated with singletons based on the types found in the current domain.</returns>
-    /// <remarks>
-    /// This method scans all loaded assemblies in the current application domain for types that are decorated
-    /// with the <see cref="SingletonAttribute"/>. It then creates a new host and registers these types as singletons.
-    /// If no types with the <see cref="SingletonAttribute"/> are found, an empty host is returned.
-    /// </remarks>
-    public static Host InitializeUsingAttribute()
+    private void CreateFactory(ServiceDescriptor descriptor)
     {
-        var host = new Host(AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(x => x.GetTypes())
-                           .Where(t => t.GetCustomAttributes(typeof(SingletonAttribute), false).Length != 0)
-                           .Select(x => new Singleton(x))
-                           .ToList());
-        return host._map.Count == 0 ? new Host() : host;
+        switch (descriptor.Lifetime)
+        {
+            case ServiceLifetime.Singleton:
+                CreateSingletonFactory(descriptor);
+                break;
+            case ServiceLifetime.Scoped:
+                CreateScopedFactory(descriptor);
+                break;
+            case ServiceLifetime.Transient:
+                CreateTransientFactory(descriptor);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void CreateSingletonFactory(ServiceDescriptor descriptor)
+    {
+        var serviceType = descriptor.ServiceType;
+
+        _factories[serviceType] = scope =>
+        {
+            if (!_singletonInstances.TryGetValue(serviceType, out var instance))
+            {
+                instance = CreateInstance(serviceType, scope);
+                _singletonInstances[serviceType] = instance;
+            }
+            return instance;
+        };
+    }
+
+    private void CreateScopedFactory(ServiceDescriptor descriptor)
+    {
+        var serviceType = descriptor.ServiceType;
+
+        _factories[serviceType] = scope =>
+            scope.GetOrCreateScopedInstance(serviceType, () => CreateInstance(serviceType, scope));
+    }
+
+    private void CreateTransientFactory(ServiceDescriptor descriptor)
+    {
+        var serviceType = descriptor.ServiceType;
+        _factories[serviceType] = scope => CreateInstance(serviceType, scope);
+    }
+
+    private object CreateInstance(Type type, Scope scope)
+    {
+        var constructor = type.GetConstructors().FirstOrDefault()
+            ?? throw new InvalidOperationException($"No public constructor found for type {type.Name}");
+
+        var parameters = constructor.GetParameters();
+        var arguments = new object[parameters.Length];
+
+        for (var i = 0; i < parameters.Length; i++)
+        {
+            var paramType = parameters[i].ParameterType;
+            if (!_factories.TryGetValue(paramType, out var factory))
+            {
+                throw new InvalidOperationException($"Cannot resolve dependency {paramType.Name} for {type.Name}");
+            }
+
+            arguments[i] = factory(scope);
+        }
+
+        return constructor.Invoke(arguments);
     }
 
     /// <summary>
-    /// Retrieves the instance of a registered singleton of type <typeparamref name="T"/>.
+    /// Creates a new scope for resolving scoped services.
     /// </summary>
-    /// <typeparam name="T">The type of the singleton to retrieve. Must be a class that has been registered with the host.</typeparam>
-    /// <returns>The instance of the singleton registered for the specified type <typeparamref name="T"/>.</returns>
-    /// <exception cref="Exception">Thrown if the host has not been initialized or if the requested singleton is not found.</exception>
-    public T Get<T>() where T : class
-        => _map.Count == 0 ? throw new Exception("Host must be initialized") : (T)_map[typeof(T)];
+    /// <returns>A new <see cref="Scope"/> instance.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the host has not been initialized.</exception>
+    public Scope CreateScope()
+    {
+        if (!_initialized)
+            throw new InvalidOperationException("Host must be initialized before creating a scope.");
+
+        return new Scope(this);
+    }
+
+    /// <summary>
+    /// Retrieves a singleton service of the specified type.
+    /// </summary>
+    /// <typeparam name="T">The type of service to retrieve.</typeparam>
+    /// <returns>The singleton instance of the specified service type.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the host has not been initialized or the service is not registered.</exception>
+    internal T Get<T>() where T : class
+    {
+        if (!_initialized)
+            throw new InvalidOperationException("Host must be initialized.");
+
+        using var scope = CreateScope();
+        return GetService<T>(scope);
+    }
+
+    /// <summary>
+    /// Retrieves a service of the specified type from the given scope.
+    /// </summary>
+    /// <typeparam name="T">The type of service to retrieve.</typeparam>
+    /// <param name="scope">The scope from which to retrieve the service.</param>
+    /// <returns>An instance of the specified service type.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the service is not registered.</exception>
+    internal T GetService<T>(Scope scope) where T : class
+    {
+        var type = typeof(T);
+
+        if (!_factories.TryGetValue(type, out var factory))
+            throw new InvalidOperationException($"Service of type {type.Name} is not registered.");
+
+        return (T)factory(scope);
+    }
 }

@@ -46,7 +46,7 @@ public static class GlobalSettings
     private static IColorService? _colorService;
     private static Color defaultTextColor = IColorService.ConsoleColorToDrawingColor(ConsoleColor.White);
 
-    public static Host Content { get; set; } = Host.InitializeUsingAttribute();
+    public static Host Content { get; set; } = Host.Initialize();
 
     public static T Get<T>() where T : class => Content.Get<T>();
 }
