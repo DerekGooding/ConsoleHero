@@ -8,4 +8,6 @@ public static class Requests
     For(DataType.String).
     Goto((x) => Paragraphs.YourNameIs(x)).
     Use<string>((x) => Data.Name = x);
+
+    public static Request AskYesOrNo => YesNo(Paragraphs.Part1, Paragraphs.Crying);
 }

@@ -13,6 +13,7 @@ public static class Menus
     Description("Change Name").GoTo(Requests.AskForName).
     Description("Review Players").GoTo(ReviewPlayers).
     Key("Mary").Description("Listen to Mary").GoTo(Tunes.Mary).
+    Description("Ask Yes or No").GoTo(Requests.AskYesOrNo).
     Exit();
 
     public static Menu DoorMenu =>

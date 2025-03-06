@@ -20,6 +20,7 @@ public class Menus(Paragraphs paragraphs, Requests requests, Tunes tunes, Data d
     Description("Change Name").GoTo(_requests.AskForName).
     Description("Review Players").GoTo(ReviewPlayers).
     Key("Mary").Description("Listen to Mary").GoTo(_tunes.Mary).
+    Description("Ask Yes or No").GoTo(_requests.AskYesOrNo).
     Exit();
 
     public Menu DoorMenu =>

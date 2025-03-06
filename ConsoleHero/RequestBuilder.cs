@@ -18,6 +18,10 @@ public static class RequestBuilder
         /// </summary>
         String,
         /// <summary>
+        /// The requirement of a user input is specifically "Yes" or "No".
+        /// </summary>
+        YesNo,
+        /// <summary>
         /// Not yet implimented.
         /// </summary>
         Int,
@@ -35,6 +39,30 @@ public static class RequestBuilder
         FilePath,
     }
 
+    public static Request YesNo(Action ifYes, Action ifNo)
+        => new Builder()
+        .Ask("Yes or No?")
+        .For(DataType.YesNo)
+        .Use<bool>((s) => { if (s) ifYes(); else ifNo(); });
+
+    public static Request YesNo(INode ifYes, INode ifNo)
+        => new Builder()
+        .Ask("Yes or No?")
+        .For(DataType.YesNo)
+        .Use<bool>((s) => { if (s) ifYes.Call(); else ifNo.Call(); });
+
+    public static Request YesNo(Action ifYes, INode ifNo)
+        => new Builder()
+        .Ask("Yes or No?")
+        .For(DataType.YesNo)
+        .Use<bool>((s) => { if (s) ifYes(); else ifNo.Call(); });
+
+    public static Request YesNo(INode ifYes, Action ifNo)
+        => new Builder()
+        .Ask("Yes or No?")
+        .For(DataType.YesNo)
+        .Use<bool>((s) => { if (s) ifYes.Call(); else ifNo(); });
+
     /// <summary>
     /// The message shown to the user before waiting on a response.
     /// </summary>
@@ -51,7 +79,7 @@ public static class RequestBuilder
     /// <br><see cref="FailMessage(string)"/></br>
     /// <br><see cref="For(DataType)"/></br>
     /// <br><see cref="Goto(INode)"/> </br>
-    /// <br><see cref="Use(Action{string})"/></br>
+    /// <br><see cref="Use(Action{object})"/></br>
     /// </summary>
     public interface ISetFail
     {
@@ -79,7 +107,7 @@ public static class RequestBuilder
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        public Request Use(Action<string> apply);
+        public Request Use(Action<object> apply);
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
@@ -90,7 +118,7 @@ public static class RequestBuilder
     /// Continue building with one of the following:
     /// <br><see cref="For(DataType)"/></br>
     /// <br><see cref="Goto(INode)"/> </br>
-    /// <br><see cref="Use(Action{string})"/></br>
+    /// <br><see cref="Use(Action{object})"/></br>
     /// </summary>
     public interface ISetDataType
     {
@@ -109,7 +137,7 @@ public static class RequestBuilder
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        public Request Use(Action<string> apply);
+        public Request Use(Action<object> apply);
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
@@ -119,7 +147,7 @@ public static class RequestBuilder
     /// <summary>
     /// Continue building with one of the following:
     /// <br><see cref="Goto(INode)"/> </br>
-    /// <br><see cref="Use(Action{string})"/></br>
+    /// <br><see cref="Use(Action{object})"/></br>
     /// </summary>
     public interface ISetEffect
     {
@@ -134,7 +162,7 @@ public static class RequestBuilder
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        public Request Use(Action<string> apply);
+        public Request Use(Action<object> apply);
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
@@ -142,14 +170,14 @@ public static class RequestBuilder
     }
 
     /// <summary>
-    /// Finish the build with a <see cref="Use(Action{string})"/>.
+    /// Finish the build with a <see cref="Use(Action{object})"/>.
     /// </summary>
     public interface ISetUse
     {
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
-        public Request Use(Action<string> apply);
+        public Request Use(Action<object> apply);
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
         /// </summary>
@@ -194,14 +222,14 @@ public static class RequestBuilder
             return this;
         }
 
-        public Request Use(Action<string> effect)
+        public Request Use(Action<object> effect)
         {
             _item.Apply = effect;
             return _item;
         }
         public Request Use<T>(Action<T> effect)
         {
-            _item.Apply = (string s) => effect((T)(object)s);
+            _item.Apply = (object s) => effect((T)s);
             return _item;
         }
     }

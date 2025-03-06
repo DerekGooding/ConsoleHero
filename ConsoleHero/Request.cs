@@ -10,7 +10,7 @@ public record Request : INode, IListeningNode
 
     internal RequestBuilder.DataType DataType { get; set; }
 
-    internal Action<string> Apply { get; set; } = (_) => { };
+    internal Action<object> Apply { get; set; } = (_) => { };
 
     internal Action<string> Effect { get; set; } = (_) => { };
 
@@ -36,7 +36,20 @@ public record Request : INode, IListeningNode
 
     void IListeningNode.ProcessResult(string response)
     {
-        if(string.IsNullOrWhiteSpace(response))
+        switch (DataType)
+        {
+            case RequestBuilder.DataType.YesNo:
+                ProcessYesNo(response);
+                break;
+            default:
+                ProcessString(response);
+                break;
+        }
+    }
+
+    private void ProcessString(string response)
+    {
+        if (string.IsNullOrWhiteSpace(response))
         {
             GlobalSettings.Service.WriteLine(FailMessage);
             GlobalSettings.Service.SetListener(this);
@@ -48,4 +61,25 @@ public record Request : INode, IListeningNode
         }
     }
 
+    private void ProcessYesNo(string response)
+    {
+        string[] affirmative = { "yes", "y" };
+        string[] negative = { "no", "n" };
+        var lower = response.ToLower();
+        if (affirmative.Contains(lower))
+        {
+            Apply.Invoke(true);
+            Effect.Invoke(response);
+        }
+        else if (negative.Contains(lower))
+        {
+            Apply.Invoke(false);
+            Effect.Invoke(response);
+        }
+        else
+        {
+            GlobalSettings.Service.WriteLine(FailMessage);
+            GlobalSettings.Service.SetListener(this);
+        }
+    }
 }
