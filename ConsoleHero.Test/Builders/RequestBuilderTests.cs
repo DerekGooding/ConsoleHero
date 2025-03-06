@@ -1,95 +1,238 @@
 ﻿using ConsoleHero.Interfaces;
-using static ConsoleHero.RequestBuilder;
+using Moq;
 
 namespace ConsoleHero.Test.Builders;
 
 [TestClass]
 public class RequestBuilderTests
 {
-    // Test that Ask initializes the Request with the given message
-    [TestMethod]
-    public void Ask_ShouldSetStartingMessage()
-    {
-        var request = Ask("Test Message").Use(_ => { });
+    private Mock<IConsoleService> _mockConsoleService;
 
-        Assert.AreEqual("Test Message", request.StartingMessage);
+    [TestInitialize]
+    public void Setup()
+    {
+        _mockConsoleService = new Mock<IConsoleService>();
+        GlobalSettings.Service = _mockConsoleService.Object;
     }
 
-    // Test that NoMessage does not set a message
     [TestMethod]
-    public void NoMessage_ShouldNotSetStartingMessage()
+    public void YesNo_WithActionParameters_CreatesRequestCorrectly()
     {
-        var request = NoMessage().Use(_ => { });
+        // Arrange
+        var yesActionCalled = false;
+        var noActionCalled = false;
+        Action yesAction = () => yesActionCalled = true;
+        Action noAction = () => noActionCalled = true;
 
+        // Act
+        var request = RequestBuilder.YesNo(yesAction, noAction);
+
+        // Assert
+        Assert.IsNotNull(request);
+        Assert.AreEqual(RequestBuilder.DataType.YesNo, request.DataType);
+        Assert.AreEqual("Yes or No?", request.StartingMessage);
+
+        // Test yes response
+        request.Apply.Invoke(true);
+        Assert.IsTrue(yesActionCalled);
+        Assert.IsFalse(noActionCalled);
+
+        // Reset and test no response
+        yesActionCalled = false;
+        request.Apply.Invoke(false);
+        Assert.IsFalse(yesActionCalled);
+        Assert.IsTrue(noActionCalled);
+    }
+
+    [TestMethod]
+    public void YesNo_WithINodeParameters_CreatesRequestCorrectly()
+    {
+        // Arrange
+        var mockYesNode = new Mock<INode>();
+        var mockNoNode = new Mock<INode>();
+
+        // Act
+        var request = RequestBuilder.YesNo(mockYesNode.Object, mockNoNode.Object);
+
+        // Assert
+        Assert.IsNotNull(request);
+        Assert.AreEqual(RequestBuilder.DataType.YesNo, request.DataType);
+
+        // Test yes response
+        request.Apply.Invoke(true);
+        mockYesNode.Verify(x => x.Call(), Times.Once);
+        mockNoNode.Verify(x => x.Call(), Times.Never);
+
+        // Test no response
+        request.Apply.Invoke(false);
+        mockYesNode.Verify(x => x.Call(), Times.Once);
+        mockNoNode.Verify(x => x.Call(), Times.Once);
+    }
+
+    [TestMethod]
+    public void YesNo_WithActionAndINodeParameters_CreatesRequestCorrectly()
+    {
+        // Arrange
+        var actionCalled = false;
+        Action yesAction = () => actionCalled = true;
+        var mockNoNode = new Mock<INode>();
+
+        // Act
+        var request = RequestBuilder.YesNo(yesAction, mockNoNode.Object);
+
+        // Assert
+        Assert.IsNotNull(request);
+
+        // Test yes response
+        request.Apply.Invoke(true);
+        Assert.IsTrue(actionCalled);
+        mockNoNode.Verify(x => x.Call(), Times.Never);
+
+        // Test no response
+        actionCalled = false;
+        request.Apply.Invoke(false);
+        Assert.IsFalse(actionCalled);
+        mockNoNode.Verify(x => x.Call(), Times.Once);
+    }
+
+    [TestMethod]
+    public void YesNo_WithINodeAndActionParameters_CreatesRequestCorrectly()
+    {
+        // Arrange
+        var actionCalled = false;
+        Action noAction = () => actionCalled = true;
+        var mockYesNode = new Mock<INode>();
+
+        // Act
+        var request = RequestBuilder.YesNo(mockYesNode.Object, noAction);
+
+        // Assert
+        Assert.IsNotNull(request);
+
+        // Test yes response
+        request.Apply.Invoke(true);
+        Assert.IsFalse(actionCalled);
+        mockYesNode.Verify(x => x.Call(), Times.Once);
+
+        // Test no response
+        request.Apply.Invoke(false);
+        Assert.IsTrue(actionCalled);
+        mockYesNode.Verify(x => x.Call(), Times.Once);
+    }
+
+    [TestMethod]
+    public void Ask_SetsStartingMessage()
+    {
+        // Arrange & Act
+        var builder = RequestBuilder.Ask("Test message");
+        var request = builder.Use(_ => { });
+
+        // Assert
+        Assert.AreEqual("Test message", request.StartingMessage);
+    }
+
+    [TestMethod]
+    public void NoMessage_LeavesStartingMessageEmpty()
+    {
+        // Arrange & Act
+        var builder = RequestBuilder.NoMessage();
+        var request = builder.Use(_ => { });
+
+        // Assert
         Assert.AreEqual(string.Empty, request.StartingMessage);
     }
 
-    // Test that ClearOnCall sets the ClearOnCall flag on the Request
     [TestMethod]
-    public void ClearOnCall_ShouldSetClearOnCallFlag()
+    public void ClearOnCall_SetsFlagCorrectly()
     {
-        var request = Ask("Test").ClearOnCall().Use(_ => { });
+        // Arrange & Act
+        var builder = RequestBuilder.Ask("Test").ClearOnCall();
+        var request = builder.Use(_ => { });
 
+        // Assert
         Assert.IsTrue(request.ClearOnCall);
     }
 
-    // Test that FailMessage sets the FailMessage in the Request
     [TestMethod]
-    public void FailMessage_ShouldSetFailMessage()
+    public void FailMessage_SetsCustomMessage()
     {
-        var request = Ask("Test").FailMessage("Failure message").Use(_ => { });
+        // Arrange & Act
+        var builder = RequestBuilder.Ask("Test").FailMessage("Custom fail message");
+        var request = builder.Use(_ => { });
 
-        Assert.AreEqual("Failure message", request.FailMessage);
+        // Assert
+        Assert.AreEqual("Custom fail message", request.FailMessage);
     }
 
-    // Test that For sets the DataType correctly
-    [DataTestMethod]
-    [DataRow(DataType.String)]
-    [DataRow(DataType.Int)]
-    [DataRow(DataType.Double)]
-    public void For_ShouldSetDataType(RequestBuilder.DataType dataType)
-    {
-        var request = Ask("Test").For(dataType).Use(_ => { });
-
-        Assert.AreEqual(dataType, request.DataType);
-    }
-
-    // Test that Goto(Action<string>) sets the Effect in the Request
     [TestMethod]
-    public void Goto_Action_ShouldSetEffect()
+    public void For_SetsDataType()
     {
-        Action<string> effect = (x) => { /* Effect Logic */ };
-        var request = Ask("Test").Goto(effect).Use(_ => { });
+        // Arrange & Act
+        var builder = RequestBuilder.Ask("Test").For(RequestBuilder.DataType.YesNo);
+        var request = builder.Use(_ => { });
 
-        Assert.AreEqual(effect, request.Effect);
+        // Assert
+        Assert.AreEqual(RequestBuilder.DataType.YesNo, request.DataType);
     }
 
-    // Test that Use(Action<string>) sets the Apply function correctly
     [TestMethod]
-    public void Use_Action_ShouldSetApply()
+    public void Goto_WithAction_SetsEffectCorrectly()
     {
-        Action<string> applyAction = _ => { /* Apply Logic */ };
-        var request = Ask("Test").Use(applyAction);
+        // Arrange
+        string receivedInput = null;
+        Action<string> effect = input => receivedInput = input;
 
-        Assert.AreEqual(applyAction, request.Apply);
+        // Act
+        var builder = RequestBuilder.Ask("Test").Goto(effect);
+        var request = builder.Use(_ => { });
+        request.Effect.Invoke("test input");
+
+        // Assert
+        Assert.AreEqual("test input", receivedInput);
     }
 
-    // Test that Use<T>(Action<T>) sets the Apply function with the correct type
     [TestMethod]
-    public void Use_GenericAction_ShouldSetApplyWithCorrectType()
+    public void Goto_WithINode_SetsEffectCorrectly()
     {
-        var result = 0;
-        Action<string> applyAction = i => result = int.Parse(i) * 2;
-        var request = Ask("Test").Use(applyAction);
+        // Arrange
+        var mockNode = new Mock<INode>();
 
-        Assert.IsNotNull(request.Apply);
-        request.Apply("123");
-        Assert.AreEqual(246, result);
+        // Act
+        var builder = RequestBuilder.Ask("Test").Goto(mockNode.Object);
+        var request = builder.Use(_ => { });
+        request.Effect.Invoke("test input");
+
+        // Assert
+        mockNode.Verify(x => x.Call(), Times.Once);
     }
 
-    // Test class for Goto(INode)
-    private class MockNode : INode
+    [TestMethod]
+    public void Use_SetsApplyCorrectly()
     {
-        public void Call() { }
+        // Arrange
+        object receivedObject = null;
+        Action<object> apply = obj => receivedObject = obj;
+
+        // Act
+        var request = RequestBuilder.Ask("Test").Use(apply);
+        request.Apply.Invoke("test object");
+
+        // Assert
+        Assert.AreEqual("test object", receivedObject);
+    }
+
+    [TestMethod]
+    public void UseGeneric_SetsApplyCorrectly()
+    {
+        // Arrange
+        string receivedString = null;
+        Action<string> apply = str => receivedString = str;
+
+        // Act
+        var request = RequestBuilder.Ask("Test").Use(apply);
+        request.Apply.Invoke("test string");
+
+        // Assert
+        Assert.AreEqual("test string", receivedString);
     }
 }

@@ -22,19 +22,19 @@ public static class RequestBuilder
         /// </summary>
         YesNo,
         /// <summary>
-        /// Not yet implimented.
+        /// Not yet implimented. Will default to string management.
         /// </summary>
         Int,
         /// <summary>
-        /// Not yet implimented.
+        /// Not yet implimented. Will default to string management.
         /// </summary>
         Double,
         /// <summary>
-        /// Not yet implimented.
+        /// Not yet implimented. Will default to string management.
         /// </summary>
         DateTime,
         /// <summary>
-        /// Not yet implimented.
+        /// Not yet implimented. Will default to string management.
         /// </summary>
         FilePath,
     }
