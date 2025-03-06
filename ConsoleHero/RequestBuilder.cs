@@ -38,25 +38,61 @@ public static class RequestBuilder
         /// </summary>
         FilePath,
     }
-
+    /// <summary>
+    /// Creates a Yes/No request with two actions.
+    /// </summary>
+    /// <param name="ifYes">The action to execute if the user answers "Yes".</param>
+    /// <param name="ifNo">The action to execute if the user answers "No".</param>
+    /// <returns>A Request object configured for Yes/No input.</returns>
+    /// <remarks>
+    /// This method creates a request that prompts the user with "Yes or No?" and executes
+    /// the appropriate action based on their response.
+    /// </remarks>
     public static Request YesNo(Action ifYes, Action ifNo)
         => new Builder()
         .Ask("Yes or No?")
         .For(DataType.YesNo)
         .Use<bool>((s) => { if (s) ifYes(); else ifNo(); });
-
+    /// <summary>
+    /// Creates a Yes/No request with two INode objects.
+    /// </summary>
+    /// <param name="ifYes">The INode to call if the user answers "Yes".</param>
+    /// <param name="ifNo">The INode to call if the user answers "No".</param>
+    /// <returns>A Request object configured for Yes/No input.</returns>
+    /// <remarks>
+    /// This method creates a request that prompts the user with "Yes or No?" and calls
+    /// the appropriate INode's Call() method based on their response.
+    /// </remarks>
     public static Request YesNo(INode ifYes, INode ifNo)
         => new Builder()
         .Ask("Yes or No?")
         .For(DataType.YesNo)
         .Use<bool>((s) => { if (s) ifYes.Call(); else ifNo.Call(); });
-
+    /// <summary>
+    /// Creates a Yes/No request with an Action for "Yes" and an INode for "No".
+    /// </summary>
+    /// <param name="ifYes">The action to execute if the user answers "Yes".</param>
+    /// <param name="ifNo">The INode to call if the user answers "No".</param>
+    /// <returns>A Request object configured for Yes/No input.</returns>
+    /// <remarks>
+    /// This method creates a request that prompts the user with "Yes or No?" and executes
+    /// either an Action or calls an INode's Call() method based on their response.
+    /// </remarks>
     public static Request YesNo(Action ifYes, INode ifNo)
         => new Builder()
         .Ask("Yes or No?")
         .For(DataType.YesNo)
         .Use<bool>((s) => { if (s) ifYes(); else ifNo.Call(); });
-
+    /// <summary>
+    /// Creates a Yes/No request with an INode for "Yes" and an Action for "No".
+    /// </summary>
+    /// <param name="ifYes">The INode to call if the user answers "Yes".</param>
+    /// <param name="ifNo">The action to execute if the user answers "No".</param>
+    /// <returns>A Request object configured for Yes/No input.</returns>
+    /// <remarks>
+    /// This method creates a request that prompts the user with "Yes or No?" and either
+    /// calls an INode's Call() method or executes an Action based on their response.
+    /// </remarks>
     public static Request YesNo(INode ifYes, Action ifNo)
         => new Builder()
         .Ask("Yes or No?")
