@@ -1,4 +1,8 @@
-﻿namespace ConsoleHero.Injection
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleHero.Injection
 {
     /// <summary>
     /// Describes a service with its implementation type and lifetime.

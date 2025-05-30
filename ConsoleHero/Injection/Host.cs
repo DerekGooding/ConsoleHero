@@ -1,4 +1,8 @@
-﻿namespace ConsoleHero.Injection
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleHero.Injection
 {
     /// <summary>
     /// Represents a container that holds and manages service instances with different lifetimes (Singleton, Scoped, Transient).

@@ -1,4 +1,8 @@
-﻿namespace ConsoleHero.Generator
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleHero.Generator
 {
     /// <summary>
     /// Provides extension methods for creating dictionaries with keys that implement <see cref="INamed"/>.

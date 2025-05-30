@@ -1,4 +1,5 @@
-﻿namespace ConsoleHero.Injection
+﻿using System;
+namespace ConsoleHero.Injection
 {
     /// <summary>
     /// Marks a class as transient, allowing it to be automatically registered and managed by the <see cref="Host"/>.
