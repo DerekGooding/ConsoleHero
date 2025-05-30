@@ -3,8 +3,6 @@
   <PropertyGroup>
 	<Title>ConsoleHero</Title>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
 	  
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
