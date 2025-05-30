@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleHero.Generator
+﻿namespace ConsoleHero.Generator
 {
     /// <summary>
     /// Provides an equality comparison for types implementing <see cref="INamed"/>.

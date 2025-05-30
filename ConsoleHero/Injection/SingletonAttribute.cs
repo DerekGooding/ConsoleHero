@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ConsoleHero.Injection
+﻿namespace ConsoleHero.Injection
 {
     /// <summary>
     /// Marks a class as a singleton, allowing it to be automatically registered and managed by the <see cref="Host"/>.

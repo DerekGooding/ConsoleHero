@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleHero.Generator
+﻿namespace ConsoleHero.Generator
 {
     public interface ISubContent<Tkey, Tvalue> where Tkey : INamed
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ConsoleHero.Injection
+﻿namespace ConsoleHero.Injection
 {
     /// <summary>
     /// Represents a scope for dependency resolution within the dependency injection system.
