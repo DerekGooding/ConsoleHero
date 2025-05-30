@@ -11,7 +11,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "NC001";
 
-    private static readonly DiagnosticDescriptor Rule = new(
+    private static readonly DiagnosticDescriptor _rule = new(
         DiagnosticId,
         "Dictionary<TKey, TValue> must use NamedComparer<T> for INamed keys",
         "Dictionary<{0}, {1}> should specify NamedComparer<{0}> as a comparer",
@@ -19,7 +19,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [_rule];
 
     public override void Initialize(AnalysisContext context)
     {
@@ -49,7 +49,7 @@ public class NamedComparerAnalyzer : DiagnosticAnalyzer
             var argumentList = objectCreation.ArgumentList?.Arguments;
             if (!argumentList.HasValue || argumentList.Value.Count < 3)
             {
-                var diagnostic = Diagnostic.Create(Rule, objectCreation.GetLocation(),
+                var diagnostic = Diagnostic.Create(_rule, objectCreation.GetLocation(),
                     keyType.Name, genericType.TypeArgumentList.Arguments[1].ToString());
                 context.ReportDiagnostic(diagnostic);
             }

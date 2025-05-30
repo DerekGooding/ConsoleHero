@@ -1,8 +1,11 @@
-﻿namespace ConsoleHero.Generator;
+﻿using System.Collections.Generic;
 
-public interface ISubContent<Tkey, Tvalue> where Tkey : INamed
+namespace ConsoleHero.Generator
 {
-    public abstract Dictionary<Tkey, Tvalue> ByKey { get; }
+    public interface ISubContent<Tkey, Tvalue> where Tkey : INamed
+    {
+        Dictionary<Tkey, Tvalue> ByKey { get; }
 
-    public abstract Tvalue this[Tkey key] { get; }
+        Tvalue this[Tkey key] { get; }
+    }
 }

@@ -5,14 +5,6 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHero", "ConsoleHero\ConsoleHero.csproj", "{7E47BA3A-D23B-44CF-BDC7-DC2F3F8A0569}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHero.Test", "ConsoleHero.Test\ConsoleHero.Test.csproj", "{C450F83F-7827-402D-8F20-D84C0406C87A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.Web", "ConsoleHero.Web\ConsoleHero.Web.csproj", "{3C987FA4-6121-48AA-873D-C092EB514205}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.InjectionExample", "ConsoleHero.InjectionExample\ConsoleHero.InjectionExample.csproj", "{E67AABC2-6D81-4EA3-9DB0-D761C7238E4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHero.StaticExample", "ConsoleHero.StaticExample\ConsoleHero.StaticExample.csproj", "{961C15EE-2744-4A15-B577-F2F3B096A856}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumSourceGenerator", "EnumSourceGenerator\EnumSourceGenerator.csproj", "{72C81B79-4DD8-4897-A032-8EDA8C952B63}"
 EndProject
 Global
@@ -25,22 +17,6 @@ Global
 		{7E47BA3A-D23B-44CF-BDC7-DC2F3F8A0569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E47BA3A-D23B-44CF-BDC7-DC2F3F8A0569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E47BA3A-D23B-44CF-BDC7-DC2F3F8A0569}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C450F83F-7827-402D-8F20-D84C0406C87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C450F83F-7827-402D-8F20-D84C0406C87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C450F83F-7827-402D-8F20-D84C0406C87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C450F83F-7827-402D-8F20-D84C0406C87A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C987FA4-6121-48AA-873D-C092EB514205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C987FA4-6121-48AA-873D-C092EB514205}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C987FA4-6121-48AA-873D-C092EB514205}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C987FA4-6121-48AA-873D-C092EB514205}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E67AABC2-6D81-4EA3-9DB0-D761C7238E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E67AABC2-6D81-4EA3-9DB0-D761C7238E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E67AABC2-6D81-4EA3-9DB0-D761C7238E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E67AABC2-6D81-4EA3-9DB0-D761C7238E4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{961C15EE-2744-4A15-B577-F2F3B096A856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{961C15EE-2744-4A15-B577-F2F3B096A856}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{961C15EE-2744-4A15-B577-F2F3B096A856}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{961C15EE-2744-4A15-B577-F2F3B096A856}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C81B79-4DD8-4897-A032-8EDA8C952B63}.Release|Any CPU.ActiveCfg = Release|Any CPU

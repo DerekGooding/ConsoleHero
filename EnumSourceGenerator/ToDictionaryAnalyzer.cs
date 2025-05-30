@@ -11,22 +11,22 @@ namespace EnumSourceGenerator;
 public class ToDictionaryAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "TND001";
-    private static readonly LocalizableString Title = "Use ToNamedDictionary for INamed keys";
-    private static readonly LocalizableString MessageFormat = "Replace 'ToDictionary' with 'ToNamedDictionary' when using INamed keys";
-    private static readonly LocalizableString Description = "INamed keys should use ToNamedDictionary to improve lookup performance.";
-    private const string Category = "Usage";
+    private static readonly LocalizableString _title = "Use ToNamedDictionary for INamed keys";
+    private static readonly LocalizableString _messageFormat = "Replace 'ToDictionary' with 'ToNamedDictionary' when using INamed keys";
+    private static readonly LocalizableString _description = "INamed keys should use ToNamedDictionary to improve lookup performance.";
+    private const string _category = "Usage";
 
-    private static readonly DiagnosticDescriptor Rule = new(
+    private static readonly DiagnosticDescriptor _rule = new(
         DiagnosticId,
-        Title,
-        MessageFormat,
-        Category,
+        _title,
+        _messageFormat,
+        _category,
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
-        description: Description
+        description: _description
     );
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [Rule];
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [_rule];
 
     public override void Initialize(AnalysisContext context)
     {
@@ -46,8 +46,7 @@ public class ToDictionaryAnalyzer : DiagnosticAnalyzer
         if (memberAccess.Name.Identifier.Text != "ToDictionary")
             return;
 
-        var methodSymbol = context.SemanticModel.GetSymbolInfo(invocationExpr).Symbol as IMethodSymbol;
-        if (methodSymbol == null || methodSymbol.ContainingType.Name != "Enumerable")
+        if (context.SemanticModel.GetSymbolInfo(invocationExpr).Symbol is not IMethodSymbol methodSymbol || methodSymbol.ContainingType.Name != "Enumerable")
             return;
 
         // Get the first generic argument (the key type)
@@ -61,7 +60,7 @@ public class ToDictionaryAnalyzer : DiagnosticAnalyzer
             return;
 
         // Report diagnostic
-        var diagnostic = Diagnostic.Create(Rule, memberAccess.Name.GetLocation());
+        var diagnostic = Diagnostic.Create(_rule, memberAccess.Name.GetLocation());
         context.ReportDiagnostic(diagnostic);
     }
 }
