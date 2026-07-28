@@ -259,6 +259,10 @@ public static class TuneBuilder
         /// <summary>
         /// Specifies a node to transition to when the sequence is reached.
         /// </summary>
+        public ISetConfirm GoTo(Func<INode> node);
+        /// <summary>
+        /// Specifies a node to transition to when the sequence is reached.
+        /// </summary>
         public ISetConfirm GoTo(INode node);
 
         /// <summary>
@@ -327,10 +331,10 @@ public static class TuneBuilder
             _item.Effect = action;
             return this;
         }
-
-        public ISetConfirm GoTo(INode node)
+        public ISetConfirm GoTo(INode node) => GoTo(() => node);
+        public ISetConfirm GoTo(Func<INode> node)
         {
-            _item.Effect = () => node.Call();
+            _item.Effect = () => node().Call();
             return this;
         }
     }

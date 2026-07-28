@@ -169,6 +169,10 @@ public static class RequestBuilder
         /// <summary>
         /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
+        public ISetUse Goto(Func<INode> node);
+        /// <summary>
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
+        /// </summary>
         public ISetUse Goto(INode node);
         /// <summary>
         /// What to do with the user's result. Usually this is applied to a static property.
@@ -252,9 +256,10 @@ public static class RequestBuilder
             _item.Effect = effect;
             return this;
         }
-        public ISetUse Goto(INode node)
+        public ISetUse Goto(INode node) => Goto(() => node);
+        public ISetUse Goto(Func<INode> node)
         {
-            _item.Effect = (_) => node.Call();
+            _item.Effect = (_) => node().Call();
             return this;
         }
 
