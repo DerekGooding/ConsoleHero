@@ -6,7 +6,7 @@ namespace ConsoleHero.Test.Builders;
 [TestClass]
 public class RequestBuilderTests
 {
-    private Mock<IConsoleService> _mockConsoleService;
+    private Mock<IConsoleService>? _mockConsoleService;
 
     [TestInitialize]
     public void Setup()
@@ -21,8 +21,8 @@ public class RequestBuilderTests
         // Arrange
         var yesActionCalled = false;
         var noActionCalled = false;
-        Action yesAction = () => yesActionCalled = true;
-        Action noAction = () => noActionCalled = true;
+        void yesAction() => yesActionCalled = true;
+        void noAction() => noActionCalled = true;
 
         // Act
         var request = RequestBuilder.YesNo(yesAction, noAction);
@@ -74,7 +74,7 @@ public class RequestBuilderTests
     {
         // Arrange
         var actionCalled = false;
-        Action yesAction = () => actionCalled = true;
+        void yesAction() => actionCalled = true;
         var mockNoNode = new Mock<INode>();
 
         // Act
@@ -100,7 +100,7 @@ public class RequestBuilderTests
     {
         // Arrange
         var actionCalled = false;
-        Action noAction = () => actionCalled = true;
+        void noAction() => actionCalled = true;
         var mockYesNode = new Mock<INode>();
 
         // Act
@@ -179,8 +179,8 @@ public class RequestBuilderTests
     public void Goto_WithAction_SetsEffectCorrectly()
     {
         // Arrange
-        string receivedInput = null;
-        Action<string> effect = input => receivedInput = input;
+        string? receivedInput = null;
+        void effect(string input) => receivedInput = input;
 
         // Act
         var builder = RequestBuilder.Ask("Test").Goto(effect);
@@ -210,8 +210,8 @@ public class RequestBuilderTests
     public void Use_SetsApplyCorrectly()
     {
         // Arrange
-        object receivedObject = null;
-        Action<object> apply = obj => receivedObject = obj;
+        object? receivedObject = null;
+        void apply(object obj) => receivedObject = obj;
 
         // Act
         var request = RequestBuilder.Ask("Test").Use(apply);
@@ -225,11 +225,11 @@ public class RequestBuilderTests
     public void UseGeneric_SetsApplyCorrectly()
     {
         // Arrange
-        string receivedString = null;
-        Action<string> apply = str => receivedString = str;
+        string? receivedString = null;
+        void apply(string str) => receivedString = str;
 
         // Act
-        var request = RequestBuilder.Ask("Test").Use(apply);
+        var request = RequestBuilder.Ask("Test").Use((Action<string>)apply);
         request.Apply.Invoke("test string");
 
         // Assert

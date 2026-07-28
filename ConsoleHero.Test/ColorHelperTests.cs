@@ -30,7 +30,7 @@ public class ColorHelperTests
         Assert.AreEqual(expectedOutput, _consoleOutput.ToString());
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(ConsoleColor.Black, 0, 0, 0)]
     [DataRow(ConsoleColor.DarkBlue, 0, 0, 139)]
     [DataRow(ConsoleColor.DarkGreen, 0, 100, 0)]

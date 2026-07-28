@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using ConsoleHero.Interfaces;
+using Moq;
 using static ConsoleHero.ParagraphBuilder;
 
 namespace ConsoleHero.Test;
@@ -6,6 +7,16 @@ namespace ConsoleHero.Test;
 [TestClass]
 public class ParagraphTests
 {
+    private Mock<IConsoleService>? _mockConsoleService;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _mockConsoleService = new Mock<IConsoleService>();
+        GlobalSettings.Service = _mockConsoleService.Object;
+    }
+
+
     [TestMethod]
     public void ShouldCreate()
     {

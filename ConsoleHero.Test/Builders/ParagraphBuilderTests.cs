@@ -14,7 +14,7 @@ public class ParagraphBuilderTests
 
     private ColorText GetFirstLineTextComponent()
     {
-        Assert.IsTrue(_paragraph.Outputs.Count > 0, "No lines were added to the paragraph.");
+        Assert.IsNotEmpty(_paragraph.Outputs, "No lines were added to the paragraph.");
         return _paragraph.Outputs[0].Components[0];
     }
     [TestMethod]
@@ -53,7 +53,7 @@ public class ParagraphBuilderTests
         _paragraph = Line(firstPart).Text(secondPart).PressToContinue();
         var paragraphLine = _paragraph.Outputs[0];
 
-        Assert.AreEqual(2, paragraphLine.Components.Count);
+        Assert.HasCount(2, paragraphLine.Components);
         Assert.IsTrue(paragraphLine.Components[0] is ColorText colorText && colorText.Text == firstPart);
         Assert.IsTrue(paragraphLine.Components[1] is ColorText colorText2 && colorText2.Text == secondPart);
     }
@@ -84,7 +84,7 @@ public class ParagraphBuilderTests
     public void GoTo_WithAction_SetsEffectAction()
     {
         var actionCalled = false;
-        Action testAction = () => actionCalled = true;
+        void testAction() => actionCalled = true;
 
         _paragraph = Line("Click to proceed").GoTo(testAction).PressToContinue();
 

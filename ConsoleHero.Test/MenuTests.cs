@@ -52,7 +52,7 @@ public class MenuTests
 
         var actual = menu.OuputOptions;
         Assert.AreEqual(2, menu.Count);
-        Assert.AreEqual(expected.Count(), actual.Count());
+        Assert.HasCount(expected.Count(), actual);
         Assert.AreEqual(expected.First(), actual.First());
     }
 
@@ -76,7 +76,7 @@ public class MenuTests
         menu.Add(menuOption2);
 
         var actual = menu.OuputOptions;
-        Assert.AreEqual(expected.Count(), actual.Count());
+        Assert.HasCount(expected.Count(), actual);
         Assert.AreEqual(expected.First(), actual.First());
     }
 
@@ -137,7 +137,7 @@ public class MenuTests
     {
         var menu = MenuBuilder.NoTitle().Cancel();
 
-        Assert.AreEqual(false, menu.ClearOnCall);
+        Assert.IsFalse(menu.ClearOnCall);
     }
 
     [TestMethod]
@@ -145,6 +145,6 @@ public class MenuTests
     {
         var menu = MenuBuilder.NoTitle().ClearOnCall().Cancel();
 
-        Assert.AreEqual(true, menu.ClearOnCall);
+        Assert.IsTrue(menu.ClearOnCall);
     }
 }

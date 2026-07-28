@@ -14,7 +14,7 @@ public class MenuBuilderTests
 
     private MenuOption GetFirstOption()
     {
-        Assert.IsTrue(_menu.Count > 0, "No options were added to the menu.");
+        Assert.IsGreaterThan(0, _menu.Count, "No options were added to the menu.");
         return _menu.Options[0];
     }
 
@@ -98,7 +98,7 @@ public class MenuBuilderTests
     [TestMethod]
     public void If_WithCondition_SetsOptionCondition()
     {
-        var condition = true;
+        const bool condition = true;
         _menu = NoTitle().Key("D").Description("").If(() => condition).GoTo(() => { }).NoRefuse();
 
         var option = GetFirstOption();
@@ -108,7 +108,7 @@ public class MenuBuilderTests
     public void GoTo_WithAction_SetsEffectCorrectly()
     {
         var actionCalled = false;
-        Action testAction = () => actionCalled = true;
+        void testAction() => actionCalled = true;
 
         _menu = NoTitle().Key("A").Description("Test Action").GoTo(testAction).NoRefuse();
 

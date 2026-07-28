@@ -1,4 +1,5 @@
 ﻿using ConsoleHero.Interfaces;
+using Moq;
 
 namespace ConsoleHero.Test;
 
@@ -7,6 +8,14 @@ public class ExtensionTests
 {
     private readonly Action _dummyEffect = () => { };
     private readonly Func<string, bool> _dummyCondition = s => s.Length > 0;
+    private Mock<IConsoleService>? _mockConsoleService;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _mockConsoleService = new Mock<IConsoleService>();
+        GlobalSettings.Service = _mockConsoleService.Object;
+    }
 
     [TestMethod]
     public void ToOptions_WithColorTextList_CreatesCorrectMenuOptions()
@@ -19,7 +28,7 @@ public class ExtensionTests
 
         var options = colorTexts.ToOptions(_dummyEffect, _dummyCondition);
 
-        Assert.AreEqual(2, options.Length);
+        Assert.HasCount(2, options);
         Assert.AreEqual("Option1", options[0].Description);
         Assert.AreEqual(Color.Red, options[0].Color);
         Assert.IsTrue(options[0].Check());
@@ -34,7 +43,7 @@ public class ExtensionTests
 
         var options = strings.ToOptions(_dummyEffect, _dummyCondition);
 
-        Assert.AreEqual(2, options.Length);
+        Assert.HasCount(2, options);
         Assert.AreEqual("Option1", options[0].Description);
         Assert.IsTrue(options[0].Check());
         Assert.AreEqual("Option2", options[1].Description);
@@ -53,7 +62,7 @@ public class ExtensionTests
 
         var options = colorTexts.ToOptions(node, _dummyCondition);
 
-        Assert.AreEqual(2, options.Length);
+        Assert.HasCount(2, options);
         Assert.AreEqual("Option1", options[0].Description);
         Assert.AreEqual("Option2", options[1].Description);
         Assert.IsTrue(options[0].Check());
@@ -71,7 +80,7 @@ public class ExtensionTests
 
         var options = menuOptions.ToOptions((_) => { }, _dummyCondition);
 
-        Assert.AreEqual(2, options.Length);
+        Assert.HasCount(2, options);
         Assert.AreEqual("Option1", options[0].Description);
         Assert.AreEqual("Option2", options[1].Description);
         Assert.IsTrue(options[0].Check());
@@ -140,11 +149,11 @@ public class ExtensionTests
     [TestMethod]
     public void ListToString_WithObjectList_ReturnsStringRepresentations()
     {
-        List<object> objects = [1, "string", null, 3.14];
+        List<object?> objects = [1, "string", null, 3.14];
 
         var result = objects.ListToString();
 
-        CollectionAssert.AreEqual(new List<string> { "1", "string", string.Empty, "3.14" }, result.ToList());
+        Assert.AreSequenceEqual(["1", "string", string.Empty, "3.14"], [.. result]);
     }
 
     [TestMethod]
@@ -154,7 +163,7 @@ public class ExtensionTests
 
         var result = objects.ListToString();
 
-        Assert.AreEqual(0, result.Count());
+        Assert.IsEmpty(result);
     }
 
     // Test class for Goto(INode)

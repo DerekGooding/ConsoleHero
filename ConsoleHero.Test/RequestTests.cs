@@ -6,7 +6,7 @@ namespace ConsoleHero.Test;
 [TestClass]
 public class RequestTests
 {
-    private Mock<IConsoleService> _mockConsoleService;
+    private Mock<IConsoleService>? _mockConsoleService;
 
     [TestInitialize]
     public void Setup()
@@ -35,8 +35,8 @@ public class RequestTests
         request.Call();
 
         // Assert
-        _mockConsoleService.Verify(x => x.WriteLine("Test message"), Times.Once);
-        _mockConsoleService.Verify(x => x.SetListener(request), Times.Once);
+        _mockConsoleService?.Verify(x => x.WriteLine("Test message"), Times.Once);
+        _mockConsoleService?.Verify(x => x.SetListener(request), Times.Once);
     }
 
     [TestMethod]
@@ -49,7 +49,7 @@ public class RequestTests
         request.Call();
 
         // Assert
-        _mockConsoleService.Verify(x => x.Clear(), Times.Once);
+        _mockConsoleService?.Verify(x => x.Clear(), Times.Once);
     }
 
     [TestMethod]
@@ -124,16 +124,16 @@ public class RequestTests
         listeningNode.ProcessResult("maybe");
 
         // Assert
-        _mockConsoleService.Verify(x => x.WriteLine("Invalid response"), Times.Once);
-        _mockConsoleService.Verify(x => x.SetListener(request), Times.Once);
+        _mockConsoleService?.Verify(x => x.WriteLine("Invalid response"), Times.Once);
+        _mockConsoleService?.Verify(x => x.SetListener(request), Times.Once);
     }
 
     [TestMethod]
     public void ProcessResult_WithValidStringResponse_InvokesApplyAndEffect()
     {
         // Arrange
-        string applyResult = null;
-        string effectResult = null;
+        string? applyResult = null;
+        string? effectResult = null;
         var request = new Request
         {
             DataType = RequestBuilder.DataType.String,
@@ -165,8 +165,8 @@ public class RequestTests
         listeningNode.ProcessResult("");
 
         // Assert
-        _mockConsoleService.Verify(x => x.WriteLine("Empty input not allowed"), Times.Once);
-        _mockConsoleService.Verify(x => x.SetListener(request), Times.Once);
+        _mockConsoleService?.Verify(x => x.WriteLine("Empty input not allowed"), Times.Once);
+        _mockConsoleService?.Verify(x => x.SetListener(request), Times.Once);
     }
 
     [TestMethod]
@@ -184,7 +184,7 @@ public class RequestTests
         listeningNode.ProcessResult("   ");
 
         // Assert
-        _mockConsoleService.Verify(x => x.WriteLine("Whitespace input not allowed"), Times.Once);
-        _mockConsoleService.Verify(x => x.SetListener(request), Times.Once);
+        _mockConsoleService?.Verify(x => x.WriteLine("Whitespace input not allowed"), Times.Once);
+        _mockConsoleService?.Verify(x => x.SetListener(request), Times.Once);
     }
 }

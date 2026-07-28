@@ -14,13 +14,13 @@ public class TuneBuilderTests
 
     private (int tone, int duration) GetFirstNote()
     {
-        Assert.IsTrue(_tune.Notes.Count > 0, "No notes were added to the tune.");
+        Assert.IsNotEmpty(_tune.Notes, "No notes were added to the tune.");
         return (_tune.Notes[0].Tone, _tune.Notes[0].Duration);
     }
 
     private (int tone, int duration) GetSecondNote()
     {
-        Assert.IsTrue(_tune.Notes.Count > 1, "No notes were added to the tune.");
+        Assert.IsGreaterThan(1, _tune.Notes.Count, "No notes were added to the tune.");
         return (_tune.Notes[1].Tone, _tune.Notes[1].Duration);
     }
 
@@ -176,7 +176,7 @@ public class TuneBuilderTests
     public void GoTo_WithAction_SetsEffectOnTune()
     {
         var effectCalled = false;
-        Action action = () => effectCalled = true;
+        void action() => effectCalled = true;
 
         var tune = Note(Tone.A, Duration.QUARTER).GoTo(action).WaitToPlay();
         Assert.IsNotNull(tune.Effect);
@@ -207,7 +207,7 @@ public class TuneBuilderTests
                             .Eighth(Tone.G)
                             .Beep();
 
-        Assert.AreEqual(3, _tune.Notes.Count, "Tune should contain three notes.");
+        Assert.HasCount(3, _tune.Notes, "Tune should contain three notes.");
 
         var firstNote = _tune.Notes[0];
         var secondNote = _tune.Notes[1];
