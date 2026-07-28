@@ -5,6 +5,7 @@
 [![.NET 7](https://img.shields.io/badge/.NET-7-blue)](https://www.nuget.org/packages/ConsoleHero/) 
 [![.NET 8](https://img.shields.io/badge/.NET-8-blue)](https://www.nuget.org/packages/ConsoleHero/) 
 [![.NET 9](https://img.shields.io/badge/.NET-9-blue)](https://www.nuget.org/packages/ConsoleHero/) 
+[![.NET 10](https://img.shields.io/badge/.NET-10-blue)](https://www.nuget.org/packages/ConsoleHero/) 
 
 [![GitHub license](https://img.shields.io/github/license/DerekGooding/ConsoleHero?color=blue)](https://github.com/DerekGooding/ConsoleHero/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/DerekGooding/ConsoleHero?logo=github)](https://github.com/DerekGooding/ConsoleHero/issues)
