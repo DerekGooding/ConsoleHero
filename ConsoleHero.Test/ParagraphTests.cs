@@ -21,7 +21,7 @@ public class ParagraphTests
         List<ParagraphLine> expected = [];
 
         Assert.IsNotNull(paragraph.Outputs);
-        Assert.AreEqual(expected.Count, paragraph.Outputs.Count);
+        Assert.HasCount(expected.Count, paragraph.Outputs);
     }
 
     [TestMethod]
@@ -32,8 +32,8 @@ public class ParagraphTests
         ParagraphLine expected = new();
         expected.Components.Add(anything.DefaultColor());
 
-        Assert.AreEqual(1, paragraph.Outputs.Count);
-        Assert.AreEqual(expected.Components.Count, paragraph.Outputs[0].Components.Count);
+        Assert.HasCount(1, paragraph.Outputs);
+        Assert.HasCount(expected.Components.Count, paragraph.Outputs[0].Components);
         Assert.AreEqual(expected.Components[0], paragraph.Outputs[0].Components[0]);
     }
 

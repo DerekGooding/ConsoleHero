@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<Title>ConsoleHero</Title>
-    <TargetFrameworks>net9.0;net8.0;net7.0;</TargetFrameworks>
+    <TargetFrameworks>net10.0;net9.0;net8.0;net7.0;</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -11,7 +11,7 @@
 	  
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>ConsoleHero</PackageId>
-    <Version>0.5.5</Version>
+    <Version>0.6.0</Version>
     <Authors>Derek Gooding</Authors>
     <Description>A library for making quick menus in a console application.</Description>
 	<PackageTags>Console CLI Menu Navigation FluentAPI UserInterface CommandLine Framework CSharp Tools</PackageTags>

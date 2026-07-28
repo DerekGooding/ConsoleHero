@@ -75,6 +75,10 @@ public static class ParagraphBuilder
         /// <summary>
         /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
+        public ISetConfirm GoTo(Func<INode> node);
+        /// <summary>
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
+        /// </summary>
         public ISetConfirm GoTo(INode node);
     }
 
@@ -156,10 +160,10 @@ public static class ParagraphBuilder
             _item.Effect = action;
             return this;
         }
-
-        public ISetConfirm GoTo(INode node)
+        public ISetConfirm GoTo(INode node) => GoTo(() => node);
+        public ISetConfirm GoTo(Func<INode> node)
         {
-            _item.Effect = () => node.Call();
+            _item.Effect = () => node().Call();
             return this;
         }
     }

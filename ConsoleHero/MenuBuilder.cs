@@ -182,6 +182,10 @@ public static class MenuBuilder
         /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
         /// </summary>
         public IAddOptions GoTo(INode node);
+        /// <summary>
+        /// The next <see cref="INode"/> to be called when this <see cref="MenuOption"/> is chosen.
+        /// </summary>
+        public IAddOptions GoTo(Func<INode> node);
     }
 
     private class Builder : ISetTitle, IAddOptions, IOptionDescription, IOptionEffect
@@ -252,10 +256,11 @@ public static class MenuBuilder
             _menuOption = new();
             return this;
         }
+        public IAddOptions GoTo(INode node) => GoTo(() => node);
 
-        public IAddOptions GoTo(INode node)
+        public IAddOptions GoTo(Func<INode> node)
         {
-            _menuOption.Effect = node.Call;
+            _menuOption.Effect = () => node().Call();
             _item.Add(_menuOption);
             _menuOption = new();
             return this;
